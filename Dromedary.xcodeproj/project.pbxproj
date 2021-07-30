@@ -1,0 +1,979 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F21A8CBA2683151C004C17AD /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21A8CB92683151C004C17AD /* SpriteComponent.swift */; };
+		F240F8FD25DAC05F00FF710E /* ProgressingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F240F8FC25DAC05F00FF710E /* ProgressingComponent.swift */; };
+		F240F90225DAC0D300FF710E /* ProgressingComponent+Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = F240F90125DAC0D300FF710E /* ProgressingComponent+Progress.swift */; };
+		F2441BE124091E73001B2A80 /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2441BE024091E73001B2A80 /* MusicPlayer.swift */; };
+		F248003D25BAD9130089AA56 /* GravityComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F248003C25BAD9130089AA56 /* GravityComponent.swift */; };
+		F248004225BADA280089AA56 /* GravityComponent+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = F248004125BADA280089AA56 /* GravityComponent+Apply.swift */; };
+		F248004725C00E610089AA56 /* GroundContactComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F248004625C00E610089AA56 /* GroundContactComponent.swift */; };
+		F248004C25C00F1E0089AA56 /* GroundContactComponent+Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = F248004B25C00F1E0089AA56 /* GroundContactComponent+Contact.swift */; };
+		F248005125C017400089AA56 /* RotationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F248005025C017400089AA56 /* RotationComponent.swift */; };
+		F24CF97725CAA817003491FD /* TimeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CF97625CAA817003491FD /* TimeComponent.swift */; };
+		F24CF97C25CD877B003491FD /* TimeComponent+Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CF97B25CD877B003491FD /* TimeComponent+Run.swift */; };
+		F24CF98125CD938C003491FD /* ChangeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CF98025CD938C003491FD /* ChangeComponent.swift */; };
+		F24CF98625CD95DB003491FD /* ChangeComponent.Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CF98525CD95DB003491FD /* ChangeComponent.Change.swift */; };
+		F24CF99B25D510B2003491FD /* MelodyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CF99A25D510B2003491FD /* MelodyViewController.swift */; };
+		F24CF9B625D511F5003491FD /* Melody.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CF9B525D511F5003491FD /* Melody.swift */; };
+		F24CF9C025D51ECE003491FD /* FlyComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CF9BF25D51ECE003491FD /* FlyComponent.swift */; };
+		F24CF9C525D51F9D003491FD /* FlyComponent+Fly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CF9C425D51F9D003491FD /* FlyComponent+Fly.swift */; };
+		F24CF9CA25D6BDA0003491FD /* Melody+Touch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CF9C925D6BDA0003491FD /* Melody+Touch.swift */; };
+		F24CF9CF25D6C849003491FD /* DryOutComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CF9CE25D6C849003491FD /* DryOutComponent.swift */; };
+		F24CF9D425D6CAEB003491FD /* DryOutComponent+DryOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CF9D325D6CAEB003491FD /* DryOutComponent+DryOut.swift */; };
+		F25515A725DCFF2E00A0CF64 /* JumpingAround.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25515A625DCFF2E00A0CF64 /* JumpingAround.swift */; };
+		F25515AC25DCFFA800A0CF64 /* JumpingAround+Jump.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25515AB25DCFFA800A0CF64 /* JumpingAround+Jump.swift */; };
+		F25515B125DD1A4300A0CF64 /* CollectingNectarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25515B025DD1A4300A0CF64 /* CollectingNectarComponent.swift */; };
+		F25515B625DD1B8600A0CF64 /* ColletingNectarComponent+Collect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25515B525DD1B8600A0CF64 /* ColletingNectarComponent+Collect.swift */; };
+		F25515BB25DE57B000A0CF64 /* EatingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25515BA25DE57B000A0CF64 /* EatingComponent.swift */; };
+		F25515C025DE590700A0CF64 /* EatingComponent+Eat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25515BF25DE590700A0CF64 /* EatingComponent+Eat.swift */; };
+		F25E60F823D73D6A00D7DC7C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25E60F723D73D6A00D7DC7C /* AppDelegate.swift */; };
+		F25E60FA23D73D6A00D7DC7C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F25E60F923D73D6A00D7DC7C /* GameScene.sks */; };
+		F25E60FC23D73D6A00D7DC7C /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F25E60FB23D73D6A00D7DC7C /* Actions.sks */; };
+		F25E60FE23D73D6A00D7DC7C /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25E60FD23D73D6A00D7DC7C /* GameScene.swift */; };
+		F25E610023D73D6A00D7DC7C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25E60FF23D73D6A00D7DC7C /* GameViewController.swift */; };
+		F25E610323D73D6A00D7DC7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F25E610123D73D6A00D7DC7C /* Main.storyboard */; };
+		F25E610523D73D6F00D7DC7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F25E610423D73D6F00D7DC7C /* Assets.xcassets */; };
+		F25E610823D73D6F00D7DC7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F25E610623D73D6F00D7DC7C /* LaunchScreen.storyboard */; };
+		F25E611323D73D6F00D7DC7C /* DromedaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25E611223D73D6F00D7DC7C /* DromedaryTests.swift */; };
+		F25E611E23D73D6F00D7DC7C /* DromedaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25E611D23D73D6F00D7DC7C /* DromedaryUITests.swift */; };
+		F25E613023D73EFB00D7DC7C /* MyTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = F25E612F23D73EFA00D7DC7C /* MyTileSet.sks */; };
+		F261348123DECFB000795CB1 /* 05 Der var engang en mand.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F261348023DECFB000795CB1 /* 05 Der var engang en mand.mp3 */; };
+		F26C01FA23FFD2040014637E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C01F923FFD2040014637E /* HomeViewController.swift */; };
+		F26C01FC23FFD37F0014637E /* 01 Stille morgen.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F26C01FB23FFD37F0014637E /* 01 Stille morgen.mp3 */; };
+		F26C02012403B3510014637E /* Eventyr_old.sks in Resources */ = {isa = PBXBuildFile; fileRef = F26C02002403B3510014637E /* Eventyr_old.sks */; };
+		F26C02052403B3A40014637E /* Eventyr.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C02042403B3A40014637E /* Eventyr.swift */; };
+		F26C02072403B3B40014637E /* EventyrViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C02062403B3B40014637E /* EventyrViewController.swift */; };
+		F28BB1DF25AEF1A800A5A8BA /* CaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28BB1DE25AEF1A800A5A8BA /* CaveViewController.swift */; };
+		F28BB1E725AEF24100A5A8BA /* Cave.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28BB1E625AEF24100A5A8BA /* Cave.swift */; };
+		F296DA2724D05FE8000334B1 /* Eventyr.sks in Resources */ = {isa = PBXBuildFile; fileRef = F296DA2624D05FE8000334B1 /* Eventyr.sks */; };
+		F29BC48525E6344D0046063C /* WaterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BC48425E6344D0046063C /* WaterComponent.swift */; };
+		F29BC48A25E6350E0046063C /* WaterCompoent+Watering.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BC48925E6350E0046063C /* WaterCompoent+Watering.swift */; };
+		F29BC48F25E78D220046063C /* RefuelingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BC48E25E78D220046063C /* RefuelingComponent.swift */; };
+		F29BC49425E78D7F0046063C /* RefuelingComponent+Refuel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BC49325E78D7F0046063C /* RefuelingComponent+Refuel.swift */; };
+		F29BC49925E78FF90046063C /* RunningWaterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BC49825E78FF90046063C /* RunningWaterComponent.swift */; };
+		F2A6485A243AF7A8001F16A9 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A64859243AF7A8001F16A9 /* Utils.swift */; };
+		F2B1CCAA25B19E4500495A28 /* Puzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B1CCA925B19E4500495A28 /* Puzzle.swift */; };
+		F2B1CCB725B1A4F300495A28 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B1CCB625B1A4F300495A28 /* Piece.swift */; };
+		F2C7C7BA2562B67C003D27CF /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C7C7B92562B67C003D27CF /* Info.swift */; };
+		F2D5680824D1ACAA007BD85D /* EventyrTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2D5680724D1ACAA007BD85D /* EventyrTileSet.sks */; };
+		F2E64768261C4552008194C0 /* 06 En god melodi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F2E64767261C4552008194C0 /* 06 En god melodi.mp3 */; };
+		F2E6476D261DAFCB008194C0 /* JollyDancingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6476C261DAFCB008194C0 /* JollyDancingComponent.swift */; };
+		F2E64772261DB116008194C0 /* JollyDancingComponent + Dance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E64771261DB116008194C0 /* JollyDancingComponent + Dance.swift */; };
+		F2EA518626B172200027CAAC /* SwimmingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EA518526B172200027CAAC /* SwimmingComponent.swift */; };
+		F2EA518B26B173CF0027CAAC /* SwimmingComponent + Swim.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EA518A26B173CF0027CAAC /* SwimmingComponent + Swim.swift */; };
+		F2EA519026B17DFA0027CAAC /* FightingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EA518F26B17DFA0027CAAC /* FightingComponent.swift */; };
+		F2EA519526B181D30027CAAC /* FigthingComponent + Fight.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EA519426B181D30027CAAC /* FigthingComponent + Fight.swift */; };
+		F2EF43BF25B5CE86002D0BB7 /* PositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EF43BE25B5CE86002D0BB7 /* PositionComponent.swift */; };
+		F2EF43C525B5D39A002D0BB7 /* SpriteComponent+Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EF43C425B5D399002D0BB7 /* SpriteComponent+Render.swift */; };
+		F2EF43CA25B5DB19002D0BB7 /* Cave+Touch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EF43C925B5DB19002D0BB7 /* Cave+Touch.swift */; };
+		F2EF43CF25B5DB8E002D0BB7 /* InteractionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EF43CE25B5DB8E002D0BB7 /* InteractionComponent.swift */; };
+		F2EF43D425B5DF1D002D0BB7 /* InteractionComponent+Interact.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EF43D325B5DF1D002D0BB7 /* InteractionComponent+Interact.swift */; };
+		F2EF43E125B7278D002D0BB7 /* 02 Hulen.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F2EF43E025B7278D002D0BB7 /* 02 Hulen.mp3 */; };
+		F2EF43E625B820E1002D0BB7 /* SnappingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EF43E525B820E1002D0BB7 /* SnappingComponent.swift */; };
+		F2EF43EB25B8211E002D0BB7 /* SnappingComponent+Snap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EF43EA25B8211E002D0BB7 /* SnappingComponent+Snap.swift */; };
+		F2F1C450240D0A9500313A3D /* 04 Eventyr.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F2F1C44F240D0A9500313A3D /* 04 Eventyr.mp3 */; };
+		F2F2067E2670AC60006AE446 /* FavouriteAnimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F2067D2670AC5F006AE446 /* FavouriteAnimalViewController.swift */; };
+		F2F206862670AEB4006AE446 /* FavouriteAnimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F206852670AEB4006AE446 /* FavouriteAnimal.swift */; };
+		F2F2068C2670DD1F006AE446 /* FavouriteAnimal + Touch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F2068B2670DD1F006AE446 /* FavouriteAnimal + Touch.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F25E610F23D73D6F00D7DC7C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F25E60EC23D73D6A00D7DC7C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F25E60F323D73D6A00D7DC7C;
+			remoteInfo = Dromedary;
+		};
+		F25E611A23D73D6F00D7DC7C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F25E60EC23D73D6A00D7DC7C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F25E60F323D73D6A00D7DC7C;
+			remoteInfo = Dromedary;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F21A8CB92683151C004C17AD /* SpriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
+		F240F8FC25DAC05F00FF710E /* ProgressingComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressingComponent.swift; sourceTree = "<group>"; };
+		F240F90125DAC0D300FF710E /* ProgressingComponent+Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgressingComponent+Progress.swift"; sourceTree = "<group>"; };
+		F2441BE024091E73001B2A80 /* MusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
+		F248003C25BAD9130089AA56 /* GravityComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravityComponent.swift; sourceTree = "<group>"; };
+		F248004125BADA280089AA56 /* GravityComponent+Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GravityComponent+Apply.swift"; sourceTree = "<group>"; };
+		F248004625C00E610089AA56 /* GroundContactComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundContactComponent.swift; sourceTree = "<group>"; };
+		F248004B25C00F1E0089AA56 /* GroundContactComponent+Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroundContactComponent+Contact.swift"; sourceTree = "<group>"; };
+		F248005025C017400089AA56 /* RotationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationComponent.swift; sourceTree = "<group>"; };
+		F24CF97625CAA817003491FD /* TimeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeComponent.swift; sourceTree = "<group>"; };
+		F24CF97B25CD877B003491FD /* TimeComponent+Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeComponent+Run.swift"; sourceTree = "<group>"; };
+		F24CF98025CD938C003491FD /* ChangeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeComponent.swift; sourceTree = "<group>"; };
+		F24CF98525CD95DB003491FD /* ChangeComponent.Change.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeComponent.Change.swift; sourceTree = "<group>"; };
+		F24CF99A25D510B2003491FD /* MelodyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MelodyViewController.swift; sourceTree = "<group>"; };
+		F24CF9B525D511F5003491FD /* Melody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Melody.swift; sourceTree = "<group>"; };
+		F24CF9BF25D51ECE003491FD /* FlyComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyComponent.swift; sourceTree = "<group>"; };
+		F24CF9C425D51F9D003491FD /* FlyComponent+Fly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlyComponent+Fly.swift"; sourceTree = "<group>"; };
+		F24CF9C925D6BDA0003491FD /* Melody+Touch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Melody+Touch.swift"; sourceTree = "<group>"; };
+		F24CF9CE25D6C849003491FD /* DryOutComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DryOutComponent.swift; sourceTree = "<group>"; };
+		F24CF9D325D6CAEB003491FD /* DryOutComponent+DryOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DryOutComponent+DryOut.swift"; sourceTree = "<group>"; };
+		F25515A625DCFF2E00A0CF64 /* JumpingAround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumpingAround.swift; sourceTree = "<group>"; };
+		F25515AB25DCFFA800A0CF64 /* JumpingAround+Jump.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JumpingAround+Jump.swift"; sourceTree = "<group>"; };
+		F25515B025DD1A4300A0CF64 /* CollectingNectarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectingNectarComponent.swift; sourceTree = "<group>"; };
+		F25515B525DD1B8600A0CF64 /* ColletingNectarComponent+Collect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColletingNectarComponent+Collect.swift"; sourceTree = "<group>"; };
+		F25515BA25DE57B000A0CF64 /* EatingComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatingComponent.swift; sourceTree = "<group>"; };
+		F25515BF25DE590700A0CF64 /* EatingComponent+Eat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EatingComponent+Eat.swift"; sourceTree = "<group>"; };
+		F25E60F423D73D6A00D7DC7C /* Dromedary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dromedary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F25E60F723D73D6A00D7DC7C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F25E60F923D73D6A00D7DC7C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = Dromedary/GameScene.sks; sourceTree = SOURCE_ROOT; };
+		F25E60FB23D73D6A00D7DC7C /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		F25E60FD23D73D6A00D7DC7C /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		F25E60FF23D73D6A00D7DC7C /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		F25E610223D73D6A00D7DC7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F25E610423D73D6F00D7DC7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F25E610723D73D6F00D7DC7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F25E610923D73D6F00D7DC7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F25E610E23D73D6F00D7DC7C /* DromedaryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DromedaryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F25E611223D73D6F00D7DC7C /* DromedaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DromedaryTests.swift; sourceTree = "<group>"; };
+		F25E611423D73D6F00D7DC7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F25E611923D73D6F00D7DC7C /* DromedaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DromedaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F25E611D23D73D6F00D7DC7C /* DromedaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DromedaryUITests.swift; sourceTree = "<group>"; };
+		F25E611F23D73D6F00D7DC7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F25E612F23D73EFA00D7DC7C /* MyTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyTileSet.sks; sourceTree = "<group>"; };
+		F261348023DECFB000795CB1 /* 05 Der var engang en mand.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "05 Der var engang en mand.mp3"; sourceTree = "<group>"; };
+		F26C01F923FFD2040014637E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F26C01FB23FFD37F0014637E /* 01 Stille morgen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "01 Stille morgen.mp3"; sourceTree = "<group>"; };
+		F26C02002403B3510014637E /* Eventyr_old.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Eventyr_old.sks; path = "../../Eventyr V2/Eventyr V2/Eventyr_old.sks"; sourceTree = "<group>"; };
+		F26C02042403B3A40014637E /* Eventyr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Eventyr.swift; sourceTree = "<group>"; usesTabs = 1; };
+		F26C02062403B3B40014637E /* EventyrViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventyrViewController.swift; sourceTree = "<group>"; };
+		F28BB1DE25AEF1A800A5A8BA /* CaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaveViewController.swift; sourceTree = "<group>"; };
+		F28BB1E625AEF24100A5A8BA /* Cave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cave.swift; sourceTree = "<group>"; };
+		F296DA2624D05FE8000334B1 /* Eventyr.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Eventyr.sks; sourceTree = "<group>"; };
+		F29BC48425E6344D0046063C /* WaterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterComponent.swift; sourceTree = "<group>"; };
+		F29BC48925E6350E0046063C /* WaterCompoent+Watering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WaterCompoent+Watering.swift"; sourceTree = "<group>"; };
+		F29BC48E25E78D220046063C /* RefuelingComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefuelingComponent.swift; sourceTree = "<group>"; };
+		F29BC49325E78D7F0046063C /* RefuelingComponent+Refuel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RefuelingComponent+Refuel.swift"; sourceTree = "<group>"; };
+		F29BC49825E78FF90046063C /* RunningWaterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningWaterComponent.swift; sourceTree = "<group>"; };
+		F2A64859243AF7A8001F16A9 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		F2B1CCA925B19E4500495A28 /* Puzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Puzzle.swift; sourceTree = "<group>"; };
+		F2B1CCB625B1A4F300495A28 /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
+		F2C7C7B92562B67C003D27CF /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		F2D5680724D1ACAA007BD85D /* EventyrTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EventyrTileSet.sks; sourceTree = "<group>"; };
+		F2E64767261C4552008194C0 /* 06 En god melodi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "06 En god melodi.mp3"; sourceTree = "<group>"; };
+		F2E6476C261DAFCB008194C0 /* JollyDancingComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JollyDancingComponent.swift; sourceTree = "<group>"; };
+		F2E64771261DB116008194C0 /* JollyDancingComponent + Dance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JollyDancingComponent + Dance.swift"; sourceTree = "<group>"; };
+		F2EA518526B172200027CAAC /* SwimmingComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwimmingComponent.swift; sourceTree = "<group>"; };
+		F2EA518A26B173CF0027CAAC /* SwimmingComponent + Swim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwimmingComponent + Swim.swift"; sourceTree = "<group>"; };
+		F2EA518F26B17DFA0027CAAC /* FightingComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FightingComponent.swift; sourceTree = "<group>"; };
+		F2EA519426B181D30027CAAC /* FigthingComponent + Fight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FigthingComponent + Fight.swift"; sourceTree = "<group>"; };
+		F2EF43BE25B5CE86002D0BB7 /* PositionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionComponent.swift; sourceTree = "<group>"; };
+		F2EF43C425B5D399002D0BB7 /* SpriteComponent+Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpriteComponent+Render.swift"; sourceTree = "<group>"; };
+		F2EF43C925B5DB19002D0BB7 /* Cave+Touch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cave+Touch.swift"; sourceTree = "<group>"; };
+		F2EF43CE25B5DB8E002D0BB7 /* InteractionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionComponent.swift; sourceTree = "<group>"; };
+		F2EF43D325B5DF1D002D0BB7 /* InteractionComponent+Interact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InteractionComponent+Interact.swift"; sourceTree = "<group>"; };
+		F2EF43E025B7278D002D0BB7 /* 02 Hulen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "02 Hulen.mp3"; sourceTree = "<group>"; };
+		F2EF43E525B820E1002D0BB7 /* SnappingComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnappingComponent.swift; sourceTree = "<group>"; };
+		F2EF43EA25B8211E002D0BB7 /* SnappingComponent+Snap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnappingComponent+Snap.swift"; sourceTree = "<group>"; };
+		F2F1C44F240D0A9500313A3D /* 04 Eventyr.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "04 Eventyr.mp3"; sourceTree = "<group>"; };
+		F2F2067D2670AC5F006AE446 /* FavouriteAnimalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteAnimalViewController.swift; sourceTree = "<group>"; };
+		F2F206852670AEB4006AE446 /* FavouriteAnimal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteAnimal.swift; sourceTree = "<group>"; };
+		F2F2068B2670DD1F006AE446 /* FavouriteAnimal + Touch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavouriteAnimal + Touch.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F25E60F123D73D6A00D7DC7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F25E610B23D73D6F00D7DC7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F25E611623D73D6F00D7DC7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F21A8CB8268314F6004C17AD /* Systems */ = {
+			isa = PBXGroup;
+			children = (
+				F2EF43D325B5DF1D002D0BB7 /* InteractionComponent+Interact.swift */,
+				F2EF43C425B5D399002D0BB7 /* SpriteComponent+Render.swift */,
+			);
+			path = Systems;
+			sourceTree = "<group>";
+		};
+		F24CF98A25D3C698003491FD /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				F21A8CB8268314F6004C17AD /* Systems */,
+				F2F20690268314B0006AE446 /* Components */,
+				F2C7C7B92562B67C003D27CF /* Info.swift */,
+				F2A64859243AF7A8001F16A9 /* Utils.swift */,
+				F2441BE024091E73001B2A80 /* MusicPlayer.swift */,
+				F25E612F23D73EFA00D7DC7C /* MyTileSet.sks */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		F24CF99625D5107E003491FD /* A good Melody */ = {
+			isa = PBXGroup;
+			children = (
+				F24CF9BB25D513C0003491FD /* Systems */,
+				F24CF9BA25D513B4003491FD /* Components */,
+				F24CF99A25D510B2003491FD /* MelodyViewController.swift */,
+				F24CF9B525D511F5003491FD /* Melody.swift */,
+			);
+			path = "A good Melody";
+			sourceTree = "<group>";
+		};
+		F24CF9BA25D513B4003491FD /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F24CF9CE25D6C849003491FD /* DryOutComponent.swift */,
+				F24CF9BF25D51ECE003491FD /* FlyComponent.swift */,
+				F240F8FC25DAC05F00FF710E /* ProgressingComponent.swift */,
+				F25515A625DCFF2E00A0CF64 /* JumpingAround.swift */,
+				F25515B025DD1A4300A0CF64 /* CollectingNectarComponent.swift */,
+				F25515BA25DE57B000A0CF64 /* EatingComponent.swift */,
+				F29BC48425E6344D0046063C /* WaterComponent.swift */,
+				F29BC48E25E78D220046063C /* RefuelingComponent.swift */,
+				F29BC49825E78FF90046063C /* RunningWaterComponent.swift */,
+				F2E6476C261DAFCB008194C0 /* JollyDancingComponent.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		F24CF9BB25D513C0003491FD /* Systems */ = {
+			isa = PBXGroup;
+			children = (
+				F24CF9C425D51F9D003491FD /* FlyComponent+Fly.swift */,
+				F24CF9D325D6CAEB003491FD /* DryOutComponent+DryOut.swift */,
+				F24CF9C925D6BDA0003491FD /* Melody+Touch.swift */,
+				F240F90125DAC0D300FF710E /* ProgressingComponent+Progress.swift */,
+				F25515AB25DCFFA800A0CF64 /* JumpingAround+Jump.swift */,
+				F25515B525DD1B8600A0CF64 /* ColletingNectarComponent+Collect.swift */,
+				F25515BF25DE590700A0CF64 /* EatingComponent+Eat.swift */,
+				F29BC48925E6350E0046063C /* WaterCompoent+Watering.swift */,
+				F29BC49325E78D7F0046063C /* RefuelingComponent+Refuel.swift */,
+				F2E64771261DB116008194C0 /* JollyDancingComponent + Dance.swift */,
+			);
+			path = Systems;
+			sourceTree = "<group>";
+		};
+		F25E60EB23D73D6A00D7DC7C = {
+			isa = PBXGroup;
+			children = (
+				F25E60F623D73D6A00D7DC7C /* Dromedary */,
+				F25E611123D73D6F00D7DC7C /* DromedaryTests */,
+				F25E611C23D73D6F00D7DC7C /* DromedaryUITests */,
+				F25E60F523D73D6A00D7DC7C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F25E60F523D73D6A00D7DC7C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F25E60F423D73D6A00D7DC7C /* Dromedary.app */,
+				F25E610E23D73D6F00D7DC7C /* DromedaryTests.xctest */,
+				F25E611923D73D6F00D7DC7C /* DromedaryUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F25E60F623D73D6A00D7DC7C /* Dromedary */ = {
+			isa = PBXGroup;
+			children = (
+				F2F2067B2670AA07006AE446 /* Favourite Animal */,
+				F24CF99625D5107E003491FD /* A good Melody */,
+				F25E60FB23D73D6A00D7DC7C /* Actions.sks */,
+				F25E60F723D73D6A00D7DC7C /* AppDelegate.swift */,
+				F25E610423D73D6F00D7DC7C /* Assets.xcassets */,
+				F28BB1DD25AEEC8500A5A8BA /* Cave */,
+				F26C01FD23FFE6640014637E /* Eventyr */,
+				F25E60F923D73D6A00D7DC7C /* GameScene.sks */,
+				F25E60FD23D73D6A00D7DC7C /* GameScene.swift */,
+				F25E60FF23D73D6A00D7DC7C /* GameViewController.swift */,
+				F26C01F923FFD2040014637E /* HomeViewController.swift */,
+				F25E610923D73D6F00D7DC7C /* Info.plist */,
+				F25E610623D73D6F00D7DC7C /* LaunchScreen.storyboard */,
+				F25E610123D73D6A00D7DC7C /* Main.storyboard */,
+				F24CF98A25D3C698003491FD /* Shared */,
+				F261347F23DECF9000795CB1 /* Sounds */,
+			);
+			path = Dromedary;
+			sourceTree = "<group>";
+		};
+		F25E611123D73D6F00D7DC7C /* DromedaryTests */ = {
+			isa = PBXGroup;
+			children = (
+				F25E611223D73D6F00D7DC7C /* DromedaryTests.swift */,
+				F25E611423D73D6F00D7DC7C /* Info.plist */,
+			);
+			path = DromedaryTests;
+			sourceTree = "<group>";
+		};
+		F25E611C23D73D6F00D7DC7C /* DromedaryUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F25E611D23D73D6F00D7DC7C /* DromedaryUITests.swift */,
+				F25E611F23D73D6F00D7DC7C /* Info.plist */,
+			);
+			path = DromedaryUITests;
+			sourceTree = "<group>";
+		};
+		F261347F23DECF9000795CB1 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				F2E64767261C4552008194C0 /* 06 En god melodi.mp3 */,
+				F2EF43E025B7278D002D0BB7 /* 02 Hulen.mp3 */,
+				F2F1C44F240D0A9500313A3D /* 04 Eventyr.mp3 */,
+				F26C01FB23FFD37F0014637E /* 01 Stille morgen.mp3 */,
+				F261348023DECFB000795CB1 /* 05 Der var engang en mand.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		F26C01FD23FFE6640014637E /* Eventyr */ = {
+			isa = PBXGroup;
+			children = (
+				F26C02002403B3510014637E /* Eventyr_old.sks */,
+				F26C02042403B3A40014637E /* Eventyr.swift */,
+				F26C02062403B3B40014637E /* EventyrViewController.swift */,
+				F296DA2624D05FE8000334B1 /* Eventyr.sks */,
+				F2D5680724D1ACAA007BD85D /* EventyrTileSet.sks */,
+			);
+			name = Eventyr;
+			sourceTree = "<group>";
+		};
+		F28BB1DD25AEEC8500A5A8BA /* Cave */ = {
+			isa = PBXGroup;
+			children = (
+				F2EF43C325B5D31A002D0BB7 /* Systems */,
+				F2EF43AD25B5CD4D002D0BB7 /* Components */,
+				F28BB1DE25AEF1A800A5A8BA /* CaveViewController.swift */,
+				F28BB1E625AEF24100A5A8BA /* Cave.swift */,
+				F2B1CCA925B19E4500495A28 /* Puzzle.swift */,
+				F2B1CCB625B1A4F300495A28 /* Piece.swift */,
+			);
+			path = Cave;
+			sourceTree = "<group>";
+		};
+		F2EA518126AEA9E60027CAAC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F2EA518526B172200027CAAC /* SwimmingComponent.swift */,
+				F2EA518F26B17DFA0027CAAC /* FightingComponent.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		F2EF43AD25B5CD4D002D0BB7 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F2EF43CE25B5DB8E002D0BB7 /* InteractionComponent.swift */,
+				F2EF43E525B820E1002D0BB7 /* SnappingComponent.swift */,
+				F248003C25BAD9130089AA56 /* GravityComponent.swift */,
+				F248004625C00E610089AA56 /* GroundContactComponent.swift */,
+				F248005025C017400089AA56 /* RotationComponent.swift */,
+				F24CF97625CAA817003491FD /* TimeComponent.swift */,
+				F24CF98025CD938C003491FD /* ChangeComponent.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		F2EF43C325B5D31A002D0BB7 /* Systems */ = {
+			isa = PBXGroup;
+			children = (
+				F2EF43C925B5DB19002D0BB7 /* Cave+Touch.swift */,
+				F2EF43EA25B8211E002D0BB7 /* SnappingComponent+Snap.swift */,
+				F248004125BADA280089AA56 /* GravityComponent+Apply.swift */,
+				F248004B25C00F1E0089AA56 /* GroundContactComponent+Contact.swift */,
+				F24CF97B25CD877B003491FD /* TimeComponent+Run.swift */,
+				F24CF98525CD95DB003491FD /* ChangeComponent.Change.swift */,
+			);
+			path = Systems;
+			sourceTree = "<group>";
+		};
+		F2F2067B2670AA07006AE446 /* Favourite Animal */ = {
+			isa = PBXGroup;
+			children = (
+				F2EA518126AEA9E60027CAAC /* Components */,
+				F2F2068A2670DD00006AE446 /* Systems */,
+				F2F2067D2670AC5F006AE446 /* FavouriteAnimalViewController.swift */,
+				F2F206852670AEB4006AE446 /* FavouriteAnimal.swift */,
+			);
+			path = "Favourite Animal";
+			sourceTree = "<group>";
+		};
+		F2F2068A2670DD00006AE446 /* Systems */ = {
+			isa = PBXGroup;
+			children = (
+				F2F2068B2670DD1F006AE446 /* FavouriteAnimal + Touch.swift */,
+				F2EA518A26B173CF0027CAAC /* SwimmingComponent + Swim.swift */,
+				F2EA519426B181D30027CAAC /* FigthingComponent + Fight.swift */,
+			);
+			path = Systems;
+			sourceTree = "<group>";
+		};
+		F2F20690268314B0006AE446 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F2EF43BE25B5CE86002D0BB7 /* PositionComponent.swift */,
+				F21A8CB92683151C004C17AD /* SpriteComponent.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F25E60F323D73D6A00D7DC7C /* Dromedary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F25E612223D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "Dromedary" */;
+			buildPhases = (
+				F25E60F023D73D6A00D7DC7C /* Sources */,
+				F25E60F123D73D6A00D7DC7C /* Frameworks */,
+				F25E60F223D73D6A00D7DC7C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Dromedary;
+			productName = Dromedary;
+			productReference = F25E60F423D73D6A00D7DC7C /* Dromedary.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F25E610D23D73D6F00D7DC7C /* DromedaryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F25E612523D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "DromedaryTests" */;
+			buildPhases = (
+				F25E610A23D73D6F00D7DC7C /* Sources */,
+				F25E610B23D73D6F00D7DC7C /* Frameworks */,
+				F25E610C23D73D6F00D7DC7C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F25E611023D73D6F00D7DC7C /* PBXTargetDependency */,
+			);
+			name = DromedaryTests;
+			productName = DromedaryTests;
+			productReference = F25E610E23D73D6F00D7DC7C /* DromedaryTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F25E611823D73D6F00D7DC7C /* DromedaryUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F25E612823D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "DromedaryUITests" */;
+			buildPhases = (
+				F25E611523D73D6F00D7DC7C /* Sources */,
+				F25E611623D73D6F00D7DC7C /* Frameworks */,
+				F25E611723D73D6F00D7DC7C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F25E611B23D73D6F00D7DC7C /* PBXTargetDependency */,
+			);
+			name = DromedaryUITests;
+			productName = DromedaryUITests;
+			productReference = F25E611923D73D6F00D7DC7C /* DromedaryUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F25E60EC23D73D6A00D7DC7C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1240;
+				ORGANIZATIONNAME = "Mads Munk";
+				TargetAttributes = {
+					F25E60F323D73D6A00D7DC7C = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					F25E610D23D73D6F00D7DC7C = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = F25E60F323D73D6A00D7DC7C;
+					};
+					F25E611823D73D6F00D7DC7C = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = F25E60F323D73D6A00D7DC7C;
+					};
+				};
+			};
+			buildConfigurationList = F25E60EF23D73D6A00D7DC7C /* Build configuration list for PBXProject "Dromedary" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F25E60EB23D73D6A00D7DC7C;
+			productRefGroup = F25E60F523D73D6A00D7DC7C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F25E60F323D73D6A00D7DC7C /* Dromedary */,
+				F25E610D23D73D6F00D7DC7C /* DromedaryTests */,
+				F25E611823D73D6F00D7DC7C /* DromedaryUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F25E60F223D73D6A00D7DC7C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F26C01FC23FFD37F0014637E /* 01 Stille morgen.mp3 in Resources */,
+				F2E64768261C4552008194C0 /* 06 En god melodi.mp3 in Resources */,
+				F25E610323D73D6A00D7DC7C /* Main.storyboard in Resources */,
+				F25E60FA23D73D6A00D7DC7C /* GameScene.sks in Resources */,
+				F25E610523D73D6F00D7DC7C /* Assets.xcassets in Resources */,
+				F261348123DECFB000795CB1 /* 05 Der var engang en mand.mp3 in Resources */,
+				F26C02012403B3510014637E /* Eventyr_old.sks in Resources */,
+				F25E613023D73EFB00D7DC7C /* MyTileSet.sks in Resources */,
+				F2F1C450240D0A9500313A3D /* 04 Eventyr.mp3 in Resources */,
+				F2D5680824D1ACAA007BD85D /* EventyrTileSet.sks in Resources */,
+				F25E610823D73D6F00D7DC7C /* LaunchScreen.storyboard in Resources */,
+				F2EF43E125B7278D002D0BB7 /* 02 Hulen.mp3 in Resources */,
+				F25E60FC23D73D6A00D7DC7C /* Actions.sks in Resources */,
+				F296DA2724D05FE8000334B1 /* Eventyr.sks in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F25E610C23D73D6F00D7DC7C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F25E611723D73D6F00D7DC7C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F25E60F023D73D6A00D7DC7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2EA518B26B173CF0027CAAC /* SwimmingComponent + Swim.swift in Sources */,
+				F2EA519026B17DFA0027CAAC /* FightingComponent.swift in Sources */,
+				F2EF43CA25B5DB19002D0BB7 /* Cave+Touch.swift in Sources */,
+				F21A8CBA2683151C004C17AD /* SpriteComponent.swift in Sources */,
+				F25515B625DD1B8600A0CF64 /* ColletingNectarComponent+Collect.swift in Sources */,
+				F29BC49425E78D7F0046063C /* RefuelingComponent+Refuel.swift in Sources */,
+				F25515A725DCFF2E00A0CF64 /* JumpingAround.swift in Sources */,
+				F240F8FD25DAC05F00FF710E /* ProgressingComponent.swift in Sources */,
+				F28BB1E725AEF24100A5A8BA /* Cave.swift in Sources */,
+				F2F2067E2670AC60006AE446 /* FavouriteAnimalViewController.swift in Sources */,
+				F2E6476D261DAFCB008194C0 /* JollyDancingComponent.swift in Sources */,
+				F248004225BADA280089AA56 /* GravityComponent+Apply.swift in Sources */,
+				F25E60FE23D73D6A00D7DC7C /* GameScene.swift in Sources */,
+				F25515B125DD1A4300A0CF64 /* CollectingNectarComponent.swift in Sources */,
+				F24CF9CA25D6BDA0003491FD /* Melody+Touch.swift in Sources */,
+				F24CF9D425D6CAEB003491FD /* DryOutComponent+DryOut.swift in Sources */,
+				F24CF97C25CD877B003491FD /* TimeComponent+Run.swift in Sources */,
+				F248004C25C00F1E0089AA56 /* GroundContactComponent+Contact.swift in Sources */,
+				F2EA518626B172200027CAAC /* SwimmingComponent.swift in Sources */,
+				F24CF98625CD95DB003491FD /* ChangeComponent.Change.swift in Sources */,
+				F2F2068C2670DD1F006AE446 /* FavouriteAnimal + Touch.swift in Sources */,
+				F2EF43EB25B8211E002D0BB7 /* SnappingComponent+Snap.swift in Sources */,
+				F248005125C017400089AA56 /* RotationComponent.swift in Sources */,
+				F25515AC25DCFFA800A0CF64 /* JumpingAround+Jump.swift in Sources */,
+				F2EF43BF25B5CE86002D0BB7 /* PositionComponent.swift in Sources */,
+				F25E610023D73D6A00D7DC7C /* GameViewController.swift in Sources */,
+				F26C02072403B3B40014637E /* EventyrViewController.swift in Sources */,
+				F24CF9CF25D6C849003491FD /* DryOutComponent.swift in Sources */,
+				F24CF99B25D510B2003491FD /* MelodyViewController.swift in Sources */,
+				F29BC49925E78FF90046063C /* RunningWaterComponent.swift in Sources */,
+				F248003D25BAD9130089AA56 /* GravityComponent.swift in Sources */,
+				F2B1CCAA25B19E4500495A28 /* Puzzle.swift in Sources */,
+				F2C7C7BA2562B67C003D27CF /* Info.swift in Sources */,
+				F24CF9C025D51ECE003491FD /* FlyComponent.swift in Sources */,
+				F24CF9B625D511F5003491FD /* Melody.swift in Sources */,
+				F2EF43E625B820E1002D0BB7 /* SnappingComponent.swift in Sources */,
+				F248004725C00E610089AA56 /* GroundContactComponent.swift in Sources */,
+				F2F206862670AEB4006AE446 /* FavouriteAnimal.swift in Sources */,
+				F25E60F823D73D6A00D7DC7C /* AppDelegate.swift in Sources */,
+				F28BB1DF25AEF1A800A5A8BA /* CaveViewController.swift in Sources */,
+				F24CF9C525D51F9D003491FD /* FlyComponent+Fly.swift in Sources */,
+				F2B1CCB725B1A4F300495A28 /* Piece.swift in Sources */,
+				F29BC48A25E6350E0046063C /* WaterCompoent+Watering.swift in Sources */,
+				F2EA519526B181D30027CAAC /* FigthingComponent + Fight.swift in Sources */,
+				F2441BE124091E73001B2A80 /* MusicPlayer.swift in Sources */,
+				F2EF43C525B5D39A002D0BB7 /* SpriteComponent+Render.swift in Sources */,
+				F26C01FA23FFD2040014637E /* HomeViewController.swift in Sources */,
+				F25515C025DE590700A0CF64 /* EatingComponent+Eat.swift in Sources */,
+				F2E64772261DB116008194C0 /* JollyDancingComponent + Dance.swift in Sources */,
+				F26C02052403B3A40014637E /* Eventyr.swift in Sources */,
+				F29BC48F25E78D220046063C /* RefuelingComponent.swift in Sources */,
+				F24CF98125CD938C003491FD /* ChangeComponent.swift in Sources */,
+				F29BC48525E6344D0046063C /* WaterComponent.swift in Sources */,
+				F2EF43D425B5DF1D002D0BB7 /* InteractionComponent+Interact.swift in Sources */,
+				F2EF43CF25B5DB8E002D0BB7 /* InteractionComponent.swift in Sources */,
+				F24CF97725CAA817003491FD /* TimeComponent.swift in Sources */,
+				F2A6485A243AF7A8001F16A9 /* Utils.swift in Sources */,
+				F240F90225DAC0D300FF710E /* ProgressingComponent+Progress.swift in Sources */,
+				F25515BB25DE57B000A0CF64 /* EatingComponent.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F25E610A23D73D6F00D7DC7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F25E611323D73D6F00D7DC7C /* DromedaryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F25E611523D73D6F00D7DC7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F25E611E23D73D6F00D7DC7C /* DromedaryUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F25E611023D73D6F00D7DC7C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F25E60F323D73D6A00D7DC7C /* Dromedary */;
+			targetProxy = F25E610F23D73D6F00D7DC7C /* PBXContainerItemProxy */;
+		};
+		F25E611B23D73D6F00D7DC7C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F25E60F323D73D6A00D7DC7C /* Dromedary */;
+			targetProxy = F25E611A23D73D6F00D7DC7C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F25E610123D73D6A00D7DC7C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F25E610223D73D6A00D7DC7C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F25E610623D73D6F00D7DC7C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F25E610723D73D6F00D7DC7C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F25E612023D73D6F00D7DC7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F25E612123D73D6F00D7DC7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F25E612323D73D6F00D7DC7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MS7KE529J7;
+				INFOPLIST_FILE = Dromedary/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Madsen.Dromedary;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F25E612423D73D6F00D7DC7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MS7KE529J7;
+				INFOPLIST_FILE = Dromedary/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Madsen.Dromedary;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F25E612623D73D6F00D7DC7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MS7KE529J7;
+				INFOPLIST_FILE = DromedaryTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Madsen.DromedaryTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dromedary.app/Dromedary";
+			};
+			name = Debug;
+		};
+		F25E612723D73D6F00D7DC7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MS7KE529J7;
+				INFOPLIST_FILE = DromedaryTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Madsen.DromedaryTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dromedary.app/Dromedary";
+			};
+			name = Release;
+		};
+		F25E612923D73D6F00D7DC7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MS7KE529J7;
+				INFOPLIST_FILE = DromedaryUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Madsen.DromedaryUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Dromedary;
+			};
+			name = Debug;
+		};
+		F25E612A23D73D6F00D7DC7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MS7KE529J7;
+				INFOPLIST_FILE = DromedaryUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Madsen.DromedaryUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Dromedary;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F25E60EF23D73D6A00D7DC7C /* Build configuration list for PBXProject "Dromedary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F25E612023D73D6F00D7DC7C /* Debug */,
+				F25E612123D73D6F00D7DC7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F25E612223D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "Dromedary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F25E612323D73D6F00D7DC7C /* Debug */,
+				F25E612423D73D6F00D7DC7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F25E612523D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "DromedaryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F25E612623D73D6F00D7DC7C /* Debug */,
+				F25E612723D73D6F00D7DC7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F25E612823D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "DromedaryUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F25E612923D73D6F00D7DC7C /* Debug */,
+				F25E612A23D73D6F00D7DC7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F25E60EC23D73D6A00D7DC7C /* Project object */;
+}
