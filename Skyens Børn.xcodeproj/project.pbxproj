@@ -41,8 +41,8 @@
 		F25E610323D73D6A00D7DC7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F25E610123D73D6A00D7DC7C /* Main.storyboard */; };
 		F25E610523D73D6F00D7DC7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F25E610423D73D6F00D7DC7C /* Assets.xcassets */; };
 		F25E610823D73D6F00D7DC7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F25E610623D73D6F00D7DC7C /* LaunchScreen.storyboard */; };
-		F25E611323D73D6F00D7DC7C /* DromedaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25E611223D73D6F00D7DC7C /* DromedaryTests.swift */; };
-		F25E611E23D73D6F00D7DC7C /* DromedaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25E611D23D73D6F00D7DC7C /* DromedaryUITests.swift */; };
+		F25E611323D73D6F00D7DC7C /* SkyensBørnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25E611223D73D6F00D7DC7C /* SkyensBørnTests.swift */; };
+		F25E611E23D73D6F00D7DC7C /* SkyensBørnUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25E611D23D73D6F00D7DC7C /* SkyensBørnUITests.swift */; };
 		F25E613023D73EFB00D7DC7C /* MyTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = F25E612F23D73EFA00D7DC7C /* MyTileSet.sks */; };
 		F261348123DECFB000795CB1 /* 05 Der var engang en mand.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F261348023DECFB000795CB1 /* 05 Der var engang en mand.mp3 */; };
 		F26C01FA23FFD2040014637E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C01F923FFD2040014637E /* HomeViewController.swift */; };
@@ -128,9 +128,9 @@
 		F25515B525DD1B8600A0CF64 /* ColletingNectarComponent+Collect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColletingNectarComponent+Collect.swift"; sourceTree = "<group>"; };
 		F25515BA25DE57B000A0CF64 /* EatingComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatingComponent.swift; sourceTree = "<group>"; };
 		F25515BF25DE590700A0CF64 /* EatingComponent+Eat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EatingComponent+Eat.swift"; sourceTree = "<group>"; };
-		F25E60F423D73D6A00D7DC7C /* Dromedary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dromedary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F25E60F423D73D6A00D7DC7C /* Skyens Børn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skyens Børn.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F25E60F723D73D6A00D7DC7C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F25E60F923D73D6A00D7DC7C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = Dromedary/GameScene.sks; sourceTree = SOURCE_ROOT; };
+		F25E60F923D73D6A00D7DC7C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = "Skyens Børn/GameScene.sks"; sourceTree = SOURCE_ROOT; };
 		F25E60FB23D73D6A00D7DC7C /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		F25E60FD23D73D6A00D7DC7C /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		F25E60FF23D73D6A00D7DC7C /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -138,11 +138,11 @@
 		F25E610423D73D6F00D7DC7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F25E610723D73D6F00D7DC7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F25E610923D73D6F00D7DC7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F25E610E23D73D6F00D7DC7C /* DromedaryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DromedaryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F25E611223D73D6F00D7DC7C /* DromedaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DromedaryTests.swift; sourceTree = "<group>"; };
+		F25E610E23D73D6F00D7DC7C /* Skyens BørnTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Skyens BørnTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F25E611223D73D6F00D7DC7C /* SkyensBørnTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SkyensBørnTests.swift"; sourceTree = "<group>"; };
 		F25E611423D73D6F00D7DC7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F25E611923D73D6F00D7DC7C /* DromedaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DromedaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F25E611D23D73D6F00D7DC7C /* DromedaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DromedaryUITests.swift; sourceTree = "<group>"; };
+		F25E611923D73D6F00D7DC7C /* Skyens BørnUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Skyens BørnUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F25E611D23D73D6F00D7DC7C /* SkyensBørnUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SkyensBørnUITests.swift"; sourceTree = "<group>"; };
 		F25E611F23D73D6F00D7DC7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F25E612F23D73EFA00D7DC7C /* MyTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyTileSet.sks; sourceTree = "<group>"; };
 		F261348023DECFB000795CB1 /* 05 Der var engang en mand.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "05 Der var engang en mand.mp3"; sourceTree = "<group>"; };
@@ -280,9 +280,9 @@
 		F25E60EB23D73D6A00D7DC7C = {
 			isa = PBXGroup;
 			children = (
-				F25E60F623D73D6A00D7DC7C /* Dromedary */,
-				F25E611123D73D6F00D7DC7C /* DromedaryTests */,
-				F25E611C23D73D6F00D7DC7C /* DromedaryUITests */,
+				F25E60F623D73D6A00D7DC7C /* Skyens Børn */,
+				F25E611123D73D6F00D7DC7C /* SkyensBørnTests */,
+				F25E611C23D73D6F00D7DC7C /* SkyensBørnUITests */,
 				F25E60F523D73D6A00D7DC7C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -290,14 +290,14 @@
 		F25E60F523D73D6A00D7DC7C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F25E60F423D73D6A00D7DC7C /* Dromedary.app */,
-				F25E610E23D73D6F00D7DC7C /* DromedaryTests.xctest */,
-				F25E611923D73D6F00D7DC7C /* DromedaryUITests.xctest */,
+				F25E60F423D73D6A00D7DC7C /* Skyens Børn.app */,
+				F25E610E23D73D6F00D7DC7C /* Skyens BørnTests.xctest */,
+				F25E611923D73D6F00D7DC7C /* Skyens BørnUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F25E60F623D73D6A00D7DC7C /* Dromedary */ = {
+		F25E60F623D73D6A00D7DC7C /* Skyens Børn */ = {
 			isa = PBXGroup;
 			children = (
 				F2F2067B2670AA07006AE446 /* Favourite Animal */,
@@ -317,25 +317,27 @@
 				F24CF98A25D3C698003491FD /* Shared */,
 				F261347F23DECF9000795CB1 /* Sounds */,
 			);
-			path = Dromedary;
+			path = "Skyens Børn";
 			sourceTree = "<group>";
 		};
-		F25E611123D73D6F00D7DC7C /* DromedaryTests */ = {
+		F25E611123D73D6F00D7DC7C /* SkyensBørnTests */ = {
 			isa = PBXGroup;
 			children = (
-				F25E611223D73D6F00D7DC7C /* DromedaryTests.swift */,
+				F25E611223D73D6F00D7DC7C /* SkyensBørnTests.swift */,
 				F25E611423D73D6F00D7DC7C /* Info.plist */,
 			);
-			path = DromedaryTests;
+			name = "SkyensBørnTests";
+			path = "Skyens BørnTests";
 			sourceTree = "<group>";
 		};
-		F25E611C23D73D6F00D7DC7C /* DromedaryUITests */ = {
+		F25E611C23D73D6F00D7DC7C /* SkyensBørnUITests */ = {
 			isa = PBXGroup;
 			children = (
-				F25E611D23D73D6F00D7DC7C /* DromedaryUITests.swift */,
+				F25E611D23D73D6F00D7DC7C /* SkyensBørnUITests.swift */,
 				F25E611F23D73D6F00D7DC7C /* Info.plist */,
 			);
-			path = DromedaryUITests;
+			name = "SkyensBørnUITests";
+			path = "Skyens BørnUITests";
 			sourceTree = "<group>";
 		};
 		F261347F23DECF9000795CB1 /* Sounds */ = {
@@ -444,9 +446,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F25E60F323D73D6A00D7DC7C /* Dromedary */ = {
+		F25E60F323D73D6A00D7DC7C /* Skyens Børn */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F25E612223D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "Dromedary" */;
+			buildConfigurationList = F25E612223D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "Skyens Børn" */;
 			buildPhases = (
 				F25E60F023D73D6A00D7DC7C /* Sources */,
 				F25E60F123D73D6A00D7DC7C /* Frameworks */,
@@ -456,14 +458,14 @@
 			);
 			dependencies = (
 			);
-			name = Dromedary;
+			name = "Skyens Børn";
 			productName = Dromedary;
-			productReference = F25E60F423D73D6A00D7DC7C /* Dromedary.app */;
+			productReference = F25E60F423D73D6A00D7DC7C /* Skyens Børn.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F25E610D23D73D6F00D7DC7C /* DromedaryTests */ = {
+		F25E610D23D73D6F00D7DC7C /* Skyens BørnTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F25E612523D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "DromedaryTests" */;
+			buildConfigurationList = F25E612523D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "Skyens BørnTests" */;
 			buildPhases = (
 				F25E610A23D73D6F00D7DC7C /* Sources */,
 				F25E610B23D73D6F00D7DC7C /* Frameworks */,
@@ -474,14 +476,14 @@
 			dependencies = (
 				F25E611023D73D6F00D7DC7C /* PBXTargetDependency */,
 			);
-			name = DromedaryTests;
+			name = "Skyens BørnTests";
 			productName = DromedaryTests;
-			productReference = F25E610E23D73D6F00D7DC7C /* DromedaryTests.xctest */;
+			productReference = F25E610E23D73D6F00D7DC7C /* Skyens BørnTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		F25E611823D73D6F00D7DC7C /* DromedaryUITests */ = {
+		F25E611823D73D6F00D7DC7C /* Skyens BørnUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F25E612823D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "DromedaryUITests" */;
+			buildConfigurationList = F25E612823D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "Skyens BørnUITests" */;
 			buildPhases = (
 				F25E611523D73D6F00D7DC7C /* Sources */,
 				F25E611623D73D6F00D7DC7C /* Frameworks */,
@@ -492,9 +494,9 @@
 			dependencies = (
 				F25E611B23D73D6F00D7DC7C /* PBXTargetDependency */,
 			);
-			name = DromedaryUITests;
+			name = "Skyens BørnUITests";
 			productName = DromedaryUITests;
-			productReference = F25E611923D73D6F00D7DC7C /* DromedaryUITests.xctest */;
+			productReference = F25E611923D73D6F00D7DC7C /* Skyens BørnUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -520,7 +522,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F25E60EF23D73D6A00D7DC7C /* Build configuration list for PBXProject "Dromedary" */;
+			buildConfigurationList = F25E60EF23D73D6A00D7DC7C /* Build configuration list for PBXProject "Skyens Børn" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -533,9 +535,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F25E60F323D73D6A00D7DC7C /* Dromedary */,
-				F25E610D23D73D6F00D7DC7C /* DromedaryTests */,
-				F25E611823D73D6F00D7DC7C /* DromedaryUITests */,
+				F25E60F323D73D6A00D7DC7C /* Skyens Børn */,
+				F25E610D23D73D6F00D7DC7C /* Skyens BørnTests */,
+				F25E611823D73D6F00D7DC7C /* Skyens BørnUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -649,7 +651,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F25E611323D73D6F00D7DC7C /* DromedaryTests.swift in Sources */,
+				F25E611323D73D6F00D7DC7C /* SkyensBørnTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,7 +659,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F25E611E23D73D6F00D7DC7C /* DromedaryUITests.swift in Sources */,
+				F25E611E23D73D6F00D7DC7C /* SkyensBørnUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -666,12 +668,12 @@
 /* Begin PBXTargetDependency section */
 		F25E611023D73D6F00D7DC7C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F25E60F323D73D6A00D7DC7C /* Dromedary */;
+			target = F25E60F323D73D6A00D7DC7C /* Skyens Børn */;
 			targetProxy = F25E610F23D73D6F00D7DC7C /* PBXContainerItemProxy */;
 		};
 		F25E611B23D73D6F00D7DC7C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F25E60F323D73D6A00D7DC7C /* Dromedary */;
+			target = F25E60F323D73D6A00D7DC7C /* Skyens Børn */;
 			targetProxy = F25E611A23D73D6F00D7DC7C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -747,10 +749,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Skyens Børn/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "Skyens Børn/Info.plist";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -803,9 +807,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Skyens Børn/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "Skyens Børn/Info.plist";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -820,12 +826,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MS7KE529J7;
-				INFOPLIST_FILE = Dromedary/Info.plist;
+				INFOPLIST_FILE = "Skyens Børn/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Madsen.Dromedary;
+				PRODUCT_BUNDLE_IDENTIFIER = "Madsen.Skyens Børn";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -838,12 +844,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MS7KE529J7;
-				INFOPLIST_FILE = Dromedary/Info.plist;
+				INFOPLIST_FILE = "Skyens Børn/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Madsen.Dromedary;
+				PRODUCT_BUNDLE_IDENTIFIER = "Madsen.Skyens Børn";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -868,7 +874,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dromedary.app/Dromedary";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Skyens Børn.app/Skyens Børn";
 			};
 			name = Debug;
 		};
@@ -890,7 +896,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dromedary.app/Dromedary";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Skyens Børn.app/Skyens Børn";
 			};
 			name = Release;
 		};
@@ -937,7 +943,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F25E60EF23D73D6A00D7DC7C /* Build configuration list for PBXProject "Dromedary" */ = {
+		F25E60EF23D73D6A00D7DC7C /* Build configuration list for PBXProject "Skyens Børn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F25E612023D73D6F00D7DC7C /* Debug */,
@@ -946,7 +952,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F25E612223D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "Dromedary" */ = {
+		F25E612223D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "Skyens Børn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F25E612323D73D6F00D7DC7C /* Debug */,
@@ -955,7 +961,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F25E612523D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "DromedaryTests" */ = {
+		F25E612523D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "Skyens BørnTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F25E612623D73D6F00D7DC7C /* Debug */,
@@ -964,7 +970,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F25E612823D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "DromedaryUITests" */ = {
+		F25E612823D73D6F00D7DC7C /* Build configuration list for PBXNativeTarget "Skyens BørnUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F25E612923D73D6F00D7DC7C /* Debug */,
