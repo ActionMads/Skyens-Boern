@@ -127,7 +127,7 @@
 		F25515B525DD1B8600A0CF64 /* ColletingNectarComponent+Collect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColletingNectarComponent+Collect.swift"; sourceTree = "<group>"; };
 		F25515BA25DE57B000A0CF64 /* EatingComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatingComponent.swift; sourceTree = "<group>"; };
 		F25515BF25DE590700A0CF64 /* EatingComponent+Eat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EatingComponent+Eat.swift"; sourceTree = "<group>"; };
-		F25E60F423D73D6A00D7DC7C /* Skyens Børn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skyens Børn.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F25E60F423D73D6A00D7DC7C /* Skyens Børn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Skyens Børn.app"; path = "/Users/madsmunk/Documents/XCode/Skyens Børn/build/Debug-iphoneos/Skyens Børn.app"; sourceTree = "<absolute>"; };
 		F25E60F723D73D6A00D7DC7C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F25E60F923D73D6A00D7DC7C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = "Skyens Børn/GameScene.sks"; sourceTree = SOURCE_ROOT; };
 		F25E60FB23D73D6A00D7DC7C /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -136,10 +136,10 @@
 		F25E610223D73D6A00D7DC7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F25E610723D73D6F00D7DC7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F25E610923D73D6F00D7DC7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F25E610E23D73D6F00D7DC7C /* Skyens BørnTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Skyens BørnTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F25E610E23D73D6F00D7DC7C /* Skyens BørnTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "Skyens BørnTests.xctest"; path = "/Users/madsmunk/Documents/XCode/Skyens Børn/build/Debug-iphoneos/Skyens BørnTests.xctest"; sourceTree = "<absolute>"; };
 		F25E611223D73D6F00D7DC7C /* SkyensBørnTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SkyensBørnTests.swift"; sourceTree = "<group>"; };
 		F25E611423D73D6F00D7DC7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F25E611923D73D6F00D7DC7C /* Skyens BørnUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Skyens BørnUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F25E611923D73D6F00D7DC7C /* Skyens BørnUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "Skyens BørnUITests.xctest"; path = "/Users/madsmunk/Documents/XCode/Skyens Børn/build/Debug-iphoneos/Skyens BørnUITests.xctest"; sourceTree = "<absolute>"; };
 		F25E611D23D73D6F00D7DC7C /* SkyensBørnUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SkyensBørnUITests.swift"; sourceTree = "<group>"; };
 		F25E611F23D73D6F00D7DC7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F25E612F23D73EFA00D7DC7C /* MyTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyTileSet.sks; sourceTree = "<group>"; };
@@ -281,18 +281,7 @@
 				F25E60F623D73D6A00D7DC7C /* Skyens Børn */,
 				F25E611123D73D6F00D7DC7C /* SkyensBørnTests */,
 				F25E611C23D73D6F00D7DC7C /* SkyensBørnUITests */,
-				F25E60F523D73D6A00D7DC7C /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		F25E60F523D73D6A00D7DC7C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F25E60F423D73D6A00D7DC7C /* Skyens Børn.app */,
-				F25E610E23D73D6F00D7DC7C /* Skyens BørnTests.xctest */,
-				F25E611923D73D6F00D7DC7C /* Skyens BørnUITests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		F25E60F623D73D6A00D7DC7C /* Skyens Børn */ = {
@@ -528,7 +517,7 @@
 				Base,
 			);
 			mainGroup = F25E60EB23D73D6A00D7DC7C;
-			productRefGroup = F25E60F523D73D6A00D7DC7C /* Products */;
+			productRefGroup = F25E60EB23D73D6A00D7DC7C;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
