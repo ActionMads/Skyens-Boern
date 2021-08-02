@@ -39,7 +39,6 @@
 		F25E60FE23D73D6A00D7DC7C /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25E60FD23D73D6A00D7DC7C /* GameScene.swift */; };
 		F25E610023D73D6A00D7DC7C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25E60FF23D73D6A00D7DC7C /* GameViewController.swift */; };
 		F25E610323D73D6A00D7DC7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F25E610123D73D6A00D7DC7C /* Main.storyboard */; };
-		F25E610523D73D6F00D7DC7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F25E610423D73D6F00D7DC7C /* Assets.xcassets */; };
 		F25E610823D73D6F00D7DC7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F25E610623D73D6F00D7DC7C /* LaunchScreen.storyboard */; };
 		F25E611323D73D6F00D7DC7C /* SkyensBørnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25E611223D73D6F00D7DC7C /* SkyensBørnTests.swift */; };
 		F25E611E23D73D6F00D7DC7C /* SkyensBørnUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25E611D23D73D6F00D7DC7C /* SkyensBørnUITests.swift */; };
@@ -135,7 +134,6 @@
 		F25E60FD23D73D6A00D7DC7C /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		F25E60FF23D73D6A00D7DC7C /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		F25E610223D73D6A00D7DC7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F25E610423D73D6F00D7DC7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F25E610723D73D6F00D7DC7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F25E610923D73D6F00D7DC7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F25E610E23D73D6F00D7DC7C /* Skyens BørnTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Skyens BørnTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -304,7 +302,6 @@
 				F24CF99625D5107E003491FD /* A good Melody */,
 				F25E60FB23D73D6A00D7DC7C /* Actions.sks */,
 				F25E60F723D73D6A00D7DC7C /* AppDelegate.swift */,
-				F25E610423D73D6F00D7DC7C /* Assets.xcassets */,
 				F28BB1DD25AEEC8500A5A8BA /* Cave */,
 				F26C01FD23FFE6640014637E /* Eventyr */,
 				F25E60F923D73D6A00D7DC7C /* GameScene.sks */,
@@ -551,7 +548,6 @@
 				F2E64768261C4552008194C0 /* 06 En god melodi.mp3 in Resources */,
 				F25E610323D73D6A00D7DC7C /* Main.storyboard in Resources */,
 				F25E60FA23D73D6A00D7DC7C /* GameScene.sks in Resources */,
-				F25E610523D73D6F00D7DC7C /* Assets.xcassets in Resources */,
 				F261348123DECFB000795CB1 /* 05 Der var engang en mand.mp3 in Resources */,
 				F26C02012403B3510014637E /* Eventyr_old.sks in Resources */,
 				F25E613023D73EFB00D7DC7C /* MyTileSet.sks in Resources */,
