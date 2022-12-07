@@ -23,8 +23,8 @@ class ProgressingComponent : GKComponent {
         super.init()
         timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true, block: { timer in
             self.increment()
+            print("timer has fired")
         })
-        timer.fire()
     }
     
     required init?(coder: NSCoder) {
@@ -36,4 +36,9 @@ class ProgressingComponent : GKComponent {
             progress += 1
         }
     }
+    
+    deinit {
+        print(self, "has deinitialized")
+    }
+    
 }

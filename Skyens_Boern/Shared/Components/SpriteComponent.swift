@@ -12,15 +12,25 @@ import Foundation
 class SpriteComponent : GKComponent {
     // 2.
     let sprite : SKSpriteNode
+    let name : String
+    let atlas : SKTextureAtlas
     // 3.
-    init( name : String, zPos : CGFloat ) {
-        self.sprite = SKSpriteNode(imageNamed: name)
+    init(atlas : SKTextureAtlas, name : String, zPos : CGFloat ) {
+        self.name = name
+        self.atlas = atlas
+        self.sprite = SKSpriteNode(texture: atlas.textureNamed(name))
         self.sprite.zPosition = zPos
         super.init()
     }
     // 4.
     override func willRemoveFromEntity() {
+        print("removing sprite named: ", name)
+        self.sprite.removeAllActions()
         self.sprite.removeFromParent()
+    }
+    
+    override func didAddToEntity() {
+        self.sprite.entity = self.entity
     }
     
     func setTexture(texture: SKTexture) {

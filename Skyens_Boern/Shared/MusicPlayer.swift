@@ -16,6 +16,14 @@ class MusicPlayer {
         musicPlayer?.stop()
     }
     
+    func fadeOut() {
+        musicPlayer?.setVolume(0, fadeDuration: 1.0)
+    }
+    
+    func fadeIn() {
+        musicPlayer?.setVolume(100, fadeDuration: 1.0)
+    }
+    
     func isPlaying() -> Bool{
         return musicPlayer!.isPlaying
     }
@@ -23,6 +31,8 @@ class MusicPlayer {
     func getTimecode() -> TimeInterval {
         return musicPlayer!.currentTime
     }
+    
+    
     
     func playMusic(url: String) {
            guard let url = Bundle.main.url(forResource: url, withExtension: "mp3") else { return }

@@ -18,7 +18,7 @@ class FlyComponent : GKComponent {
     var direction : String = "Left"
     var isFirstRun : Bool = true
     var flyArea = CGRect(x: 100, y: 1000, width: 2600, height: 1000)
-    let scene : Melody!
+    let scene : Melody
     
     init(scene : Melody) {
         self.scene = scene
@@ -28,4 +28,9 @@ class FlyComponent : GKComponent {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        print(self, "has deinitialized")
+    }
+    
 }

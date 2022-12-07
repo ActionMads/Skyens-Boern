@@ -26,7 +26,8 @@ extension CollectingNectarComponent {
             if collectTime <= 0 {
                 doCollect = false
                 collectTime = 2
-                Timer.scheduledTimer(withTimeInterval: 15, repeats: false, block: { timer in
+                timer?.invalidate()
+                timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: false, block: { timer in
                     self.doCollect = true
                 })
                 isFlying.flyArea = CGRect(x: 100, y: 1000, width: 2600, height: 1000)

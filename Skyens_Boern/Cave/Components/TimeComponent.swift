@@ -11,7 +11,7 @@ import SpriteKit
 import GameplayKit
 
 class TimeComponent: GKComponent {
-    let startTime : TimeInterval = 30
+    let startTime : TimeInterval = 134
     let stopTime: TimeInterval = 0
     var timeLeft : TimeInterval
     var min : Int

@@ -12,14 +12,14 @@ import GameplayKit
 
 extension ChangeComponent {
     override func update(deltaTime seconds: TimeInterval) {
+        guard let hasSpriteComp = entity?.component(ofType: SpriteComponent.self) else {return}
+        
         if digit == "min" {
             currentNumber = clock.component(ofType: TimeComponent.self)!.min
         }else if digit == "firstSec"{
             currentNumber = clock.component(ofType: TimeComponent.self)!.firstSec
         }else if digit == "lastSec"{
             currentNumber = clock.component(ofType: TimeComponent.self)!.lastSec
-        }else if digit == "points"{
-            currentNumber = scene.getCorrectPieces()
         }else{
             currentNumber = 0
         }
@@ -58,6 +58,8 @@ extension ChangeComponent {
         default:
             break
         }
+        
+        hasSpriteComp.setTexture(texture: hasSpriteComp.atlas.textureNamed(currentSpriteName))
     }
     
 

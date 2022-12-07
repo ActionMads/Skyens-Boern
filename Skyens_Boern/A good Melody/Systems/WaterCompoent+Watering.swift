@@ -19,13 +19,12 @@ extension WaterComponent {
         
         guard let hasPosition = entity?.component(ofType: PositionComponent.self) else {return}
         
-        guard let hasRefueling = entity?.component(ofType: RefuelingComponent.self) else {return}
-        
         print("bottle degress", hasRotation.currentRotation)
+        print("bottle is empty", bottleIsEmpty)
         
         if hasRotation.currentRotation <= self.waterTolerenceMax && hasRotation.currentRotation > self.waterTolerenceMin {
             
-            if dropTime > 0  {
+            if dropTime > 0 {
                 if timeSinceLastDrop >= 0.5 {
                     self.scene.makeDrop(x: CGFloat.random(min: hasPosition.currentPosition.x - 200, max: hasPosition.currentPosition.x + 50) , y: hasPosition.currentPosition.y - 150)
                     print("make drop at:", timeSinceLastDrop)
@@ -33,9 +32,8 @@ extension WaterComponent {
                 }
                 dropTime -= seconds
                 print("drop time ", dropTime)
-                if dropTime < 0 {
-                    dropTime = 0
-                    hasRefueling.refuelTIme = 5
+                if dropTime <= 0 {
+                    bottleIsEmpty = true
                 }
             }
         }

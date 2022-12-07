@@ -37,11 +37,14 @@ extension FlyComponent {
             }
 
             self.isFirstRun = false
-            let flyAction01 = SKAction.setTexture(SKTexture(imageNamed: "Bi-Small"))
-            let flyAction02 = SKAction.setTexture(SKTexture(imageNamed: "Bi-Small-vinge nede"))
+            let flyAction01 = SKAction.setTexture(scene.beesAtlas.textureNamed("Bi-Small"))
+            let flyAction02 = SKAction.setTexture(scene.beesAtlas.textureNamed("Bi-Small-vinge nede"))
             let wait = SKAction.wait(forDuration: 0.05)
-            let sequence = SKAction.sequence([flyAction01, wait, flyAction02, wait])
-            hasSprite.sprite.run(.repeatForever(sequence))
+            let printAction = SKAction.run {
+                print("Flying")
+            }
+            let sequence = SKAction.sequence([printAction, flyAction01, wait, flyAction02, wait])
+            hasSprite.sprite.run(.repeatForever(sequence), withKey: "Fly")
 
         }
         

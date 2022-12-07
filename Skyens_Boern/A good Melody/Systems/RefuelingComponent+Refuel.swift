@@ -10,27 +10,22 @@ import Foundation
 
 extension RefuelingComponent {
     override func update(deltaTime seconds: TimeInterval) {
-        guard let hasPosition = entity?.component(ofType: PositionComponent.self) else {return}
+        print("Updating refueling")
         
         guard let hasWater = entity?.component(ofType: WaterComponent.self) else {return}
-        
-        if hasPosition.currentPosition == hasPosition.targetPosition {
-            if refuelTIme == 4 {
-                self.tap.component(ofType: RunningWaterComponent.self)?.run()
-                entity?.removeComponent(ofType: InteractionComponent.self)
-            }
-            if refuelTIme > 0 {
+          
+            if refuelTime > 0 {
                 if timeSinceLastBeam >= 0.5 {
-                    self.tap.component(ofType: RunningWaterComponent.self)?.run()
+                    self.run()
                     self.timeSinceLastBeam = 0
                 }
             }
-            if refuelTIme <= 0 {
+            if refuelTime <= 0 {
                 hasWater.dropTime = 5
-                entity?.addComponent(InteractionComponent())
+                hasWater.bottleIsEmpty = false
             }
-            self.refuelTIme -= seconds
-            self.timeSinceLastBeam += seconds
-        }
-    }
+                self.refuelTime -= seconds
+                self.timeSinceLastBeam += seconds
+            }
+        
 }

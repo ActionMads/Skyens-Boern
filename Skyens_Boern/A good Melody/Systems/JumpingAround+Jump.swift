@@ -15,8 +15,6 @@ extension JumpingAroundComponent {
         guard let hasPosition = entity?.component(ofType: PositionComponent.self) else {
             return}
         
-        
-        
         guard let hasSprite = entity?.component(ofType: SpriteComponent.self) else {return}
         
         guard let hasEating = entity?.component(ofType: EatingComponent.self) else {
@@ -37,7 +35,7 @@ extension JumpingAroundComponent {
         }
         
         if hasReachedTarget == true {
-            hasPosition.targetPosition = CGPoint(x: CGFloat.random(min: 150, max: 2500), y: 500)
+            hasPosition.targetPosition = CGPoint(x: CGFloat.random(min: 150, max: 2500), y: hasPosition.currentPosition.y)
                 hasReachedTarget = false
             if hasPosition.targetPosition.x > hasPosition.currentPosition.x && self.direction == "Left" {
                 hasSprite.sprite.xScale = hasSprite.sprite.xScale * -1

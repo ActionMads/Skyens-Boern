@@ -12,4 +12,7 @@ import GameplayKit
 
 class GroundContactComponent: GKComponent {
     let groundHeight: CGFloat = 400
+    let rightWall: CGFloat = 2732
+    let leftWall: CGFloat = 0
+    let topWall: CGFloat = 2048
 }

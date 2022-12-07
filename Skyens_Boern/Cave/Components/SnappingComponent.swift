@@ -11,9 +11,9 @@ import GameplayKit
 import SpriteKit
 class SnappingComponent : GKComponent {
     var isSetup = false
-    let positionTolerance : CGFloat = 100
+    let positionTolerance : CGFloat = 250
     
-    let rotationTolerance : CGFloat = 20
+    let rotationTolerance : CGFloat = 10
     
     var hasSnapped = false
 

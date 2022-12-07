@@ -14,15 +14,18 @@ class DryOutComponent : GKComponent {
     let timeToDryOut : TimeInterval = 15
     let timeToRemove : TimeInterval = 20
     var timeLeft : TimeInterval!
-    let dryOutTexture : SKTexture = SKTexture(imageNamed: "VisenBlomst")
-    let revivedTexture : SKTexture = SKTexture(imageNamed: "Blomst")
+    let dryOutTexture : SKTexture
+    let revivedTexture : SKTexture
     var hasDied : Bool = false
     var scene : Melody
     var dropsCollected : Int = 0
+    var canDry : Bool = false
     
     init(scene : Melody) {
-        timeLeft = timeToDryOut + timeToRemove
         self.scene = scene
+        timeLeft = timeToDryOut + timeToRemove
+        dryOutTexture = scene.flowerAtlas.textureNamed("VisenBlomst")
+        revivedTexture = scene.flowerAtlas.textureNamed("Blomst")
         super.init()
     }
     
@@ -35,4 +38,9 @@ class DryOutComponent : GKComponent {
 
         hasSprite.setTexture(texture: texture)
     }
+    
+    deinit {
+        print(self, "has deinitialized")
+    }
+    
 }

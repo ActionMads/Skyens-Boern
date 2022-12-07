@@ -15,15 +15,13 @@ class ChangeComponent : GKComponent {
     let clock: GKEntity
     var currentNumber: Int
     var currentSpriteName : String
-    let scene: Cave
     
     
-    init(clock: GKEntity, digit: String, scene: Cave) {
+    init(clock: GKEntity, digit: String) {
         self.digit = digit
         self.clock = clock
         self.currentNumber = 0
         self.currentSpriteName = "0"
-        self.scene = scene
         super.init()
     }
     

@@ -26,8 +26,7 @@ class CaveViewController: UIViewController, UIGestureRecognizerDelegate {
         scene = Cave(size: CGSize(width: 2732, height: 2048))
                 
                 // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                scene.viewController = self
+                scene.scaleMode = .aspectFit
                 
                 // Present the scene
                 if let view = self.view as! SKView? {
@@ -37,7 +36,7 @@ class CaveViewController: UIViewController, UIGestureRecognizerDelegate {
                     view.preferredFramesPerSecond = 25
                     view.showsFPS = true
                     view.showsNodeCount = true
-                    view.showsPhysics = false
+                    view.showsPhysics = true
 
                 }
         scene.panRecogniser.delegate = self
@@ -59,14 +58,15 @@ class CaveViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            return .landscapeLeft
-        } else {
-            return .all
-        }
+        return .landscapeLeft
     }
 
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        
     }
 }

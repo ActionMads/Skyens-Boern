@@ -18,14 +18,16 @@ class JumpingAroundComponent : GKComponent {
     var direction : String = "Left"
     var canJump : Bool = false
     var sprite : SKSpriteNode!
+    var timer1 : Timer?
+    var timer2 : Timer?
     
     override init() {
         super.init()
-        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {timer in
+        timer1 = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {timer in
             self.canJump = true
             self.jump()
         })
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {timer in
+        timer2 = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {timer in
             self.canJump = false
             if let spriteComp = self.entity?.component(ofType: SpriteComponent.self)?.sprite {
                 spriteComp.removeAllActions()
@@ -58,6 +60,11 @@ class JumpingAroundComponent : GKComponent {
         }
 
     }
+    
+    deinit {
+        print(self, "has deinitialized")
+    }
+    
 }
 
 

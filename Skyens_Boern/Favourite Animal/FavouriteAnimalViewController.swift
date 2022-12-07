@@ -27,8 +27,7 @@ class FavouriteAnimalViewController: UIViewController, UIGestureRecognizerDelega
         scene = FavouriteAnimal(size: CGSize(width: 2732, height: 2048))
                 
                 // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                scene.viewController = self
+                scene.scaleMode = .aspectFit
 
                 
                 // Present the scene
@@ -62,11 +61,7 @@ class FavouriteAnimalViewController: UIViewController, UIGestureRecognizerDelega
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            return .landscapeLeft
-        } else {
-            return .all
-        }
+        return .landscapeLeft
     }
 
     override var prefersStatusBarHidden: Bool {

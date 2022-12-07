@@ -26,8 +26,7 @@ class MelodyViewController: UIViewController, UIGestureRecognizerDelegate {
         scene = Melody(size: CGSize(width: 2732, height: 2048))
                 
                 // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                scene.viewController = self
+                scene.scaleMode = .aspectFit
                 
                 // Present the scene
                 if let view = self.view as! SKView? {
@@ -60,11 +59,7 @@ class MelodyViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            return .landscapeLeft
-        } else {
-            return .all
-        }
+        return .landscapeLeft
     }
 
     override var prefersStatusBarHidden: Bool {

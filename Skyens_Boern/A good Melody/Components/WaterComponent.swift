@@ -15,6 +15,7 @@ class WaterComponent: GKComponent {
     var dropTime : TimeInterval = 5
     var timeSinceLastDrop : TimeInterval = 0
     var scene : Melody
+    var bottleIsEmpty : Bool = false
     
     init(scene : Melody) {
         self.scene = scene
@@ -24,4 +25,9 @@ class WaterComponent: GKComponent {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        print(self, "has deinitialized")
+    }
+    
 }

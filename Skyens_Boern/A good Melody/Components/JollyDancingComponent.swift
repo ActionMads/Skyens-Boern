@@ -23,9 +23,9 @@ class JollyDancingComponent : GKComponent {
     
     func dance(){
         print("Dancing")
-        let danceTex = SKAction.setTexture(SKTexture(imageNamed: "DanseFrø"))
+        let danceTex = SKAction.setTexture(scene.frogAtlas.textureNamed("FrøDansende"))
         let wait = SKAction.wait(forDuration: 0.2)
-        let normalTex = SKAction.setTexture(SKTexture(imageNamed: "Frø-Small"))
+        let normalTex = SKAction.setTexture(scene.frogAtlas.textureNamed("Frø-Small"))
         let animation = SKAction.sequence([danceTex, wait, normalTex, wait, danceTex, wait, normalTex, wait, danceTex, wait, normalTex, wait, danceTex, wait, normalTex, wait, danceTex, wait, normalTex])
         self.scene.childNode(withName: "Frog")?.run((animation))
     }
@@ -37,5 +37,9 @@ class JollyDancingComponent : GKComponent {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print(self, "has deinitialized")
     }
 }

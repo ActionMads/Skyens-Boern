@@ -16,11 +16,13 @@ class CollectingNectarComponent : GKComponent {
     var collectArea : CGRect!
     var collectTime : TimeInterval = 2
     var flowers : [GKEntity]
+    var timer : Timer?
     
     init(flowers : [GKEntity]) {
         self.flowers = flowers
         super.init()
-        Timer.scheduledTimer(withTimeInterval: 15, repeats: false, block: { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: false, block: { timer in
+            print("Collecting")
             self.doCollect = true
         })
     }
@@ -28,6 +30,11 @@ class CollectingNectarComponent : GKComponent {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        print(self, "has deinitialized")
+    }
+    
 }
 
 

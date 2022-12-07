@@ -48,6 +48,8 @@ extension InteractionComponent {
             self.state = .none
             self.timeSinceTouch += deltaTime
             offset = .zero
+        case .changed:
+            self.state = .none
         default:
             break
         }
@@ -75,13 +77,7 @@ extension InteractionComponent {
 
         // 3.
          default:
-            if rotationComponent.currentRotation > 1.5 {
-                rotationComponent.currentRotation = 1.5
-            }else if rotationComponent.currentRotation < -1.5 {
-                rotationComponent.currentRotation = -1.5
-            }else{
             rotationComponent.currentRotation = rotation + rotationOffset
-            }
          }
     }
 }

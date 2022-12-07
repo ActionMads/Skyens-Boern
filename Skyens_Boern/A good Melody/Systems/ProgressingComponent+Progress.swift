@@ -11,55 +11,62 @@ import SpriteKit
 
 extension ProgressingComponent {
     override func update(deltaTime seconds: TimeInterval) {
-        
+        print("Progressing")
         guard let hasSprite = entity?.component(ofType: SpriteComponent.self) else {
             return
         }
         
+        if hasSprite.sprite.name == "Piano" {
+            name = "ProgressCircleBlack"
+        }
+        if hasSprite.sprite.name == "Flower" {
+            name = "ProgressCircle"
+        }
+        
         switch progress {
         case 0:
-            name = "ProgressCircle\(progress)"
+            name = "\(name)\(progress)"
             break
         case 1:
-            name = "ProgressCircle\(progress)"
+            name = "\(name)\(progress)"
             break
         case 2:
-            name = "ProgressCircle\(progress)"
+            name = "\(name)\(progress)"
             break
         case 3:
-            name = "ProgressCircle\(progress)"
+            name = "\(name)\(progress)"
             break
         case 4:
-            name = "ProgressCircle\(progress)"
+            name = "\(name)\(progress)"
             break
         case 5:
-            name = "ProgressCircle\(progress)"
+            name = "\(name)\(progress)"
             break
         case 6:
-            name = "ProgressCircle\(progress)"
+            name = "\(name)\(progress)"
             break
         case 7:
-            name = "ProgressCircle\(progress)"
+            name = "\(name)\(progress)"
             break
         case 8:
-            name = "ProgressCircle\(progress)"
+            name = "\(name)\(progress)"
             break
         case 9:
-            name = "ProgressCircle\(progress)"
+            name = "\(name)\(progress)"
             break
         case 10:
-            name = "ProgressCircle\(progress)"
+            name = "\(name)\(progress)"
             break
         case 11:
-            name = "ProgressCircle\(progress)"
+            name = "\(name)\(progress)"
             break
         case 12:
-            name = "ProgressCircle\(progress)"
+            name = "\(name)\(progress)"
             isActive = false
             if hasSprite.sprite.name == "Piano"{
                 scene.makeMelody()
             }
-            if hasSprite.sprite.name == "Flower" {
+            if hasSprite.sprite.name == "Flower" && scene.canMakeFlowers {
                 scene.makeFlower(targetPosition: self.scene.makeFlowerTargetPosition())
             }
 
@@ -68,9 +75,10 @@ extension ProgressingComponent {
         default:
             break
         }
-        
-        texture = SKTexture(imageNamed: name)
+        print("progress name:", name)
+        texture = scene.progressAtlas.textureNamed(name)
         hasSprite.setTexture(texture: texture)
+        hasSprite.sprite.setScale(2.0)
 
     }
 }

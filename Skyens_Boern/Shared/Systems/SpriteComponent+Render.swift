@@ -20,17 +20,19 @@ extension SpriteComponent {
         self.sprite.position = hasPositionComponent.currentPosition
         
         if let hasRotation = entity?.component(ofType: RotationComponent.self) {
+            if hasRotation.currentRotation > .pi {
+                hasRotation.currentRotation = .pi
+            }else if hasRotation.currentRotation < -.pi{
+                hasRotation.currentRotation = -.pi
+            }
             self.sprite.zRotation = hasRotation.currentRotation
+            print(self.name, hasRotation.currentRotation)
         }
         
         if let hasSnapping = entity?.component(ofType: SnappingComponent.self) {
             if hasSnapping.hasSnapped {
                 self.sprite.zPosition = 2
             }
-        }
-        
-        if let hasChangeComp = entity?.component(ofType: ChangeComponent.self) {
-            self.sprite.texture = SKTexture(imageNamed: hasChangeComp.currentSpriteName)
         }
     }
 }
