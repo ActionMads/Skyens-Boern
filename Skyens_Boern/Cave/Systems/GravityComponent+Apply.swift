@@ -28,7 +28,7 @@ extension GravityComponent{
             downForce = 0
         }
         else {
-            downForce = 5
+            downForce = 2.5
         }
         
         position.y -= downForce

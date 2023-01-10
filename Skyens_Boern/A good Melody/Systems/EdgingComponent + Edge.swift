@@ -29,15 +29,16 @@ extension EdgingComponent {
             positionComponent.currentPosition.y = topWall - spriteComponent.sprite.size.height/2
         }
         
-        if positionComponent.currentPosition.y <= groundHeight + spriteComponent.sprite.size.height/2{
+        if positionComponent.currentPosition.y < bottomWall + spriteComponent.sprite.size.height/2 {
+            positionComponent.currentPosition.y = bottomWall + spriteComponent.sprite.size.height/2
+        }
+        
+        if positionComponent.currentPosition.y < groundHeight + spriteComponent.sprite.size.height/2{
             if spriteComponent.sprite.name == "drop"{
                 print("removing drop")
                 scene.removeEntity(entity: spriteComponent.entity!)
-            }
-            if spriteComponent.sprite.name == "flower"{
+            }else if spriteComponent.sprite.name == "flower"{
                 return
-            }else{
-                positionComponent.currentPosition.x = groundHeight + spriteComponent.sprite.size.height/2
             }
         }
     }

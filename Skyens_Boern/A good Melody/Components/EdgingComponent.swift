@@ -10,10 +10,11 @@ import Foundation
 import GameplayKit
 
 class EdgingComponent : GKComponent {
-    let groundHeight: CGFloat = 400
+    let groundHeight: CGFloat = 450
     let rightWall: CGFloat = 2732
     let leftWall: CGFloat = 0
     let topWall: CGFloat = 2048
+    let bottomWall: CGFloat = 0
     var scene : Melody
     
     init(scene : Melody) {

@@ -30,11 +30,11 @@ class RefuelingComponent : GKComponent {
         
         let water = SKSpriteNode(texture: scene.waterAtlas.textureNamed("Vand"))
         water.size = CGSize(width: 100, height: 200)
-        water.position = CGPoint(x: 105, y: 400)
+        water.position = CGPoint(x: 95, y: 390)
         water.zPosition = -1
         sprite.sprite.addChild(water)
         
-        let run = SKAction.move(to: CGPoint(x: 110, y: 0), duration: 0.5)
+        let run = SKAction.move(to: CGPoint(x: 95, y: 0), duration: 0.5)
         let remove = SKAction.run {
             water.removeAllActions()
             water.removeFromParent()

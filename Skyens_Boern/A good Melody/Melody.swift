@@ -39,7 +39,7 @@ class Melody: Scene {
     
     var canEat : Bool = false
         
-    var flowerTargetX = 100
+    var flowerTargetX = 120
     
     var flowerFactory : GKEntity?
     
@@ -158,16 +158,16 @@ class Melody: Scene {
         addChild(spriteComp.sprite)
 
     }
-    
+/*
     func makeFlowers(){
         for _ in 1...5 {
             makeFlower(targetPosition: CGPoint(x: CGFloat.random(min: 100, max: 2500), y: 500))
         }
-    }
+    }*/
     
     func makeFlowerTargetPosition() -> CGPoint{
-        let target = CGPoint(x: flowerTargetX, y: 350)
-        flowerTargetX += 300
+        let target = CGPoint(x: flowerTargetX, y: 400)
+        flowerTargetX += 240
         return target
     }
     
@@ -223,8 +223,9 @@ class Melody: Scene {
     func makeWaterTap(){
         waterTap = GKEntity()
         let spriteComp = SpriteComponent(atlas: waterAtlas, name: "Vandhane", zPos: 4)
+        spriteComp.sprite.size = CGSize(width: 500, height: 500)
         waterTap!.addComponent(spriteComp)
-        waterTap!.addComponent(PositionComponent(currentPosition: CGPoint(x: self.frame.minX + 200, y: self.frame.maxY - 200), targetPosition: CGPoint(x: self.frame.minX + 200, y: self.frame.maxY - 200)))
+        waterTap!.addComponent(PositionComponent(currentPosition: CGPoint(x: self.frame.minX + 240, y: self.frame.maxY - 250), targetPosition: CGPoint(x: self.frame.minX + 240, y: self.frame.maxY - 250)))
         self.addChild(spriteComp.sprite)
         Scale(sprite: spriteComp.sprite, delay: 1)
         self.entities.append(waterTap!)
@@ -238,7 +239,7 @@ class Melody: Scene {
         let spriteComp = SpriteComponent(atlas: waterAtlas, name: "Vandkande", zPos: 4)
         bottle!.addComponent(spriteComp)
         
-        bottle!.addComponent(PositionComponent(currentPosition: CGPoint(x: self.frame.minX + 200, y: 1450), targetPosition: CGPoint(x: self.frame.minX + 200, y: 1450)))
+        bottle!.addComponent(PositionComponent(currentPosition: CGPoint(x: self.frame.minX + 270, y: 1400), targetPosition: CGPoint(x: self.frame.minX + 270, y: 1400)))
         
         bottle!.addComponent(RotationComponent(currentRotation: 0, targetRotation: 0))
                         
@@ -293,7 +294,7 @@ class Melody: Scene {
         let spriteComp = SpriteComponent(atlas: frogAtlas, name: "FrøNy", zPos: 6)
         spriteComp.sprite.name = "Frog"
         frog!.addComponent(spriteComp)
-        frog!.addComponent(PositionComponent(currentPosition: CGPoint(x: 2500, y: 360), targetPosition: CGPoint(x: CGFloat.random(min: 100, max: 2500), y: 360)))
+        frog!.addComponent(PositionComponent(currentPosition: CGPoint(x: 2500, y: 400), targetPosition: CGPoint(x: CGFloat.random(min: 100, max: 2500), y: 400)))
         frog!.addComponent(JumpingAroundComponent())
         frog!.addComponent(EatingComponent(scene: self))
         frog!.addComponent(JollyDancingComponent(scene: self))

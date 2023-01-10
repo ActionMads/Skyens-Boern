@@ -24,7 +24,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
     var startBtn: SKSpriteNode!
     var playableRect: CGRect!
 	var healthBar: SKSpriteNode!
-    let shipMovePointsPerSec: CGFloat = 480.0
+    let shipMovePointsPerSec: CGFloat = 240.0
     var velocity = CGPoint(x: 0, y: 0)
 	private var hasTouchedShip: Bool = false
     private var lastUpdateTime : TimeInterval = 0
@@ -464,7 +464,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 	}
 	
     func spawnSpaceEnemy() {
-		let enemy = SKSpriteNode(texture: enemyAtlas.textureNamed("Astoride"))
+		let enemy = SKSpriteNode(texture: enemyAtlas.textureNamed("AsteroideLys"))
 		enemy.scale(to: CGSize(width: 150, height: 150))
 		enemy.position = CGPoint(x: playableRect.size.width + enemy.size.width/2, y: CGFloat.random(
         min: playableRect.minY + enemy.size.height/2,
@@ -488,7 +488,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		let flyAction = SKAction.animate(with: [enemyAtlas.textureNamed("Fugl01"), enemyAtlas.textureNamed("Fugl02")], timePerFrame: 0.2)
         enemy.scale(to: CGSize(width: 150, height: 150))
 		enemy.position = CGPoint(x: playableRect.size.width + enemy.size.width/2, y: CGFloat.random(
-            min: playableRect.midY + enemy.size.height/2,
+            min: playableRect.minY + 100 + enemy.size.height/2,
             max: playableRect.maxY - enemy.size.height/2))
         enemy.name = "enemy"
 		enemy.physicsBody = SKPhysicsBody(rectangleOf: enemy.size)

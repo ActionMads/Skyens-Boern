@@ -13,7 +13,6 @@ import GameplayKit
 extension GroundContactComponent {
     override func update(deltaTime seconds: TimeInterval) {
         
-        
         guard let positionComponent = entity?.component(ofType: PositionComponent.self) else { return }
         
         guard let gravityComponent = (entity?.component(ofType: GravityComponent.self)) else { return }
@@ -40,6 +39,16 @@ extension GroundContactComponent {
         
         if positionComponent.currentPosition.y <= groundHeight + spriteComponent.sprite.size.height/2{
             rotationComponent.currentRotation = rotateToLying(currentRotation: rotationComponent.currentRotation)
+            if isRotating {
+                entity?.removeComponent(ofType: InteractionComponent.self)
+                hasRotated = true
+            }
+            if !isRotating {
+                if hasRotated {
+                    entity?.addComponent(InteractionComponent())
+                    hasRotated = false
+                }
+            }
         }
         if positionComponent.currentPosition.y < groundHeight - 100 {
             positionComponent.currentPosition.y = groundHeight + spriteComponent.sprite.size.height/2
@@ -49,37 +58,53 @@ extension GroundContactComponent {
     func rotateToLying(currentRotation: CGFloat) -> CGFloat{
         let inDegrees = currentRotation.toDegrees()
         print("current rotation in degress at ground contact", inDegrees)
-
+        if inDegrees == 0 {
+            isRotating = false
+            return inDegrees.toRads()
+        }
         if inDegrees > 90 && inDegrees <= 180 {
             if inDegrees >= 178 {
+                isRotating = false
                 return inDegrees.toRads()
             }else {
+                isRotating = true
                 return (inDegrees + 2).toRads()
             }
         }
         
         if inDegrees >= 0 && inDegrees < 90 {
             if inDegrees <= 2 {
+                isRotating = false
                 return inDegrees.toRads()
             }else {
+                isRotating = true
                 return (inDegrees - 2).toRads()
             }
         }
         
         if inDegrees < 0 && inDegrees > -90 {
             if inDegrees >= -2 {
+                isRotating = false
                 return inDegrees.toRads()
             }else {
+                isRotating = true
                 return (inDegrees + 2).toRads()
             }
         }
         if inDegrees < -90 && inDegrees > -180 {
             if inDegrees <= -178 {
+                isRotating = false
                 return inDegrees.toRads()
             }
-            return (inDegrees - 2).toRads()
+            else {
+                isRotating = true
+                return (inDegrees - 2).toRads()
+            }
+
         }
+
         else {
+            isRotating = false
             return inDegrees.toRads()
         }
     }

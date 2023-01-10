@@ -15,4 +15,6 @@ class GroundContactComponent: GKComponent {
     let rightWall: CGFloat = 2732
     let leftWall: CGFloat = 0
     let topWall: CGFloat = 2048
+    var isRotating: Bool = false
+    var hasRotated: Bool = false
 }

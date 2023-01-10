@@ -67,17 +67,19 @@ extension InteractionComponent {
             self.didBegin = false
         }
         
-         switch state {
+        switch state {
         
             // 2.
-         case .ended:
-                self.state = .none
+        case .ended:
+            self.state = .none
             self.timeSinceTouch += deltaTime
             print("current rotation", rotationComponent.currentRotation)
-
         // 3.
-         default:
+        case .changed:
             rotationComponent.currentRotation = rotation + rotationOffset
+         default:
+            self.state = .none
+            break
          }
     }
 }

@@ -67,7 +67,7 @@ extension Scene {
     
     func makeEndSign(position: CGPoint) -> SKSpriteNode {
         calculateSizeDivider()
-        let endSign = SKSpriteNode(imageNamed: "SlutSkilt")
+        let endSign = SKSpriteNode(texture: infoAtlas.textureNamed("SlutSkilt"))
         endSign.size = CGSize(width: self.frame.width/sizeDivider, height:  self.frame.width/sizeDivider)
         endSign.position = position
         endSign.name = "endBtn"
@@ -77,7 +77,7 @@ extension Scene {
     }
     
     func makeBackBtn(){
-        let backBtn = SKSpriteNode(color: UIColor.white, size: CGSize(width: self.frame.width/10, height: self.frame.height/20))
+        let backBtn = SKSpriteNode(texture: infoAtlas.textureNamed("TilbageKnap"), size: CGSize(width: self.frame.width/10, height: self.frame.width/20))
         backBtn.position = CGPoint(x: self.frame.minX + backBtn.size.width/2 + 50, y: self.frame.minY + backBtn.size.height/2 + 35)
         backBtn.zPosition = 9
         backBtn.name = "backBtn"
@@ -86,7 +86,7 @@ extension Scene {
     
     func calculateSizeDivider(){
         if self.withCamera {
-            sizeDivider = 1
+            sizeDivider = 1.5
         }else {
             sizeDivider = 2
         }

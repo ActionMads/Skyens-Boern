@@ -11,5 +11,5 @@ import SpriteKit
 import GameplayKit
 
 class GravityComponent: GKComponent {
-    var downForce : CGFloat = 5
+    var downForce : CGFloat = 2.5
     }
