@@ -28,20 +28,26 @@ class InteractionComponent : GKComponent {
     var timeSinceTouch : TimeInterval = 0
     
     var didBegin : Bool = false
-        var state : Action = .none {
-            // 2.
-            didSet {
-                switch state {
-                case .move(let state, _), .rotate(let state, _):
-                    if state == .began {
-                        self.didBegin = true
-                    }
-                default:
-                    break
+    var state : Action = .none {
+        // 2.
+        didSet {
+            switch state {
+            case .move(let state, _), .rotate(let state, _):
+                if state == .began {
+                    self.didBegin = true
                 }
+            default:
+                break
             }
         }
-        var targetEntity : GKEntity?
-        // 3.
-        var offset : CGPoint = .zero
     }
+    var targetEntity : GKEntity?
+    // 3.
+    var offset : CGPoint = .zero
+    
+    deinit {
+        print(self, "has deinitialized")
+    }
+}
+
+

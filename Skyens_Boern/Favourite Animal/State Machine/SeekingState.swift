@@ -37,16 +37,20 @@ class SeekingState : GKState {
         }
     }
     
+    /* Remove SeekComponent */
     override func didEnter(from previousState: GKState?) {
         if (entity?.component(ofType: SeekComponent.self)) != nil {
             entity?.removeComponent(ofType: SeekComponent.self)
         }
+        /* If entering from movingstate disable swim*/
         if let _ = previousState as? MovingState {
             entity?.component(ofType: SwimmingComponent.self)?.canSwim = false
             entity?.addComponent(SeekComponent(opponent: opponent!, this: entity!))
+            /* If entering from RestingState turn off invunrabillity and add seekingstate */
         } else if let _ = previousState as? RestingState {
             entity?.component(ofType: HitingComponent.self)?.isInvunreble = false
             entity?.addComponent(SeekComponent(opponent: opponent!, this: entity!))
+            /* If entering from GettingHitState add SeekComponent*/
         } else if let _ = previousState as? GettingHitState {
             entity?.addComponent(SeekComponent(opponent: opponent!, this: entity!))
         }

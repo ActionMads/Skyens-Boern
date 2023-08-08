@@ -46,7 +46,7 @@ class ViewController : UIViewController, UIGestureRecognizerDelegate {
                     view.ignoresSiblingOrder = true
                     view.showsFPS = true
                     view.showsNodeCount = true
-                    view.showsPhysics = true
+                    view.showsPhysics = false
                     view.showsDrawCount = true
                 }
                 sceneNode.panRecogniser.delegate = self
@@ -95,7 +95,7 @@ class ViewController : UIViewController, UIGestureRecognizerDelegate {
     }
     
     override var shouldAutorotate: Bool {
-            return false
+            return true
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {

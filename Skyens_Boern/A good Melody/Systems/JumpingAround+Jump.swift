@@ -12,6 +12,9 @@ import GameplayKit
 
 extension JumpingAroundComponent {
     override func update(deltaTime seconds: TimeInterval) {
+        
+        /* If entity has the following components continue */
+        
         guard let hasPosition = entity?.component(ofType: PositionComponent.self) else {
             return}
         
@@ -25,6 +28,8 @@ extension JumpingAroundComponent {
             return
         }
         
+        // calculate vector and hypotinus and if hyp is less then position tolerence the frog has reached target
+        
         
         let vector = hasPosition.currentPosition - hasPosition.targetPosition
         
@@ -34,6 +39,7 @@ extension JumpingAroundComponent {
             hasReachedTarget = true
         }
         
+        // if the frog has reached it current target make a new random target and flip the frog sprite according to direction
         if hasReachedTarget == true {
             hasPosition.targetPosition = CGPoint(x: CGFloat.random(min: 150, max: 2500), y: hasPosition.currentPosition.y)
                 hasReachedTarget = false
@@ -47,6 +53,7 @@ extension JumpingAroundComponent {
 
         }
         
+        // move the frog towards target
         if hasReachedTarget == false {
             if canJump && hasEating.isEating == false && hasDancing.isDancing == false {
                 let offset = CGPoint(x: hasPosition.targetPosition.x - hasPosition.currentPosition.x,

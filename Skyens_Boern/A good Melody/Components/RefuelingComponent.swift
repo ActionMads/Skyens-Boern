@@ -10,8 +10,6 @@ import Foundation
 import GameplayKit
 
 class RefuelingComponent : GKComponent {
-    var timeSinceLastBeam : TimeInterval = 0
-    var refuelTime : TimeInterval = 4
     var scene : Melody
     
     init(scene : Melody) {
@@ -23,24 +21,35 @@ class RefuelingComponent : GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // reset the bottle after refuling
+    func setBottleParameters(){
+        guard let hasWater = entity?.component(ofType: WaterComponent.self) else {return}
+        hasWater.dropTime = 5
+        hasWater.bottleIsEmpty = false
+    }
+    
+    // The water refueling animation
     func run() {
         guard let sprite = entity?.component(ofType: SpriteComponent.self) else {return}
-        
-        print("sprite name refueling", sprite.sprite.name)
-        
-        let water = SKSpriteNode(texture: scene.waterAtlas.textureNamed("Vand"))
-        water.size = CGSize(width: 100, height: 200)
-        water.position = CGPoint(x: 95, y: 390)
-        water.zPosition = -1
-        sprite.sprite.addChild(water)
-        
-        let run = SKAction.move(to: CGPoint(x: 95, y: 0), duration: 0.5)
-        let remove = SKAction.run {
-            water.removeAllActions()
-            water.removeFromParent()
+                
+        let codeAction = SKAction.run {
+                let water = SKSpriteNode(texture: self.scene.waterAtlas.textureNamed("Vand"))
+                water.size = CGSize(width: 100, height: 200)
+                water.position = CGPoint(x: 95, y: 300)
+                water.zPosition = -1
+                sprite.sprite.addChild(water)
+                let run = SKAction.move(to: CGPoint(x: 95, y: -50), duration: 0.5)
+            func remove(){
+                water.removeAllActions()
+                water.removeFromParent()
+            }
+            water.run(.repeat(run, count: 5), completion: remove)
         }
-        let seq = SKAction.sequence([run, remove])
-        water.run(seq)
+        let wait = SKAction.wait(forDuration: 0.3)
+        let seq = SKAction.sequence([codeAction, wait])
+        sprite.sprite.run(.repeat(seq, count: 5), completion: setBottleParameters)
+        
+
     }
     
     deinit {

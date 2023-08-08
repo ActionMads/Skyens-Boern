@@ -12,8 +12,10 @@ import GameplayKit
 class EmptyState : GKState {
     
     var entity : GKEntity
+    var scene : Melody
     
-    init(withEntity : GKEntity) {
+    init(withEntity : GKEntity, scene : Melody) {
+        self.scene = scene
         self.entity = withEntity
     }
     
@@ -26,5 +28,13 @@ class EmptyState : GKState {
         default:
             return false
         }
+    }
+    
+    override func didEnter(from previousState: GKState?) {
+        scene.updateSystems()
+    }
+    
+    deinit {
+        print(self, "has deinitialized")
     }
 }

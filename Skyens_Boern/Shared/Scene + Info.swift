@@ -9,29 +9,26 @@
 import Foundation
 import SpriteKit
 import GameplayKit
+import UIKit
 
 extension Scene {
     
     func makeStartSign(position: CGPoint) -> SKSpriteNode {
         let startSign = SKSpriteNode(texture: infoAtlas.textureNamed("StartSkilt"))
         startSign.position = position
-        startSign.size = CGSize(width: self.frame.width/2, height: self.frame.height/2)
+        startSign.size = CGSize(width: self.frame.width/sizeDivider, height: self.frame.height/sizeDivider)
         startSign.name = "startBtn"
         startSign.zPosition = 10
         return startSign
     }
     
     func makeRestartSign(position: CGPoint) -> SKSpriteNode {
-        calculateSizeDivider()
         let restartSign = SKSpriteNode(texture: infoAtlas.textureNamed("PrøvIgen"))
         restartSign.size = CGSize(width: self.frame.width/sizeDivider, height: self.frame.height/sizeDivider)
         restartSign.position = position
-        print("restart position", restartSign.position)
         restartSign.name = "restartBtn"
         restartSign.zPosition = 10
-        //addChild(restartSign)
         makeRestartButtons(restartSign: restartSign)
-        //pauseGame()
         return restartSign
     }
     
@@ -45,7 +42,6 @@ extension Scene {
         yesButton.zPosition = 11
         yesButton.position = CGPoint(x: 0 - yesButton.size.width * 0.8, y: 0 - yesButton.size.height * 1.8)
         noButton.position = CGPoint(x: yesButton.position.x + noButton.size.width + 21, y: yesButton.position.y)
-        print("Button position", yesButton.position)
         yesButton.name = "yes"
         noButton.name = "no"
         restartSign.addChild(yesButton)
@@ -66,7 +62,6 @@ extension Scene {
     }
     
     func makeEndSign(position: CGPoint) -> SKSpriteNode {
-        calculateSizeDivider()
         let endSign = SKSpriteNode(texture: infoAtlas.textureNamed("SlutSkilt"))
         endSign.size = CGSize(width: self.frame.width/sizeDivider, height:  self.frame.width/sizeDivider)
         endSign.position = position
@@ -77,19 +72,37 @@ extension Scene {
     }
     
     func makeBackBtn(){
-        let backBtn = SKSpriteNode(texture: infoAtlas.textureNamed("TilbageKnap"), size: CGSize(width: self.frame.width/10, height: self.frame.width/20))
+        let backBtn = SKSpriteNode(texture: infoAtlas.textureNamed("TilbageKnap"), size: CGSize(width: self.frame.width/10, height: self.frame.width/22))
         backBtn.position = CGPoint(x: self.frame.minX + backBtn.size.width/2 + 50, y: self.frame.minY + backBtn.size.height/2 + 35)
-        backBtn.zPosition = 9
+        backBtn.zPosition = 11
         backBtn.name = "backBtn"
         addChild(backBtn)
     }
     
-    func calculateSizeDivider(){
-        if self.withCamera {
-            sizeDivider = 1.5
-        }else {
-            sizeDivider = 2
+    func makeHelpBtn(){
+        self.helpBtn = SKSpriteNode(texture: infoAtlas.textureNamed("HjælpKnapOn"), size: CGSize(width: self.frame.width/20, height: self.frame.width/10))
+        self.helpBtn.position = CGPoint(x: self.frame.maxX - helpBtn.size.width/2 - 50, y: self.frame.minY + helpBtn.size.height/2 + 35)
+        self.helpBtn.zPosition = 11
+        self.helpBtn.name = "helpBtn"
+        addChild(helpBtn)
+    }
+    
+    func helpBtnAction(){
+        print("Help is on: ", self.helpIsOn)
+        switch self.helpIsOn {
+        case true:
+            helpBtn.texture = infoAtlas.textureNamed("HjælpKnapOn")
+            self.helpIsOn = false
+            break
+        case false:
+            helpBtn.texture = infoAtlas.textureNamed("HjælpKnap")
+            self.helpIsOn = true
+            break
         }
+    }
+    
+    func calculateSizeDivider(scale : CGFloat){
+            sizeDivider = scale
     }
     
 }

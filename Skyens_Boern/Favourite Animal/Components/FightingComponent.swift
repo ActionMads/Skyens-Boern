@@ -24,6 +24,7 @@ class FightingComponent : GKComponent {
     
     init(competitor: String, scene : FavouriteAnimal) {
         self.scene = scene
+        /* set texture names */
         if competitor == "croco" {
             biteTexName = "Krokodille åben mund"
             normalTexName = "Krokodille lukket mund"
@@ -40,6 +41,7 @@ class FightingComponent : GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /* Attack opponent, by random fighting technic */
     func attack(opponent: GKEntity){
         print("Attacking")
         guard let hasSprite = self.entity?.component(ofType: SpriteComponent.self) else {return}
@@ -54,6 +56,7 @@ class FightingComponent : GKComponent {
         }
     }
     
+    /* The bite fighting technic animation*/
     func bite(sprite : SKSpriteNode) {
         let mouthOpenAction = SKAction.setTexture(scene.competitorAtlas.textureNamed(biteTexName))
         let mouthClosedAction = SKAction.setTexture(scene.competitorAtlas.textureNamed(normalTexName))
@@ -63,6 +66,7 @@ class FightingComponent : GKComponent {
         sprite.run(sequence)
     }
     
+    /* Secondary attack technic*/
     func secondaryAttack(sprite : SKSpriteNode) {
         let attack1 = SKAction.setTexture(scene.competitorAtlas.textureNamed(attack2TexName))
         let flip = SKAction.run {

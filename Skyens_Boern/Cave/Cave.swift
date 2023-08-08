@@ -16,7 +16,6 @@ class Cave: Scene, SKPhysicsContactDelegate {
     private var puzzle: Puzzle!
     private var pieces: Array<Piece>!
     var clock: GKEntity!
-    var scoreBoard: GKEntity!
     lazy var componentSystems : [GKComponentSystem] = {
         let spriteCompSystem = GKComponentSystem(componentClass: SpriteComponent.self)
         let snappingSystem = GKComponentSystem(componentClass: SnappingComponent.self)
@@ -25,16 +24,15 @@ class Cave: Scene, SKPhysicsContactDelegate {
         let groundContactCompSystem = GKComponentSystem(componentClass: GroundContactComponent.self)
         let timeCompSystem = GKComponentSystem(componentClass: TimeComponent.self)
         let changeCompSystem = GKComponentSystem(componentClass: ChangeComponent.self)
-        return [interactionCompSystem, snappingSystem, spriteCompSystem, timeCompSystem, changeCompSystem, gravityCompSystem]
+        return [interactionCompSystem, snappingSystem, spriteCompSystem, timeCompSystem, groundContactCompSystem, changeCompSystem, gravityCompSystem]
     }()
     var correctPieces: Int = 0
-    var gameIsPaused = true
-    
-    var startSign: SKSpriteNode!
     var hasFinished = false
     let backgroundAtlas = SKTextureAtlas(named: "Background")
     let clockAtlas = SKTextureAtlas(named: "Clock")
     let branchesAtlas = SKTextureAtlas(named: "Branches")
+    var timer1 : Timer?
+    var timer2 : Timer?
 
     override func sceneDidLoad() {
         print("frameMinx", self.frame.minX)
@@ -44,6 +42,7 @@ class Cave: Scene, SKPhysicsContactDelegate {
         puzzle = Puzzle()
         pieces = puzzle.makePieces()
         makeStartSign()
+        makeHelpBtn()
         self.makeBackBtn()
     }
     
@@ -53,23 +52,37 @@ class Cave: Scene, SKPhysicsContactDelegate {
     }
     
     func makeStartSign() {
-        startSign = self.makeStartSign(position: CGPoint(x: self.frame.midX, y: self.frame.midY))
+        let startSign = self.makeStartSign(position: CGPoint(x: self.frame.midX, y: self.frame.midY))
         addChild(startSign)
     }
     
     override func startGame() {
-        makePuzzlePieceEntity()
-        addSystems()
+        gameIsRunning = true
         playMusic()
         makeClock()
-        gameIsPaused = false
+        makePuzzlePieceEntity()
+        addSystems()
         for entity in entities {
             entity.component(ofType: SnappingComponent.self)?.isSetup = true
+            entity.component(ofType: SpriteComponent.self)?.sprite.zPosition = -1
         }
+        timer2 = Timer.scheduledTimer(withTimeInterval: 1.2, repeats: false, block: { [self] timer in
+            for entity in entities {
+                if entity.component(ofType: InteractionComponent.self) != nil {
+                    setZPosition(entity: entity, zPos: 4)
+                }else{
+                    setZPosition(entity: entity, zPos: 5)
+                }
+            }
+        })
+    }
+    
+    func setZPosition(entity: GKEntity, zPos: CGFloat){
+        entity.component(ofType: SpriteComponent.self)?.sprite.zPosition = zPos
     }
     
     func playMusic(){
-        self.musicPlayer.playMusic(url: "02 Hulen")
+        self.musicPlayer.play(url: "02 Hulen")
     }
     
     func getCorrectPieces() -> Int{
@@ -93,7 +106,7 @@ class Cave: Scene, SKPhysicsContactDelegate {
     
     func makeClock(){
         clock = GKEntity()
-        let timeComponent = TimeComponent()
+        let timeComponent = TimeComponent(scene: self)
         clock.addComponent(timeComponent)
         let clockSpriteComp = SpriteComponent(atlas: clockAtlas, name: "ClockBackground", zPos: 2)
         clock.addComponent(clockSpriteComp)
@@ -123,27 +136,11 @@ class Cave: Scene, SKPhysicsContactDelegate {
         self.entities.append(minDigit)
         self.entities.append(firstSecDigit)
         self.entities.append(lastSecDigit)
+        addSystems()
         self.addChild(clockSpriteComp.sprite)
         self.addChild(spriteComp1.sprite)
         self.addChild(spriteComp2.sprite)
         self.addChild(spriteComp3.sprite)
-    }
-    
-    func makeScoreBoard(){
-        scoreBoard = GKEntity()
-        let scoreBoardSprite = SpriteComponent(atlas: clockAtlas, name: "ScoreBackground", zPos: 2)
-        scoreBoard.addComponent(scoreBoardSprite)
-        scoreBoard.addComponent(PositionComponent(currentPosition: CGPoint(x: 2500, y: 1895), targetPosition: CGPoint(x: 2500, y: 1895)))
-        
-        let pointsDigit = GKEntity()
-        let pointsSpriteComp = SpriteComponent(atlas: clockAtlas, name: "0", zPos: 5)
-        pointsDigit.addComponent(ChangeComponent(clock: clock, digit: "points"))
-        pointsDigit.addComponent(pointsSpriteComp)
-        pointsDigit.addComponent(PositionComponent(currentPosition: CGPoint(x: 2500, y: 1900), targetPosition: CGPoint(x: 2500, y: 1900)))
-        self.addChild(pointsSpriteComp.sprite)
-        self.addChild(scoreBoardSprite.sprite)
-        self.entities.append(scoreBoard)
-        self.entities.append(pointsDigit)
     }
     
     func makePuzzlePieceEntity(){
@@ -184,17 +181,30 @@ class Cave: Scene, SKPhysicsContactDelegate {
                 }
                 if entity.component(ofType: GravityComponent.self) != nil {
                     entity.removeComponent(ofType: GravityComponent.self)
+                    if correctPieces == 1 {
+                        playSpeak(name: "Hulen5", length: 5)
+                    }
+                    if correctPieces == 2 {
+                        playSpeak(name: "Hulen6", length: 4)
+                    }
+                    if correctPieces == 3 {
+                        playSpeak(name: "Hulen7", length: 4)
+                    }
+                    if correctPieces == 5 {
+                        playSpeak(name: "Hulen8", length: 4)
+                    }
                 }
             }
         }
         if correctPieces == pieces.count && !hasFinished{
-            Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { [self] timer in
-                self.musicPlayer.fadeOut()
-                gameIsPaused = true
+            timer1 = Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { [self] timer in
+                musicPlayer.fadeOut()
+                gameIsRunning = false
                 let endsign = self.makeEndSign(position: CGPoint(x: self.frame.midX, y: self.frame.midY))
                 addChild(endsign)
+                playSpeakNoMusic(name: "Hulen10")
             })
-            clock?.component(ofType: TimeComponent.self)?.endTimer()
+            clock.component(ofType: TimeComponent.self)?.endTimer()
             hasFinished = true
             for entity in entities {
                 guard let spriteComponent = entity.component(ofType: SpriteComponent.self) else {return}
@@ -213,55 +223,38 @@ class Cave: Scene, SKPhysicsContactDelegate {
     }
     
     func checkTime() {
-        if clock?.component(ofType: TimeComponent.self)?.timeIsUp == true {
+        if clock.component(ofType: TimeComponent.self)?.timeIsUp == true {
             self.musicPlayer.fadeOut()
-            gameIsPaused = true
+            gameIsRunning = false
             let restartSign = self.makeRestartSign(position: CGPoint(x: self.frame.midX, y: self.frame.midY))
             addChild(restartSign)
+            playSpeakNoMusic(name: "Hulen11")
         }
+    }
+    
+    func removeEntity(entity : GKEntity) {
+        guard let index = entities.firstIndex(of: entity) else { return }
+        entity.component(ofType: SpriteComponent.self)?.willRemoveFromEntity()
+        self.entities.remove(at: index)
     }
     
     override func restart() {
         self.viewController?.selectScene(selectedScene: Cave(size: CGSize(width: 2732, height: 2048)))
     }
     
-/*    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches{
-            let location = touch.location(in: self)
-            let touchedNode = topNode(at: location)
-            self.entityBeingInteractedWith = touchedNode?.entity
-            guard let hasEntity = self.entityBeingInteractedWith else { return }
-            hasEntity.component(ofType: InteractionComponent.self)?.state = .move(.began, location)
-
-        }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches{
-            let location = touch.location(in: self)
-            let touchedNode = topNode(at: location)
-            self.entityBeingInteractedWith = touchedNode?.entity
-            guard let hasEntity = self.entityBeingInteractedWith else { return }
-            hasEntity.component(ofType: InteractionComponent.self)?.state = .move(.changed, location)
-
-        }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches{
-            let location = touch.location(in: self)
-            let touchedNode = topNode(at: location)
-            self.entityBeingInteractedWith = touchedNode?.entity
-            guard let hasEntity = self.entityBeingInteractedWith else { return }
-            hasEntity.component(ofType: InteractionComponent.self)?.state = .move(.ended, location)
-            self.entityBeingInteractedWith = nil
-            
-
-        }
-    } */
-    
     override func willMove(from view: SKView) {
-        self.clock?.component(ofType: TimeComponent.self)?.timer.invalidate()
+        print("will move from cave")
+        self.clock.component(ofType: TimeComponent.self)?.timer.invalidate()
+        self.clock.component(ofType: TimeComponent.self)?.timer = nil
+        self.timer1?.invalidate()
+        self.timer1 = nil
+        self.removeAllActions()
+        self.clock = nil
+        self.pieces = nil
+        self.puzzle = nil
+        for entity in entities {
+            removeEntity(entity: entity)
+        }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -272,22 +265,17 @@ class Cave: Scene, SKPhysicsContactDelegate {
 
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-        
+
         // Initialize _lastUpdateTime if it has not already been
         if (self.lastUpdateTime == 0) {
             self.lastUpdateTime = currentTime
         }
         // Calculate time since last update
         let dt = currentTime - self.lastUpdateTime
-        if gameIsPaused == false {
+
+        if gameIsRunning == true {
             for system in componentSystems {
                 system.update(deltaTime: dt)
-            }
-            
-            // Update entities
-            for entity in self.entities {
-                entity.update(deltaTime: dt)
-                
             }
             checkTime()
             checkForCorrectPlacedPiece()

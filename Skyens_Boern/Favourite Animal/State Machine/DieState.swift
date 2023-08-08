@@ -33,6 +33,7 @@ class DieState: GKState {
         }
     }
     
+    /* Activate the death animation */
     override func didEnter(from previousState: GKState?) {
         guard let spriteComponent = entity?.component(ofType: SpriteComponent.self) else {return}
         guard let swimmingComponent = entity?.component(ofType: SwimmingComponent.self) else {return}

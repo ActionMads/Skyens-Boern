@@ -16,7 +16,7 @@ class SwimmingComponent: GKComponent {
     var direction : String!
     let positionTolerence : CGFloat = 20
     var hasReachedTarget : Bool = false
-    var canSwim : Bool = true
+    var canSwim : Bool = false
     var leftX : CGFloat
     var rightX : CGFloat
     
@@ -27,6 +27,7 @@ class SwimmingComponent: GKComponent {
         super.init()
     }
     
+    /* Swim from current position to target position */
     func swim(currentPosition: CGPoint, targetPosition : CGPoint, seconds: TimeInterval) -> CGPoint {
         let offset = CGPoint(x: targetPosition.x - currentPosition.x,
                              y: targetPosition.y - currentPosition.y)

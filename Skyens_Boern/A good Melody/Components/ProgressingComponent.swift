@@ -21,6 +21,7 @@ class ProgressingComponent : GKComponent {
     init(scene : Melody) {
         self.scene = scene
         super.init()
+        // Timer that every 0.25 seconds increments the progress
         timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true, block: { timer in
             self.increment()
             print("timer has fired")
@@ -31,6 +32,7 @@ class ProgressingComponent : GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // incement the progress circle if active/pushed
     func increment() {
         if isActive {
             progress += 1

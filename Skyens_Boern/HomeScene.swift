@@ -29,7 +29,7 @@ class HomeScene : Scene  {
     }
     
     func setScene() {
-        self.musicPlayer.playMusic(url: "01 Stille morgen")
+        self.musicPlayer.play(url: "01 Stille morgen")
         makeBackground()
         makeHeadTitle()
         makeBtn(imageName: btnImageNames.btn1.rawValue, startPosition: CGPoint(x: self.frame.minX - 500, y: self.frame.midY))
@@ -87,5 +87,14 @@ class HomeScene : Scene  {
     func animateRightBtn(btn : SKSpriteNode){
         let moveAction = SKAction.move(to: CGPoint(x: btn.position.x - self.frame.width/2, y: btn.position.y), duration: 1.5)
         btn.run(moveAction)
+    }
+    
+    override func willMove(from view: SKView) {
+        print("Will move from menu")
+        for b in btnImageNames.allCases {
+            let node = childNode(withName: b.rawValue) as! SKSpriteNode
+            print("Removing actions")
+            node.removeAllActions()
+        }
     }
 }

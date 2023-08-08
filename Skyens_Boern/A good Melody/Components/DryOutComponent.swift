@@ -20,6 +20,8 @@ class DryOutComponent : GKComponent {
     var scene : Melody
     var dropsCollected : Int = 0
     var canDry : Bool = false
+    var isDry : Bool = false
+    var isRevived : Bool = false
     
     init(scene : Melody) {
         self.scene = scene

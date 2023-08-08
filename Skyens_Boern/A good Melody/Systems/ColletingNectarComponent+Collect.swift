@@ -11,6 +11,7 @@ import SpriteKit
 
 extension CollectingNectarComponent {
     override func update(deltaTime seconds: TimeInterval) {
+        // if do Collect is true chose a random flower set the bees flyingarea to the collect area
         if doCollect {
             print("Collect Time: ", collectTime)
             let index = Int.random(in: 0..<self.flowers.count)
@@ -23,6 +24,7 @@ extension CollectingNectarComponent {
                         
             isFlying.flyArea = collectArea
             collectTime -= seconds
+            // when collect time is 0 or less reset flyarea and do not collect. Set timer to collect again in 15 sec
             if collectTime <= 0 {
                 doCollect = false
                 collectTime = 2

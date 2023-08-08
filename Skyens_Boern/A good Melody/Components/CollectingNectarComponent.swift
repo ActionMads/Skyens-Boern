@@ -21,6 +21,7 @@ class CollectingNectarComponent : GKComponent {
     init(flowers : [GKEntity]) {
         self.flowers = flowers
         super.init()
+        // set an initial timer that fires after 15 sec and start the collecting
         timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: false, block: { timer in
             print("Collecting")
             self.doCollect = true

@@ -39,16 +39,7 @@ extension GroundContactComponent {
         
         if positionComponent.currentPosition.y <= groundHeight + spriteComponent.sprite.size.height/2{
             rotationComponent.currentRotation = rotateToLying(currentRotation: rotationComponent.currentRotation)
-            if isRotating {
-                entity?.removeComponent(ofType: InteractionComponent.self)
-                hasRotated = true
-            }
-            if !isRotating {
-                if hasRotated {
-                    entity?.addComponent(InteractionComponent())
-                    hasRotated = false
-                }
-            }
+            
         }
         if positionComponent.currentPosition.y < groundHeight - 100 {
             positionComponent.currentPosition.y = groundHeight + spriteComponent.sprite.size.height/2
@@ -58,6 +49,7 @@ extension GroundContactComponent {
     func rotateToLying(currentRotation: CGFloat) -> CGFloat{
         let inDegrees = currentRotation.toDegrees()
         print("current rotation in degress at ground contact", inDegrees)
+        print("Rotating: ", isRotating)
         if inDegrees == 0 {
             isRotating = false
             return inDegrees.toRads()
@@ -66,9 +58,12 @@ extension GroundContactComponent {
             if inDegrees >= 178 {
                 isRotating = false
                 return inDegrees.toRads()
-            }else {
+            }else if inDegrees < 178 {
                 isRotating = true
                 return (inDegrees + 2).toRads()
+            }
+            else {
+                return inDegrees.toRads()
             }
         }
         
@@ -76,9 +71,12 @@ extension GroundContactComponent {
             if inDegrees <= 2 {
                 isRotating = false
                 return inDegrees.toRads()
-            }else {
+            }else if inDegrees > 2{
                 isRotating = true
                 return (inDegrees - 2).toRads()
+            }
+            else {
+                return inDegrees.toRads()
             }
         }
         
@@ -86,9 +84,12 @@ extension GroundContactComponent {
             if inDegrees >= -2 {
                 isRotating = false
                 return inDegrees.toRads()
-            }else {
+            }else if inDegrees < -2 {
                 isRotating = true
                 return (inDegrees + 2).toRads()
+            }
+            else {
+                return inDegrees.toRads()
             }
         }
         if inDegrees < -90 && inDegrees > -180 {
@@ -96,9 +97,12 @@ extension GroundContactComponent {
                 isRotating = false
                 return inDegrees.toRads()
             }
-            else {
+            else if inDegrees > -178{
                 isRotating = true
                 return (inDegrees - 2).toRads()
+            }
+            else {
+                return inDegrees.toRads()
             }
 
         }

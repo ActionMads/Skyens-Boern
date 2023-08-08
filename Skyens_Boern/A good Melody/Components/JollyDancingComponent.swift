@@ -15,19 +15,11 @@ class JollyDancingComponent : GKComponent {
     var dancingTime : TimeInterval = 5
     var scene : Melody
     var isDancing : Bool = false
+    var isFirstDance : Bool = true
     
     init(scene : Melody) {
         self.scene = scene
         super.init()
-    }
-    
-    func dance(){
-        print("Dancing")
-        let danceTex = SKAction.setTexture(scene.frogAtlas.textureNamed("FrøDansende"))
-        let wait = SKAction.wait(forDuration: 0.2)
-        let normalTex = SKAction.setTexture(scene.frogAtlas.textureNamed("Frø-Small"))
-        let animation = SKAction.sequence([danceTex, wait, normalTex, wait, danceTex, wait, normalTex, wait, danceTex, wait, normalTex, wait, danceTex, wait, normalTex, wait, danceTex, wait, normalTex])
-        self.scene.childNode(withName: "Frog")?.run((animation))
     }
     
     func setTexture(texture : SKTexture, direction : String){

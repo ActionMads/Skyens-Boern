@@ -12,9 +12,11 @@ import GameplayKit
 class FullState : GKState {
     
     var entity : GKEntity
+    var scene : Melody
     
-    init(withEntity : GKEntity) {
+    init(withEntity : GKEntity, scene : Melody) {
         self.entity = withEntity
+        self.scene = scene
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
@@ -27,10 +29,16 @@ class FullState : GKState {
             return false
         }
     }
+    
+    /* If entering from Refuelingstate add the interaction*/
     override func didEnter(from previousState: GKState?) {
         if let _ = previousState as? RefuelingState {
             entity.addComponent(InteractionComponent())
-            entity.removeComponent(ofType: RefuelingComponent.self)
+            scene.updateSystems()
         }
+    }
+    
+    deinit {
+        print(self, "has deinitialized")
     }
 }

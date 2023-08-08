@@ -13,6 +13,7 @@ class Competitor: GKEntity {
     var stateMachine : GKStateMachine!
     var name : String!
     var direction : String!
+    var hasAttacked : Bool = false
     
     @objc func enterMovingState() {
         stateMachine.enter(MovingState.self)

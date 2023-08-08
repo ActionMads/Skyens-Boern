@@ -21,8 +21,11 @@ class Melody: Scene {
         let collectNectarComp = GKComponentSystem(componentClass: CollectingNectarComponent.self)
         let eatingCompSystem = GKComponentSystem(componentClass: EatingComponent.self)
         let wateringCompSystem = GKComponentSystem(componentClass: WaterComponent.self)
-        let refuelingCompSystem = GKComponentSystem(componentClass: RefuelingComponent.self)
-        return [progressingCompSystem, interactionCompSystem, collectNectarComp, dryOutCompSystem, eatingCompSystem, snappingCompSystem, flyCompSystem, refuelingCompSystem, spriteCompSystem]
+        let gravityCompSystem = GKComponentSystem(componentClass: GravityComponent.self)
+        let jollyDancingCompSystem = GKComponentSystem(componentClass: JollyDancingComponent.self)
+        let jumpingCompSystem = GKComponentSystem(componentClass: JumpingAroundComponent.self)
+        let edgingCompSystem = GKComponentSystem(componentClass: EdgingComponent.self)
+        return [edgingCompSystem, interactionCompSystem, snappingCompSystem, gravityCompSystem, progressingCompSystem, wateringCompSystem, jollyDancingCompSystem, collectNectarComp, dryOutCompSystem, eatingCompSystem, flyCompSystem, jumpingCompSystem, spriteCompSystem]
     }()
 
     var progressCircle: GKEntity?
@@ -71,23 +74,44 @@ class Melody: Scene {
     
     var timer3 : Timer?
     
+    var timer4 : Timer?
+    
+    var speakTimer1 : Timer?
+    
+    var speakTimer2 : Timer?
+    
+    var speakTimer3 : Timer?
+    
+    var speakTimer4 : Timer?
+    
+    var speakTimer5 : Timer?
+    
+    var speakTimer6 : Timer?
+    
+    var hasPlayedSpeak1 : Bool = false
+    
+    var hasPlayedSpeak2 : Bool = false
+    
+   
+    
     
     override func didMove(to view: SKView) {
         self.setupInteractionHandlers()
-        addSystems()
     }
     
     override func sceneDidLoad() {
         makeBackground()
         makeStartSign()
         self.makeBackBtn()
+        self.makeHelpBtn()
+
+
     }
     
     override func startGame() {
         gameIsRunning = true
-        self.musicPlayer.playMusic(url: "06 En god melodi")
+        self.musicPlayer.play(url: "06 En god melodi")
         startSchedual()
-        makeFlowerFactory()
         timePlayed = 0
     }
     
@@ -97,16 +121,29 @@ class Melody: Scene {
     }
     
     func startSchedual(){
-        timer1 = Timer.scheduledTimer(withTimeInterval: 60, repeats: false, block: {timer in
+        timer4 = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { [self]timer in
+            makeFlowerFactory()
+            addSystems()
+        })
+        speakTimer1 = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: {timer in
+            self.playSpeak(name: "En God Melodi1", length: 5)
+        })
+        
+        timer1 = Timer.scheduledTimer(withTimeInterval: 60, repeats: false, block: { [self]timer in
             print("first timer")
             if self.gameIsRunning {
                 self.makeFrog()
                 self.progressCircle?.component(ofType: ProgressingComponent.self)?.timer.invalidate()
+                self.progressCircle?.component(ofType: ProgressingComponent.self)?.timer = nil
                 self.removeEntity(entity: self.flowerFactory!)
                 self.removeEntity(entity: self.progressCircle!)
+                self.progressCircle = nil
+                self.flowerFactory = nil
                 self.canMakeFlowers = false
                 self.canDryOut = true
                 self.makeWaterTap()
+                updateSystems()
+
             }
         })
         timer2 = Timer.scheduledTimer(withTimeInterval: 106, repeats: false, block: { [self]timer in
@@ -117,9 +154,15 @@ class Melody: Scene {
                     removeFromFlowers(entity: flower)
                 }
                 self.canEat = true
+                self.bottle?.stateMachine = nil
                 self.removeEntity(entity: self.waterTap!)
                 self.removeEntity(entity: self.bottle!)
                 self.makePiano()
+                updateSystems()
+                self.playSpeak(name: "En God Melodi12", length: 4)
+                self.speakTimer6 = Timer.scheduledTimer(withTimeInterval: 8, repeats: false, block: {timer in
+                    self.playSpeak(name: "En God Melodi13", length: 3)
+                })
             }
 
         })
@@ -153,17 +196,11 @@ class Melody: Scene {
         melody.addComponent(PositionComponent(currentPosition: CGPoint(x: self.frame.midX, y: 1750), targetPosition: CGPoint(x: self.frame.midX, y: 1750)))
         melody.addComponent(InteractionComponent())
         melody.addComponent(EdgingComponent(scene: self))
-        Scale(sprite: spriteComp.sprite, delay: 0)
         entities.append(melody)
         addChild(spriteComp.sprite)
-
+        Scale(sprite: spriteComp.sprite, delay: 0)
+        updateSystems()
     }
-/*
-    func makeFlowers(){
-        for _ in 1...5 {
-            makeFlower(targetPosition: CGPoint(x: CGFloat.random(min: 100, max: 2500), y: 500))
-        }
-    }*/
     
     func makeFlowerTargetPosition() -> CGPoint{
         let target = CGPoint(x: flowerTargetX, y: 400)
@@ -173,19 +210,21 @@ class Melody: Scene {
     
     func makeFlowerFactory(){
         flowerFactory = GKEntity()
-        let spriteComp = SpriteComponent(atlas: flowerAtlas, name: "BlomsterKnap", zPos: 2)
+        let spriteComp = SpriteComponent(atlas: flowerAtlas, name: "BlomsterKnap", zPos: 3)
         flowerFactory!.addComponent(spriteComp)
         let position = CGPoint(x: self.frame.midX, y: 1800)
         flowerFactory!.addComponent(PositionComponent(currentPosition: position, targetPosition: position))
-        addChild(spriteComp.sprite)
+        
         Scale(sprite: spriteComp.sprite, delay: 1)
         entities.append(flowerFactory!)
         makeProgressCircle(name: "progresscircle", id: "Flower", position: position)
+        addChild(spriteComp.sprite)
+
     }
     
     func makeProgressCircle(name: String, id: String, position: CGPoint){
         progressCircle = GKEntity()
-        let spriteComp = SpriteComponent(atlas: progressAtlas, name: name, zPos: 4)
+        let spriteComp = SpriteComponent(atlas: progressAtlas, name: name, zPos: 5)
         spriteComp.sprite.name = id
         progressCircle!.addComponent(spriteComp)
         
@@ -193,8 +232,9 @@ class Melody: Scene {
         
         progressCircle!.addComponent(ProgressingComponent(scene: self))
         
-        addChild(spriteComp.sprite)
         entities.append(progressCircle!)
+        addChild(spriteComp.sprite)
+
     }
     
     func makeFlowerPlacement(position : CGPoint){
@@ -217,7 +257,8 @@ class Melody: Scene {
         addChild(spriteComp.sprite)
         Scale(sprite: spriteComp.sprite, delay: 1)
         entities.append(piano)
-        makeProgressCircle(name: "", id: "Piano", position: position)
+        makeProgressCircle(name: "pianoProgressCircle", id: "Piano", position: position)
+        
     }
     
     func makeWaterTap(){
@@ -234,7 +275,7 @@ class Melody: Scene {
     
     func makeWaterBottle(tap: GKEntity){
         bottle = Bottle()
-        bottle?.stateMachine = GKStateMachine(states: [RefuelingState(withEntity: bottle!, scene: self), FullState(withEntity: bottle!), EmptyState(withEntity: bottle!)])
+        bottle?.stateMachine = GKStateMachine(states: [RefuelingState(withEntity: bottle!, scene: self), FullState(withEntity: bottle!, scene: self), EmptyState(withEntity: bottle!, scene: self)])
         bottle?.stateMachine.enter(FullState.self)
         let spriteComp = SpriteComponent(atlas: waterAtlas, name: "Vandkande", zPos: 4)
         bottle!.addComponent(spriteComp)
@@ -250,6 +291,8 @@ class Melody: Scene {
         bottle?.addComponent(InteractionComponent())
         
         bottle?.addComponent(EdgingComponent(scene: self))
+        
+        bottle?.addComponent(RefuelingComponent(scene: self))
         
         addChild(spriteComp.sprite)
         Scale(sprite: spriteComp.sprite, delay: 1)
@@ -267,9 +310,9 @@ class Melody: Scene {
         drop.addComponent(GravityComponent())
         
         drop.addComponent(EdgingComponent(scene: self))
-        
-        self.addChild(spriteComp.sprite)
         self.entities.append(drop)
+        self.addChild(spriteComp.sprite)
+        updateSystems()
     }
     
     func makeBee() {
@@ -287,6 +330,7 @@ class Melody: Scene {
         self.entities.append(bee)
         self.bees.append(bee)
         beeHasBeenCreated = true
+        updateSystems()
     }
     
     func makeFrog() {
@@ -304,7 +348,7 @@ class Melody: Scene {
     
     func makeFlower(targetPosition : CGPoint){
         let flower = GKEntity()
-        let spriteComp = SpriteComponent(atlas: flowerAtlas, name: "Blomst", zPos: 5)
+        let spriteComp = SpriteComponent(atlas: flowerAtlas, name: "Blomst", zPos: 6)
         spriteComp.sprite.name = "flower"
         flower.addComponent(spriteComp)
         
@@ -315,10 +359,19 @@ class Melody: Scene {
         flower.addComponent(SnappingComponent())
         flower.addComponent(EdgingComponent(scene: self))
         self.addChild(spriteComp.sprite)
-        Scale(sprite: spriteComp.sprite, delay: 0)
         self.entities.append(flower)
         self.flowers.append(flower)
+        if self.flowers.count == 1 {
+            self.playSpeak(name: "En God Melodi2", length: 4)
+        }
+        if self.flowers.count == 2 {
+            self.playSpeak(name: "En God Melodi7", length: 3)
+        }
         makeFlowerPlacement(position: targetPosition)
+        updateSystems()
+        Scale(sprite: spriteComp.sprite, delay: 0)
+
+
     }
     
     func addSystems(){
@@ -329,14 +382,47 @@ class Melody: Scene {
         }
     }
     
+    func removeSystems(){
+        for system in componentSystems {
+            for entity in entities {
+                system.removeComponent(foundIn: entity)
+            }
+        }
+    }
+    
+    func updateSystems(){
+        removeSystems()
+        addSystems()
+    }
+    
     func checkForDiedPlants() {
         for flower in flowers {
-                if flower.component(ofType: DryOutComponent.self)?.hasDied == true {
-                    removeEntity(entity: flower)
-                    removeFromFlowers(entity: flower)
-                    removeBee()
+            if flower.component(ofType: DryOutComponent.self)?.isDry == true {
+                if hasPlayedSpeak1 == false {
+                    self.playSpeak(name: "En God Melodi8", length: 4)
+                    self.speakTimer3 = Timer.scheduledTimer(withTimeInterval: 6, repeats: false, block: {timer in
+                        self.playSpeak(name: "En God Melodi9", length: 4)
+                    })
+                    hasPlayedSpeak1 = true
                 }
+            }
+            if flower.component(ofType: DryOutComponent.self)?.isRevived == true {
+                if hasPlayedSpeak2 == false {
+                    self.playSpeak(name: "En God Melodi10", length: 4)
+                    self.speakTimer4 = Timer.scheduledTimer(withTimeInterval: 6, repeats: false, block: {timer in
+                        self.playSpeak(name: "En God Melodi11", length: 4)
+                    })
+                    hasPlayedSpeak2 = true
+                }
+            }
+            if flower.component(ofType: DryOutComponent.self)?.hasDied == true {
+                removeEntity(entity: flower)
+                removeFromFlowers(entity: flower)
+                removeBee()
+            }
+            
         }
+        updateSystems()
     }
     
     func removeEntity(entity : GKEntity) {
@@ -380,18 +466,28 @@ class Melody: Scene {
         for flower in flowers {
             if flower.component(ofType: SnappingComponent.self)?.hasSnapped == true {
                 makeBee()
+                if self.flowers.count == 1 {
+                    self.playSpeak(name: "En God Melodi3", length: 3)
+                    self.speakTimer2 = Timer.scheduledTimer(withTimeInterval: 8, repeats: false, block: {timer in
+                        self.playSpeak(name: "En God Melodi4", length: 4)
+                    })
+                }
+                if self.flowers.count == 4 {
+                    self.playSpeak(name: "En God Melodi5", length: 4)
+                }
                 flower.removeComponent(ofType: SnappingComponent.self)
                 flower.removeComponent(ofType: InteractionComponent.self)
             }
         }
+        updateSystems()
     }
     
     func restartGame(){
         gameIsRunning = false
         musicPlayer.fadeOut()
-        self.isPaused = true
         let restartSign = self.makeRestartSign(position: CGPoint(x: self.frame.midX, y: self.frame.midY))
         addChild(restartSign)
+        playSpeakNoMusic(name: "En God Melodi17")
     }
     
     func lose(timePlayed : TimeInterval) {
@@ -408,21 +504,23 @@ class Melody: Scene {
     }
     
     func ending() {
+        gameIsRunning = false
         let endSign = self.makeEndSign(position: CGPoint(x: self.frame.midX, y: self.frame.midY))
         addChild(endSign)
+        playSpeakNoMusic(name: "En God Melodi18")
     }
     
     func checkBottleState(){
-        print("state", bottle?.stateMachine.currentState)
-        if bottle?.component(ofType: WaterComponent.self)?.bottleIsEmpty == true && bottle?.component(ofType: SnappingComponent.self)?.hasSnapped == false {
-            bottle?.stateMachine.enter(EmptyState.self)
-        } else if bottle?.component(ofType: WaterComponent.self)?.bottleIsEmpty == false {
-            bottle?.stateMachine.enter(FullState.self)
-        } else if bottle?.component(ofType: WaterComponent.self)?.bottleIsEmpty == true &&
+        if bottle?.stateMachine.currentState is FullState && bottle?.component(ofType: WaterComponent.self)?.bottleIsEmpty == true && bottle?.component(ofType: SnappingComponent.self)?.hasSnapped == false {
+            bottle?.stateMachine?.enter(EmptyState.self)
+        } else if bottle?.stateMachine.currentState is RefuelingState && bottle?.component(ofType: WaterComponent.self)?.bottleIsEmpty == false {
+            bottle?.stateMachine?.enter(FullState.self)
+        } else if bottle?.stateMachine.currentState is EmptyState && bottle?.component(ofType: WaterComponent.self)?.bottleIsEmpty == true &&
                     bottle?.component(ofType: SnappingComponent.self)?.hasSnapped == true {
-            print("snapped")
-            bottle?.stateMachine.enter(RefuelingState.self)
+            print("snapped and entering refuelingstate")
+            bottle?.stateMachine?.enter(RefuelingState.self)
         }
+        updateSystems()
     }
     
     override func restart() {
@@ -431,66 +529,86 @@ class Melody: Scene {
     
     override func willMove(from view: SKView) {
         print("Will Move from Melody")
-        timer1?.invalidate()
-        timer1 = nil
-        timer2?.invalidate()
-        timer2 = nil
-        timer3?.invalidate()
-        timer3 = nil
+        self.timer1?.invalidate()
+        self.timer1 = nil
+        self.timer2?.invalidate()
+        self.timer2 = nil
+        self.timer3?.invalidate()
+        self.timer3 = nil
+        self.timer4?.invalidate()
+        self.timer4 = nil
+        self.speakTimer1?.invalidate()
+        self.speakTimer1 = nil
+        self.speakTimer2?.invalidate()
+        self.speakTimer2 = nil
+        self.speakTimer3?.invalidate()
+        self.speakTimer3 = nil
+        self.speakTimer4?.invalidate()
+        self.speakTimer4 = nil
+        self.speakTimer5?.invalidate()
+        self.speakTimer5 = nil
+        self.speakTimer6?.invalidate()
+        self.speakTimer6 = nil
+        frog?.component(ofType: JumpingAroundComponent.self)?.timer1?.invalidate()
+        frog?.component(ofType: JumpingAroundComponent.self)?.timer1 = nil
+        frog?.component(ofType: JumpingAroundComponent.self)?.timer2?.invalidate()
+        frog?.component(ofType: JumpingAroundComponent.self)?.timer2 = nil
+        self.progressCircle?.component(ofType: ProgressingComponent.self)?.timer?.invalidate()
+        self.progressCircle?.component(ofType: ProgressingComponent.self)?.timer = nil
         for bee in bees {
             print("removing bees")
+            bee.component(ofType: SpriteComponent.self)?.willRemoveFromEntity()
             bee.component(ofType: CollectingNectarComponent.self)?.timer?.invalidate()
-            bee.component(ofType: SpriteComponent.self)?.sprite.removeAllActions()
+            bee.component(ofType: CollectingNectarComponent.self)?.timer = nil
             guard let index = bees.firstIndex(of: bee) else { return }
             bees.remove(at: index)
         }
         for entity in entities {
             print("removing entities")
-            entity.component(ofType: ProgressingComponent.self)?.timer.invalidate()
+            entity.component(ofType: SpriteComponent.self)?.willRemoveFromEntity()
             removeEntity(entity: entity)
         }
         for flower in flowers {
-            print("Removing flowers")
-            flower.component(ofType: SpriteComponent.self)?.willRemoveFromEntity()
             removeFromFlowers(entity: flower)
         }
-        frog?.component(ofType: JumpingAroundComponent.self)?.timer1?.invalidate()
-        frog?.component(ofType: JumpingAroundComponent.self)?.timer2?.invalidate()
-        self.progressCircle?.component(ofType: ProgressingComponent.self)?.timer.invalidate()
+        
         flowerFactory = nil
         progressCircle = nil
         waterTap = nil
         bottle?.stateMachine = nil
         bottle = nil
         frog = nil
+        self.removeAllActions()
+        removeSystems()
+        
     }
     
     override func update(_ currentTime: TimeInterval) {
+        
         if (self.lastUpdateTime == 0) {
             self.lastUpdateTime = currentTime
         }
         // Calculate time since last update
         let dt = currentTime - self.lastUpdateTime
+
         print("gameloop running", currentTime)
         timePlayed += dt
         if gameIsRunning {
-            checkBottleState()
+            print("game is running")
+            if bottle?.stateMachine != nil {
+                checkBottleState()
+            }
             checkForDiedPlants()
             checkPlacedPlants()
             lose(timePlayed: timePlayed)
-
             for system in componentSystems {
                 system.update(deltaTime: dt)
             }
-
-            // Update entities
-            for entity in self.entities {
-                entity.update(deltaTime: dt)
-            }
-
-
         }
         self.lastUpdateTime = currentTime
 
+    }
+    deinit {
+        print(self, "has deinitialized")
     }
 }

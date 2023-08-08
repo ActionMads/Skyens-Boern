@@ -1,38 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="V8x-ae-uZi">
-    <device id="retina3_5" orientation="landscape" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="V8x-ae-uZi">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--A Good Melody-->
-        <scene sceneID="Us8-uG-OUu">
-            <objects>
-                <viewController title="En God Melodi" modalPresentationStyle="fullScreen" id="2T4-VR-dBO" userLabel="A Good Melody" customClass="MelodyViewController" customModule="Skyens_Boern" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="72b-sH-P5N" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="VdF-dG-dL5"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <connections>
-                        <segue destination="V8x-ae-uZi" kind="showDetail" identifier="Home" id="Dtf-a9-GJz"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vRJ-mU-ct0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3079" y="-287"/>
-        </scene>
         <!--Home-->
         <scene sceneID="Fnz-IT-wsw">
             <objects>
                 <viewController storyboardIdentifier="Home" title="Home" modalTransitionStyle="flipHorizontal" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="V8x-ae-uZi" customClass="ViewController" customModule="Skyens_Boern" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gd2-Ft-pdv" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <viewLayoutGuide key="safeArea" id="2vq-ZA-bgp"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -47,113 +29,7 @@
             </objects>
             <point key="canvasLocation" x="-2936.25" y="525"/>
         </scene>
-        <!--Cave View Controller-->
-        <scene sceneID="LHp-P5-P2o">
-            <objects>
-                <viewController modalPresentationStyle="fullScreen" id="ZrF-9x-K8Q" customClass="CaveViewController" customModule="Skyens_Boern" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8k4-Da-ktW" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="7gm-NQ-hue"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <connections>
-                            <outlet property="delegate" destination="ZrF-9x-K8Q" id="gAX-MG-TU3"/>
-                        </connections>
-                    </view>
-                    <navigationItem key="navigationItem" id="d6b-uO-d3C"/>
-                    <connections>
-                        <segue destination="V8x-ae-uZi" kind="showDetail" identifier="Home" id="Gb8-7Y-oOD"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0Em-e2-iOw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2935" y="1253"/>
-        </scene>
-        <!--Goodnight Song View Controller-->
-        <scene sceneID="r1h-0G-Iyk">
-            <objects>
-                <viewController wantsFullScreenLayout="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="wMH-Am-brv" customClass="GoodnightSongViewController" customModule="Skyens_Boern" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5V8-mB-K51" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="3iX-2n-1jn"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <connections>
-                        <segue destination="V8x-ae-uZi" kind="showDetail" identifier="Home" id="KPR-s1-hsP"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wgo-SC-sbJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2985" y="2023"/>
-        </scene>
-        <!--There Once Was A Man View Controller-->
-        <scene sceneID="tXr-a1-R10">
-            <objects>
-                <viewController wantsFullScreenLayout="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="BV1-FR-VrT" userLabel="There Once Was A Man View Controller" customClass="ThereOnceWasAManViewController" customModule="Skyens_Boern" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <connections>
-                            <outlet property="delegate" destination="BV1-FR-VrT" id="f1s-gg-WMk"/>
-                        </connections>
-                    </view>
-                    <navigationItem key="navigationItem" id="8yH-rQ-Ytx"/>
-                    <connections>
-                        <segue destination="V8x-ae-uZi" kind="showDetail" identifier="Home" id="Deg-di-Ye6"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2020" y="216"/>
-        </scene>
-        <!--Adventure-->
-        <scene sceneID="lLd-fj-ziN">
-            <objects>
-                <viewController title="Eventyr" wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="LJG-Ru-EPo" userLabel="Adventure" customClass="AdventureViewController" customModule="Skyens_Boern" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="DSm-Sy-bKd" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="x3W-R9-k3q"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <connections>
-                            <outlet property="delegate" destination="LJG-Ru-EPo" id="0HT-zw-Wka"/>
-                        </connections>
-                    </view>
-                    <navigationItem key="navigationItem" id="hSb-Sm-rH5"/>
-                    <connections>
-                        <segue destination="V8x-ae-uZi" kind="showDetail" identifier="Home" id="Lym-HN-D1h"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hfm-79-fuB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2020" y="928"/>
-        </scene>
-        <!--Favourite Animal View Controller-->
-        <scene sceneID="P92-x6-vje">
-            <objects>
-                <viewController modalPresentationStyle="fullScreen" id="PE6-lB-YKA" userLabel="Favourite Animal View Controller" customClass="FavouriteAnimalViewController" customModule="Skyens_Boern" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="lYI-NI-Gbg" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="A5e-RA-hFl"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="tMH-SL-C3E"/>
-                    <connections>
-                        <segue destination="V8x-ae-uZi" kind="showDetail" identifier="Home" id="gDD-fZ-BMX"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QgV-Oj-mSo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2225" y="1785"/>
-        </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="Dtf-a9-GJz"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

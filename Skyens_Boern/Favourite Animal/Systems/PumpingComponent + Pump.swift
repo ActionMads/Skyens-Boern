@@ -21,7 +21,7 @@ extension PumpingComponent {
                 hasSprite.sprite.run(.repeatForever(action))
                 isFirst = false
             }
-
+            
             self.timeLeft -= seconds
             if timeLeft <= 0 {
                 hasSprite.sprite.removeAllActions()

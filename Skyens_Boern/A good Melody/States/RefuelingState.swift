@@ -31,11 +31,17 @@ class RefuelingState : GKState {
         }
     }
     
+    /* If enter state from empty state remove the interaction and start refueling the bottle*/
     override func didEnter(from previousState: GKState?) {
         if let _ = previousState as? EmptyState {
             entity.removeComponent(ofType: InteractionComponent.self)
-            entity.addComponent(RefuelingComponent(scene: scene))
+            entity.component(ofType: RefuelingComponent.self)?.run()
+            scene.updateSystems()
         }
+    }
+    
+    deinit {
+        print(self, "has deinitialized")
     }
 }
 

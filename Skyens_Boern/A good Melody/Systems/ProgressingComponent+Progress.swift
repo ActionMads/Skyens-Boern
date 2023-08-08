@@ -12,10 +12,14 @@ import SpriteKit
 extension ProgressingComponent {
     override func update(deltaTime seconds: TimeInterval) {
         print("Progressing")
+        
+        /* If entity has the following components continue */
+
         guard let hasSprite = entity?.component(ofType: SpriteComponent.self) else {
             return
         }
         
+        // Check if entity is either piano or flower
         if hasSprite.sprite.name == "Piano" {
             name = "ProgressCircleBlack"
         }
@@ -23,6 +27,7 @@ extension ProgressingComponent {
             name = "ProgressCircle"
         }
         
+        // set the name of the sprite img to the current step in the progress
         switch progress {
         case 0:
             name = "\(name)\(progress)"
@@ -63,18 +68,22 @@ extension ProgressingComponent {
         case 12:
             name = "\(name)\(progress)"
             isActive = false
+            // If entity is Piano make melody
             if hasSprite.sprite.name == "Piano"{
                 scene.makeMelody()
             }
+            // if sprite is Flower and flowers are allowed make a flower
             if hasSprite.sprite.name == "Flower" && scene.canMakeFlowers {
                 scene.makeFlower(targetPosition: self.scene.makeFlowerTargetPosition())
             }
-
+            
+            // reset the progresscircle
             progress = 0
             break
         default:
             break
         }
+        // set the texture of the progress circle
         print("progress name:", name)
         texture = scene.progressAtlas.textureNamed(name)
         hasSprite.setTexture(texture: texture)

@@ -5,6 +5,8 @@
 //  Created by Mads Munk on 12/10/2021.
 //  Copyright © 2021 Mads Munk. All rights reserved.
 //
+// A Bottle GKEntity with Statemachine
+//
 
 import Foundation
 import GameplayKit

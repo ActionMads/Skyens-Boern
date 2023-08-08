@@ -30,9 +30,14 @@ class GoodnightSong : Scene {
     override func sceneDidLoad() {
         makeBackground()
         makeGirl()
-        musicPlayer.playMusic(url: "07 Godnatsang")
+        musicPlayer.play(url: "07 Godnatsang")
         presentGirl()
         self.makeBackBtn()
+        startSchedual()
+    }
+    
+    /* Start the scheduled timers and animations */
+    func startSchedual() {
         self.eyesTimer = Timer.scheduledTimer(withTimeInterval: 6, repeats: false, block: { [self] timer in
             animateEyes(tex1: "PigeLukkedeØjne", tex2: "PigeÅbneØjne", sprite: girl)
 
@@ -61,6 +66,7 @@ class GoodnightSong : Scene {
         })
     }
     
+    /* Fade in black screen */
     func makeBlackScreen(){
         let blackScreen = SKSpriteNode(color: UIColor.black, size: CGSize(width: 2732, height: 2048))
         blackScreen.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
@@ -70,6 +76,7 @@ class GoodnightSong : Scene {
         fadeIn(sprite: blackScreen)
     }
     
+    /* Fade in lying girl animation */
     func makeLyingGirl(){
         lyingGirl = SKSpriteNode(texture: goodnightAtlas.textureNamed("PigeLiggendeÅbneØjne"))
         lyingGirl!.alpha = 0.0
@@ -79,6 +86,7 @@ class GoodnightSong : Scene {
         fadeIn(sprite: lyingGirl!)
     }
     
+    /* Duvet Animation */
     func makeDuvet(){
         let duvet = SKSpriteNode(texture: goodnightAtlas.textureNamed("Dyne"))
         duvet.position = CGPoint(x: self.frame.width/2, y: -self.frame.height/2)
@@ -88,6 +96,7 @@ class GoodnightSong : Scene {
         duvet.run(moveUp)
     }
     
+    /* Handshake animations */
     func makeHandShake(){
         hand = SKSpriteNode(texture: goodnightAtlas.textureNamed("Hånd"))
         hand.position = CGPoint(x: self.frame.maxX + hand.size.width, y: self.frame.height/2)
@@ -105,6 +114,7 @@ class GoodnightSong : Scene {
         arm.run(sequence)
     }
     
+    /* Change to bed scene */
     func changeScene(){
         let fadeOut = SKAction.fadeOut(withDuration: 3.0)
         let changeBackground = SKAction.setTexture(goodnightAtlas.textureNamed("Seng"))
@@ -116,11 +126,13 @@ class GoodnightSong : Scene {
         arm.run(fadeOut, completion: removeFromParent)
     }
     
+    /* Fade out sprite */
     func fadeOut(sprite: SKSpriteNode){
         let fadeAction = SKAction.fadeOut(withDuration: 3.0)
         sprite.run(fadeAction)
     }
     
+    /* Fade in sprite*/
     func fadeIn(sprite: SKSpriteNode){
         let wait = SKAction.wait(forDuration: 0)
         let fadeInAction = SKAction.fadeIn(withDuration: 3.0)
@@ -128,6 +140,7 @@ class GoodnightSong : Scene {
         sprite.run(sequence)
     }
     
+    /* Add background */
     func makeBackground(){
         background = SKSpriteNode(texture: goodnightAtlas.textureNamed("Vindue"))
         background!.position = CGPoint(x: size.width/2, y: size.height/2)
@@ -135,6 +148,7 @@ class GoodnightSong : Scene {
         addChild(background!)
     }
     
+    /* Add girl to scene */
     func makeGirl(){
         girl = SKSpriteNode(texture: goodnightAtlas.textureNamed("PigeÅbneØjne"))
         girl.position = CGPoint(x: frame.minX - girl.size.width/2, y: size.height/2)
@@ -142,6 +156,7 @@ class GoodnightSong : Scene {
         addChild(girl)
     }
     
+    /* Animate girls blinking eyes */
     func animateEyes(tex1: String, tex2: String, sprite: SKSpriteNode){
         let eyesClosed = goodnightAtlas.textureNamed(tex1)
         let eyesOpen = goodnightAtlas.textureNamed(tex2)
@@ -153,10 +168,17 @@ class GoodnightSong : Scene {
         sprite.run(.repeatForever(sequence))
     }
     
+    /* Close eyes animation */
     func closeEyes(){
         lyingGirl!.removeAllActions()
         let closeEyes = SKAction.setTexture(goodnightAtlas.textureNamed("PigeLiggendeLukkedeØjne"))
         lyingGirl!.run(closeEyes)
+    }
+    
+    /* Present the girl */
+    func presentGirl() {
+        let move = SKAction.moveTo(x: self.frame.minX + girl.size.width/2, duration: 5.0)
+        girl.run(move)
     }
     
     override func willMove(from view: SKView) {
@@ -179,12 +201,7 @@ class GoodnightSong : Scene {
             self.lastUpdateTime = currentTime
         }
         // Calculate time since last update
-        let dt = currentTime - self.lastUpdateTime
         self.lastUpdateTime = currentTime
         }
-    func presentGirl() {
-        let move = SKAction.moveTo(x: self.frame.minX + girl.size.width/2, duration: 5.0)
-        girl.run(move)
-    }
     
 }

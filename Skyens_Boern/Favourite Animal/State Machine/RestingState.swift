@@ -12,7 +12,8 @@ import SpriteKit
 
 class RestingState: GKState {
     weak var entity : Competitor?
-    weak var scene : FavouriteAnimal?
+    var scene : FavouriteAnimal
+    var isFirstSpeak : Bool = true
     
     init(withEntity : Competitor, scene : FavouriteAnimal) {
         self.entity = withEntity
@@ -37,23 +38,29 @@ class RestingState: GKState {
     }
     
     override func didEnter(from previousState: GKState?) {
-        self.scene?.hearthBtn!.component(ofType: SpriteComponent.self)?.sprite.name = "hearthBtn"
+        /* Play Speak once*/
+        if isFirstSpeak {
+            self.scene.playSpeak(name: "Yndlingsdyr8", length: 3)
+            isFirstSpeak = false
+        }
+        /* Activate rest animation and make competitor invunreble*/
+        self.scene.hearthBtn!.component(ofType: SpriteComponent.self)?.sprite.name = "hearthBtn"
         entity?.component(ofType: HitingComponent.self)?.isInvunreble = true
         let scaleAction = flick()
         guard let hasSprite = entity?.component(ofType: SpriteComponent.self) else {return}
         hasSprite.sprite.run(.repeat(scaleAction, count: 10))
+        /* If entering from MovingState disable swim*/
         if let _ = previousState as? MovingState {
             entity?.component(ofType: SwimmingComponent.self)?.canSwim = false
         }
+        /* Entering from SeekingState remove SeekComponent*/
         else if let _ = previousState as? SeekingState {
             entity?.removeComponent(ofType: SeekComponent.self)
         }
     }
     
+    /* Flicker animation */
     private func flick() -> SKAction{
-        let printAction = SKAction.run {
-            print("flickering")
-        }
         let fadeOut = SKAction.fadeOut(withDuration: 0.1)
         let fadeIn = SKAction.fadeIn(withDuration: 0.1)
         let sequence = SKAction.sequence([fadeOut,fadeIn])

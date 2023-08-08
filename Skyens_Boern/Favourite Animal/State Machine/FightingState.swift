@@ -37,6 +37,7 @@ class FightingState : GKState {
         }
     }
     
+    /* If entering from seekingstate disable swim and remove SeekComponent at last attakt and reenter movingstate*/
     override func didEnter(from previousState: GKState?) {
         if let _ = previousState as? SeekingState {
             entity?.component(ofType: SwimmingComponent.self)?.canSwim = false

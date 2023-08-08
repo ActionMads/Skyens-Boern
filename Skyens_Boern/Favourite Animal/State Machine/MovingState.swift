@@ -34,6 +34,7 @@ class MovingState: GKState {
         }
     }
     
+    /* If entering from Fightingstate set target position*/
     override func didEnter(from previousState: GKState?) {
         if let _ = previousState as? FightingState {
             entity?.component(ofType: SwimmingComponent.self)?.canSwim = true
@@ -44,6 +45,7 @@ class MovingState: GKState {
                 targetPosition = CGPoint(x: CGFloat.random(min: 1750, max: 2200), y: 1000)
             }
             entity?.component(ofType: PositionComponent.self)?.targetPosition = targetPosition
+        /* If entering from Restingstate set target position and turn of Invunrebillty*/
         } else if let _ = previousState as? RestingState {
             entity?.component(ofType: SwimmingComponent.self)?.canSwim = true
             entity?.component(ofType: HitingComponent.self)?.isInvunreble = false
@@ -54,6 +56,7 @@ class MovingState: GKState {
                 targetPosition = CGPoint(x: CGFloat.random(min: 1750, max: 2200), y: 1000)
             }
             entity?.component(ofType: PositionComponent.self)?.targetPosition = targetPosition
+            /* If entering from GettingHitState*/
         } else if let _ = previousState as? GettingHitState {
             entity?.component(ofType: SwimmingComponent.self)?.canSwim = true
             var targetPosition : CGPoint!

@@ -21,13 +21,11 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
     var edgeCollisionMask: UInt32 = 0b0100
     var dromedaryCategoryBitMask: UInt32 = 0b001
     var edge: SKSpriteNode!
-    var dromedary: SKSpriteNode!
     var nose: SKSpriteNode!
     var noseXPosition: CGFloat!
     var nosePositionIsUpdated: Bool = false
     var wizard: SKSpriteNode!
     var mapSpeed: CGFloat = 5
-    var canJump = true
     var book: SKSpriteNode!
     var wizNose: SKSpriteNode!
     var hasMounted: Bool = false
@@ -44,15 +42,25 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
     var timer3 : Timer?
     var timer4 : Timer?
     var timer5 : Timer?
+    var timer6 : Timer?
     let manAtlas : SKTextureAtlas = SKTextureAtlas(named: "Man")
     let wizardAtlas : SKTextureAtlas = SKTextureAtlas(named: "Wizard")
     let dromedaryAtlas : SKTextureAtlas = SKTextureAtlas(named: "Dromedary")
     let dancerAtlas : SKTextureAtlas = SKTextureAtlas(named: "Dancer")
     let bookAtlas : SKTextureAtlas = SKTextureAtlas(named: "Book")
     let noseAtlas : SKTextureAtlas = SKTextureAtlas(named: "Nose")
+    var firstSpeak : SKSpriteNode = SKSpriteNode()
+    var secondSpeak : SKSpriteNode = SKSpriteNode()
+    var theirdSpeak : SKSpriteNode = SKSpriteNode()
+    var fourthSpeak : SKSpriteNode = SKSpriteNode()
+    var fithSpeak : SKSpriteNode = SKSpriteNode()
+    var sixthSpeak : SKSpriteNode = SKSpriteNode()
+    var seventhSpeak : SKSpriteNode = SKSpriteNode()
+    var eigthSpeak : SKSpriteNode = SKSpriteNode()
+    var ninthSpeak : SKSpriteNode = SKSpriteNode()
+    var tenthSpeak : SKSpriteNode = SKSpriteNode()
+    var eleventhSpeak : SKSpriteNode = SKSpriteNode()
 
-
-    
     private var lastUpdateTime : TimeInterval = 0
     
     
@@ -64,6 +72,10 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         makeEdge()
         addCamera()
         self.makeBackBtn()
+        self.makeHelpBtn()
+        self.speakPlayer.setVolume(vol: 10)
+        canJump = true
+
     }
     
     func addCamera(){
@@ -78,31 +90,32 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         let playableAreaScaleForIpadAndIphone = screenHeight / tileMap.mapSize.height
         let camera = SKCameraNode()
         camera.setScale(1/playableAreaScaleForIpadAndIphone)
+        let scale = playableAreaScaleForIpadAndIphone*2
+        self.calculateSizeDivider(scale: scale)
         self.camera = camera
         self.addChild(self.camera!)
     }
     
     func schedual(){
-        timer1 = Timer.scheduledTimer(withTimeInterval: 25, repeats: false, block: { [self] timer in
-            print("first event")
+        
+        timer2 = Timer.scheduledTimer(withTimeInterval: 25, repeats: false, block: { [self] timer in
+            print("second event")
             animateNose(noseIMG1: "NæseRød01", noseIMG2: "NæseRød02", noseToAni: nose)
             animateDancer()
         })
-        
 
-        timer2 = Timer.scheduledTimer(withTimeInterval: 50, repeats: false, block: { [self] timer in
+        timer3 = Timer.scheduledTimer(withTimeInterval: 50, repeats: false, block: { [self] timer in
             standingDromedary()
+
         })
         
         //mounting
 
-        timer3 = Timer.scheduledTimer(withTimeInterval: 70, repeats: false, block: { [self] timer in
+        timer4 = Timer.scheduledTimer(withTimeInterval: 70, repeats: false, block: { [self] timer in
             makeWizNose()
-
         })
         
-
-        timer4 = Timer.scheduledTimer(withTimeInterval: 170, repeats: false, block: { [self] timer in
+        timer5 = Timer.scheduledTimer(withTimeInterval: 170, repeats: false, block: { [self] timer in
             ending()
         })
         
@@ -110,7 +123,6 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
     }
     
     func checkMapLocation(mapXLocation : CGFloat){
-        print("map x loc ", mapXLocation)
         if mapXLocation >= -13500 && mapXLocation <= -13490 {
             canJump = false
         }
@@ -120,7 +132,6 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
     }
     
     func animateDancer(){
-        print("animating dancer")
         let move01 = SKAction.setTexture(dancerAtlas.textureNamed("DanserMove01"))
         let move02 = SKAction.setTexture(dancerAtlas.textureNamed("DanserMove02"))
         let move03 = SKAction.setTexture(dancerAtlas.textureNamed("DanserMove03"))
@@ -238,6 +249,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         let endAction = SKAction.run { [self] in
             let endSign = self.makeEndSign(position: CGPoint(x: self.frame.midX, y: self.frame.midY))
             addChild(endSign)
+            playSpeakNoMusic(name: "Speak DVEEM12")
         }
         let celebAction = SKAction.run(celebrationAni)
         let seq = SKAction.sequence([wait, endAction])
@@ -266,7 +278,6 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         addChild(nose)
         nose.move(toParent: man)
         noseXPosition = nose.position.x
-        print(noseXPosition)
     }
     
     func remountNose(){
@@ -276,7 +287,6 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
     }
         
     func meeting(){
-        //manMeetingAni()
         mountWizard()
         
     }
@@ -296,16 +306,6 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
     }
     
     func addPhysicsToDromedary() {
-        /*
-        let path = UIBezierPath()
-        let startX: CGFloat = dromedary.position.x
-        let startY: CGFloat = dromedary.position.y + dromedary.size.height
-        path.move(to: CGPoint(x: startX, y: startY))
-        path.addLine(to: CGPoint(x: startX + dromedary.size.width, y: startY))
-        path.addLine(to: CGPoint(x: startX + 462, y: startY - dromedary.size.height - 16))
-        path.addLine(to: CGPoint(x: startX + 162, y: startY - dromedary.size.height - 16))
-        path.addLine(to: CGPoint(x: startX, y: startY))
-        */
         dromedary.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 200, height: dromedary.size.height))
         dromedary.physicsBody?.affectedByGravity = true
         dromedary.physicsBody?.isDynamic = true
@@ -318,15 +318,11 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
     func animateDromedary() {
         let run01 = SKAction.setTexture(dromedaryAtlas.textureNamed("Dromedar_HaleNed"))
         let run02 = SKAction.setTexture(dromedaryAtlas.textureNamed("DromedarILøb_HaleOp"))
-        let run04 = SKAction.setTexture(dromedaryAtlas.textureNamed("Dromedar_HaleOp"))
         let wait = SKAction.wait(forDuration: 0.2)
-        let moveUp = SKAction.move(to: CGPoint(x: dromedary.position.x, y: dromedary.position.y + 50), duration: 0.2)
-        let moveDown = SKAction.move(to: CGPoint(x: dromedary.position.x, y: dromedary.position.y - 50), duration: 0.2)
         let applyImpulse = SKAction.run {
             self.dromedary.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 500))
         }
         let sequence = SKAction.sequence([run01, wait, run02, wait, run01, wait, run02, wait])
-        let moveSequence = SKAction.sequence([moveUp, moveDown])
         let group = SKAction.group([sequence,applyImpulse])
         dromedary.run(.repeatForever(group), withKey: "dromedaryWalk")
         dromedary.name = "activeDromedary"
@@ -397,22 +393,67 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         addNodeToWizard()
         
         guard let dromedary = tileMap.childNode(withName: "Dromedar") as? SKSpriteNode else {
-            fatalError("Sprite Nodes not loaded")
+            fatalError("Sprite Nodes did not load")
         }
         self.dromedary = dromedary
         dromedary.name = "dromedary"
         
         guard let book = tileMap.childNode(withName: "Bog") as? SKSpriteNode
         else {
-            fatalError("Sprite Node not loaded")
+            fatalError("Sprite Nodes did not load")
         }
         self.book = book
         book.name = "book"
         
         guard let man = childNode(withName: "Man") as? SKSpriteNode else {
-        fatalError("Sprite Nodes not loaded")
+            fatalError("Sprite Nodes did not load")
         }
-            self.man = man
+        
+        guard let firstSpeak = tileMap.childNode(withName: "FirstSpeak") as? SKSpriteNode else {
+            fatalError("Sprite Nodes did not load")
+        }
+        self.firstSpeak = firstSpeak
+        guard let secondSpeak = tileMap.childNode(withName: "SecondSpeak") as? SKSpriteNode else {
+            fatalError("Sprite Nodes did not load")
+        }
+        self.secondSpeak = secondSpeak
+        guard let theirdSpeak = tileMap.childNode(withName: "TheirdSpeak") as? SKSpriteNode else {
+            fatalError("Sprite Nodes did not load")
+        }
+        self.theirdSpeak = theirdSpeak
+        guard let fourthSpeak = tileMap.childNode(withName: "FourthSpeak") as? SKSpriteNode else {
+            fatalError("Sprite Nodes did not load")
+        }
+        self.fourthSpeak = fourthSpeak
+        guard let fithSpeak = tileMap.childNode(withName: "FifthSpeak") as? SKSpriteNode else {
+            fatalError("Sprite Nodes did not load")
+        }
+        self.fithSpeak = fithSpeak
+        guard let sixthSpeak = tileMap.childNode(withName: "SixthSpeak") as? SKSpriteNode else {
+            fatalError("Sprite Nodes did not load")
+        }
+        self.sixthSpeak = sixthSpeak
+        guard let seventhSpeak = tileMap.childNode(withName: "SeventhSpeak") as? SKSpriteNode else {
+            fatalError("Sprite Nodes did not load")
+        }
+        self.seventhSpeak = seventhSpeak
+        guard let eigthSpeak = tileMap.childNode(withName: "EigthSpeak") as? SKSpriteNode else {
+            fatalError("Sprite Nodes did not load")
+        }
+        self.eigthSpeak = eigthSpeak
+        guard let ninthSpeak = tileMap.childNode(withName: "NinthSpeak") as? SKSpriteNode else {
+            fatalError("Sprite Nodes did not load")
+        }
+        self.ninthSpeak = ninthSpeak
+        guard let tenthSpeak = tileMap.childNode(withName: "TenthSpeak") as? SKSpriteNode else {
+            fatalError("Sprite nodes did not load")
+        }
+        self.tenthSpeak = tenthSpeak
+        guard let eleventhSpeak = tileMap.childNode(withName: "EleventhSpeak") as? SKSpriteNode else {
+            fatalError("Sprite nodes did not load")
+        }
+        self.eleventhSpeak = eleventhSpeak
+        self.man = man
         man.name = "man"
         tileMap.zPosition = 0
         mountNose()
@@ -431,7 +472,6 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         wizNose.zPosition = 1
         wizNose.size = CGSize(width: 64, height: 64)
         wizard.addChild(wizNose)
-        print("zrotation ", zRotation)
     }
     
     func turnWizard(){
@@ -441,7 +481,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         wizNose.size = CGSize(width: 64, height: 80)
         let noseRotate = SKAction.rotate(toAngle: 3.141593, duration: 0)
         wizNose.run(noseRotate)
-        wizNose.position = CGPoint(x: 15, y: 25)
+        wizNose.position = CGPoint(x: -30, y: 25)
     }
     
     func setWizNoseToFront(){
@@ -476,17 +516,8 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         let land = SKAction.move(to: CGPoint(x: dromedary.position.x - 100, y: dromedary.position.y + 100), duration: 0.8)
         let mount = SKAction.run { [self] in
             wizard.move(toParent: self.dromedary)
+            wizard.zPosition = 5
         }
-/*
-        let normalizeMan = SKAction.run { [self] in
-            let changeManTex = SKAction.setTexture(SKTexture(imageNamed: "MandRidende"))
-            man.run(changeManTex)
-            man.scale(to: CGSize(width: 232, height: 466))
-            man.position = CGPoint(x: 0, y: 0 + man.size.height/2)
-            remountNose()
-
-        }
- */
         let sequence = SKAction.sequence([wait, jump, moveToSelf, changeTex, moveUp, changeTex2, moveNose, land, mount])
         wizard.run(sequence, completion: setCanJump)
         wizard.name = "activeDromedary"
@@ -499,11 +530,12 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
     override func startGame() -> Void {
         x = 21350
         gameIsRunning = true
-        self.musicPlayer.playMusic(url: "05 Der var engang en mand")
+        self.musicPlayer.play(url: "05 Der var engang en mand")
         run()
         startButton.isHidden = true
         schedual()
     }
+    
     func makeEdge() {
         let rect = CGSize(width: self.frame.width, height: 50)
         edge = SKSpriteNode()
@@ -514,7 +546,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
     }
     func setUpPhysics(){
         self.physicsWorld.contactDelegate = self
-        self.physicsWorld.speed = 0.7
+        self.physicsWorld.speed = 1.0
     }
     
     func removePhysicsOffScreen(){
@@ -522,8 +554,6 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         ground.enumerateChildNodes(withName: "ground", using: { node, _ in
             let groundNode = node
             
-            print("groundNode x pos", groundNode.position.x)
-            print("map pos", self.groundMinX)
             if groundNode.position.x < self.groundMinX{
                 
                 groundNode.removeFromParent()
@@ -531,9 +561,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
                                    })
     }
     
-    func jump(sprite: SKSpriteNode) {
-        let moveSpriteUp = SKAction.move(to: CGPoint(x: sprite.position.x, y: sprite.position.y + 200), duration: 1.2)
-        let moveSpriteDown = SKAction.move(to: CGPoint(x: sprite.position.x, y: sprite.position.y), duration: 1.2)
+    override func jump(sprite: SKSpriteNode) {
         let wait = SKAction.wait(forDuration: 1.8)
         var jump: SKAction!
         var runAgain: SKAction!
@@ -565,31 +593,23 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         let sequence1 = SKAction.sequence([speedUpMap,setNosePos, setName, wait, speedDownMap, runAgain])
         let actionGroup = SKAction.group([sequence1, jump])
         sprite.run(actionGroup)
-
-        
     }
     
     func stop(){
         man.removeAllActions()
-        
     }
-    
-/*    func setRestartButton(){
-        startButton.text = "Vil du spille igen?"
-        startButton.isHidden = false
-    }
-*/
+
     func death(){
         self.musicPlayer.fadeOut()
         mapSpeed = 0
-        edge.removeFromParent()
-        man.removeAllActions()
-        timer5 = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { [self] timer in
+        gameIsRunning = false
+        physicsWorld.speed = 0.1
+        timer5?.invalidate()
+        timer6 = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { [self] timer in
             let restartSign = self.makeRestartSign(position: CGPoint(x: self.frame.midX, y: self.frame.midY))
             addChild(restartSign)
-
+            playSpeakNoMusic(name: "Speak DVEEM13")
         })
-        
     }
     
     func animateNose(noseIMG1: String, noseIMG2: String, noseToAni: SKSpriteNode) {
@@ -624,8 +644,6 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         book.run(moveBook)
         book.zPosition = 1
         book.name = "activeDromedary"
-
-        
     }
     
     func run(){
@@ -651,90 +669,64 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
             animateMounting()
         }
         if self.dromedary.intersects(self.wizardEnhancedNode!) && !wizardIsMounting{
+            speakPlayer.play(url: "Speak DVEEM 10")
             turnWizard()
             meeting()
         }
         if self.man.intersects(self.edge) {
             death()
         }
+        if self.man.intersects(self.firstSpeak) {
+            playSpeak(name: "Speak DVEEM1", length: 1)
+            firstSpeak.removeFromParent()
+        }
+        if self.man.intersects(self.secondSpeak) {
+            playSpeak(name: "Speak DVEEM2", length: 4)
+            secondSpeak.removeFromParent()
+        }
+        if self.man.intersects(self.theirdSpeak) {
+            playSpeak(name: "Speak DVEEM4", length: 1)
+            theirdSpeak.removeFromParent()
+        }
+        if self.man.intersects(self.fourthSpeak) {
+            playSpeak(name: "Speak DVEEM3", length: 2)
+            fourthSpeak.removeFromParent()
+        }
+        if self.man.intersects(self.fithSpeak) {
+            playSpeak(name: "Speak DVEEM5", length: 3)
+            fithSpeak.removeFromParent()
+        }
+        if self.man.intersects(self.sixthSpeak) {
+            playSpeak(name: "Speak DVEEM6", length: 2)
+            sixthSpeak.removeFromParent()
+        }
+        if self.man.intersects(self.seventhSpeak) {
+            playSpeak(name: "Speak DVEEM7", length: 2)
+            seventhSpeak.removeFromParent()
+        }
+        if self.man.intersects(self.eigthSpeak){
+            playSpeak(name: "Speak DVEEM8", length: 2)
+            eigthSpeak.removeFromParent()
+        }
+        if self.man.intersects(self.ninthSpeak) {
+            playSpeak(name: "Speak DVEEM9", length: 2)
+            ninthSpeak.removeFromParent()
+        }
+        if self.man.intersects(self.tenthSpeak) {
+            playSpeak(name: "Speak DVEEM10", length: 4)
+            tenthSpeak.removeFromParent()
+        }
+        if self.man.intersects(self.eleventhSpeak) {
+            playSpeak(name: "Speak DVEEM11", length: 1)
+            eleventhSpeak.removeFromParent()
+        }
         if self.dromedary.intersects(self.edge) {
             death()
         }
     }
     
-    func didBegin(_ contact: SKPhysicsContact) {
-        print("Body A", contact.bodyA.node?.name)
-        print("Body B", contact.bodyB.node?.name)
-
-        if contact.bodyA.node?.name == "edge" && contact.bodyB.node?.name == "man" {
-            print("Man edge contact")
-            death()
-        }
-        if contact.bodyA.node?.name == "edge" && contact.bodyB.node?.name == "activeDromedary" {
-            death()
-        }
-        if contact.bodyB.node?.name == "edge" && contact.bodyA.node?.name == "man" {
-            print("Man edge contact")
-            death()
-        }
-        if contact.bodyB.node?.name == "edge" && contact.bodyA.node?.name == "activeDromedary" {
-            death()
-        }
-
-    }
-    
-    func touchDown(atPoint pos : CGPoint) {
-
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            let location = touch.location(in: self)
-            let touchedNode = atPoint(location)
-            if gameIsRunning {
-                if touchedNode.name == "man" || touchedNode.name == "activeDromedary" {
-                    if canJump {
-                        if hasMounted {
-                            dromedary.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 2500))
-                            jump(sprite: dromedary)
-                        }else{
-                            man.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 2500))
-                            jump(sprite: man)
-                        }
-                    }
-                }
-            }
-        }
-        
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-
-    }
-    
- /*   override func backToHome(){
-        self.viewController!.performSegue(withIdentifier: "Home", sender: self)
-        self.view?.presentScene(nil)
-
-    }
-*/
     override func restart(){
         self.viewController.selectGKScene(sceneName: "ThereOnceWasAMan")
-    }
-  
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
     }
     
     override func willMove(from view: SKView) {
@@ -742,6 +734,8 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         timer2?.invalidate()
         timer3?.invalidate()
         timer4?.invalidate()
+        timer5?.invalidate()
+        timer6?.invalidate()
         self.man.removeAllActions()
         self.man.removeFromParent()
         self.dromedary.removeAllActions()
@@ -756,10 +750,8 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         print("Cleaned up")
     }
     
-    
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-        
         // Initialize _lastUpdateTime if it has not already been
         if (self.lastUpdateTime == 0) {
             self.lastUpdateTime = currentTime
@@ -768,17 +760,13 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         let dt = currentTime - self.lastUpdateTime
         
         if gameIsRunning {
-            //checkForEvents(mapLocation: x)
             MyLocation = CGPoint(x: x,y: 0)
             tileMap.position = MyLocation
             x = x - mapSpeed
-            gameIsRunning = musicPlayer.isPlaying()
             collisionDetection()
             removePhysicsOffScreen()
             currentXLocInMap += mapSpeed
             checkMapLocation(mapXLocation: currentXLocInMap)
-        }else{
-            stop()
         }
         // Update entities
         for entity in self.entities {
@@ -786,11 +774,5 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         }
         
         self.lastUpdateTime = currentTime
-        print(dromedary.position.y)
-        print(dromedary.size.height)
-        print(dromedary.size.width)
-    }
-    
-    override func didEvaluateActions() {
     }
 }

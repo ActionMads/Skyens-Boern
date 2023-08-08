@@ -23,10 +23,12 @@ class JumpingAroundComponent : GKComponent {
     
     override init() {
         super.init()
+        // every 0.5 seconds start the frogs jumping animation
         timer1 = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {timer in
             self.canJump = true
             self.jump()
         })
+        // every 1 second stop the frog from jumping and remove all actions from sprite
         timer2 = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {timer in
             self.canJump = false
             if let spriteComp = self.entity?.component(ofType: SpriteComponent.self)?.sprite {
@@ -42,6 +44,7 @@ class JumpingAroundComponent : GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // jump animation
     func jump() {
         if entity?.component(ofType: EatingComponent.self)?.isEating == false && entity?.component(ofType: JollyDancingComponent.self)?.isDancing == false {
             sprite = self.entity?.component(ofType: SpriteComponent.self)?.sprite

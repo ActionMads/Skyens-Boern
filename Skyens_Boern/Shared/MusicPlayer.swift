@@ -10,22 +10,35 @@ import Foundation
 import AVFoundation
 
 class MusicPlayer {
-    private var musicPlayer: AVAudioPlayer?
+    private var musicPlayer: AVAudioPlayer!
     
     func stopMusic() {
         musicPlayer?.stop()
+    }
+    
+    func setVolume(vol: Float) {
+        musicPlayer?.setVolume(0, fadeDuration: 1)
     }
     
     func fadeOut() {
         musicPlayer?.setVolume(0, fadeDuration: 1.0)
     }
     
+    func fadeDown() {
+        musicPlayer?.setVolume(0.1, fadeDuration: 1.0)
+    }
+    
     func fadeIn() {
-        musicPlayer?.setVolume(100, fadeDuration: 1.0)
+        musicPlayer?.setVolume(1, fadeDuration: 1.0)
     }
     
     func isPlaying() -> Bool{
-        return musicPlayer!.isPlaying
+        if musicPlayer != nil {
+            return musicPlayer!.isPlaying
+        }
+        else {
+            return false
+        }
     }
     
     func getTimecode() -> TimeInterval {
@@ -34,7 +47,7 @@ class MusicPlayer {
     
     
     
-    func playMusic(url: String) {
+    func play(url: String) {
            guard let url = Bundle.main.url(forResource: url, withExtension: "mp3") else { return }
 
            do {

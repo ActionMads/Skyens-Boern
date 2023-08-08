@@ -20,7 +20,7 @@ class FavouriteAnimal : Scene {
         let seekComSystem = GKComponentSystem(componentClass: SeekComponent.self)
         let pumpingCompSystem = GKComponentSystem(componentClass: PumpingComponent.self)
         let interActionComSystem = GKComponentSystem(componentClass: InteractionComponent.self)
-        return [spriteCompSystem, swimmingCompSystem, interActionComSystem, seekComSystem, fightingCompSystem, healthCompSystem, pumpingCompSystem]
+        return [ swimmingCompSystem, interActionComSystem, seekComSystem, fightingCompSystem, healthCompSystem, pumpingCompSystem, spriteCompSystem,]
     }()
     
     var hearthBtn : GKEntity!
@@ -30,8 +30,19 @@ class FavouriteAnimal : Scene {
     let competitorAtlas : SKTextureAtlas = SKTextureAtlas(named: "Competitor")
     let gameBarAtlas : SKTextureAtlas = SKTextureAtlas(named: "GameBar")
     var endTimer : Timer?
-    var restartTimer : Timer?
+    var restartTimer1 : Timer?
+    var restartTimer2 : Timer?
+    var startTimer : Timer?
     var seekTimer : Timer?
+    var isFirstFight : Bool = true
+    var isFirstHearth : Bool = true
+    var speakTimer1 : Timer?
+    var speakTimer2 : Timer?
+    var speakTimer3 : Timer?
+    var speakTimer4 : Timer?
+    var speakTimer5 : Timer?
+    var timePlayed : TimeInterval = 0
+    var canLose : Bool = false
 
     
     override func sceneDidLoad() {
@@ -41,10 +52,7 @@ class FavouriteAnimal : Scene {
         shark = Competitor()
         croco = Competitor()
         self.makeBackBtn()
-    }
-    
-    override func startGame(){
-        musicPlayer.playMusic(url: "03 Yndlingsdyr")
+        self.makeHelpBtn()
         makeHearthButton()
         makeHealthBar(name: "croco", position: CGPoint(x: 100, y: 1790))
         makeHealthBar(name: "shark", position: CGPoint(x: 1700, y: 1790))
@@ -52,16 +60,27 @@ class FavouriteAnimal : Scene {
         makeCroco(name: "croco", texName: "Krokodille lukket mund", startingPoint: CGPoint(x: 2200, y: 1000), targetPoint: CGPoint(x: 950, y: 1000), direction: "Right")
         makeCrocoText()
         makeSharkText()
-        gameIsRunning = true
         addSystems()
-        seekAndDestroyScheduler()
     }
     
+    /* Start the game */
+    override func startGame(){
+        musicPlayer.play(url: "03 Yndlingsdyr")
+        gameIsRunning = true
+        timePlayed = 0
+        seekAndDestroyScheduler()
+        scheduleSpeak()
+        shark.component(ofType: SwimmingComponent.self)?.canSwim = true
+        croco.component(ofType: SwimmingComponent.self)?.canSwim = true
+    }
+    
+    /* Add start sign */
     func makeStartSign() {
         let startSign = self.makeStartSign(position: CGPoint(x: self.frame.midX, y: self.frame.midY))
         addChild(startSign)
     }
     
+    /* Add the systems to componentSystems array */
     func addSystems(){
         for system in componentSystems {
             for entity in entities {
@@ -70,6 +89,22 @@ class FavouriteAnimal : Scene {
         }
     }
     
+    /* Remove components from the componentSystems array */
+    func removeSystems(){
+        for system in componentSystems {
+            for entity in entities {
+                system.removeComponent(foundIn: entity)
+            }
+        }
+    }
+    
+    /* Remove old systems and add current systems */
+    func updateSystems(){
+        removeSystems()
+        addSystems()
+    }
+    
+    /* start the seek scheduledtimer and chose a random attacker */
     func seekAndDestroyScheduler(){
         seekTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: {timer in
             let competitorIndex = Int.random(in: 0...1)
@@ -91,6 +126,26 @@ class FavouriteAnimal : Scene {
         })
     }
     
+    /* Start the scheduled speak */
+    func scheduleSpeak(){
+        speakTimer1 = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: {Timer in
+            self.playSpeak(name: "Yndlingsdyr1", length: 5)
+        })
+        speakTimer2 = Timer.scheduledTimer(withTimeInterval: 9, repeats: false, block: {Timer in
+            self.playSpeak(name: "Yndlingsdyr3", length: 4)
+        })
+        speakTimer3 = Timer.scheduledTimer(withTimeInterval: 15, repeats: false, block: {Timer in
+            self.playSpeak(name: "Yndlingsdyr2", length: 5)
+        })
+        speakTimer4  = Timer.scheduledTimer(withTimeInterval: 40, repeats: false, block: {Timer in
+            self.playSpeak(name: "Yndlingsdyr9", length: 5)
+        })
+        speakTimer5  = Timer.scheduledTimer(withTimeInterval: 49, repeats: false, block: {Timer in
+            self.playSpeak(name: "Yndlingsdyr5", length: 4)
+        })
+    }
+    
+    /* Add crocodile text to the scene */
     func makeCrocoText(){
         let text = SKSpriteNode(texture: gameBarAtlas.textureNamed("KrokodilleTekst"))
         text.position = CGPoint(x: 400, y: 1920)
@@ -99,6 +154,7 @@ class FavouriteAnimal : Scene {
         addChild(text)
     }
     
+    /* Add shark text to the scene */
     func makeSharkText() {
         let text = SKSpriteNode(texture: gameBarAtlas.textureNamed("TekstHaj"))
         text.size = CGSize(width: 350, height: 100)
@@ -107,6 +163,7 @@ class FavouriteAnimal : Scene {
         addChild(text)
     }
     
+    /* Add background */
     func makeBackground(){
         let background = SKSpriteNode(texture: bathroomAtlas.textureNamed("Yndlingsdyr_Baggrund"))
         background.position = CGPoint(x: size.width/2, y: size.height/2)
@@ -114,6 +171,7 @@ class FavouriteAnimal : Scene {
         addChild(background)
     }
     
+    /* Add Bathtop */
     func makeBathtop() {
         let bathTop = SKSpriteNode(texture: bathroomAtlas.textureNamed("NytBadekar"))
         bathTop.position = CGPoint(x: size.width/2, y: size.height/5)
@@ -121,6 +179,7 @@ class FavouriteAnimal : Scene {
         addChild(bathTop)
     }
     
+    /* Add Healthbar */
     func makeHealthBar(name : String, position: CGPoint) {
         let healthBar = GKEntity()
         let healthComponent = HealthComponent(scene: self, name: name)
@@ -142,6 +201,7 @@ class FavouriteAnimal : Scene {
 
     }
     
+    /* Add Crocodile Entity with StateMachine */
     func makeCroco(name : String, texName : String, startingPoint : CGPoint, targetPoint : CGPoint, direction : String) {
         croco.name = name
         croco.stateMachine = GKStateMachine(states: [MovingState(withEntity: croco), FightingState(withEntity: croco, opponent: shark), RestingState(withEntity: croco, scene: self), SeekingState(withEntity: croco, opponent: shark), GettingHitState(withEntity: croco), DieState(withEntity: croco)])
@@ -158,6 +218,7 @@ class FavouriteAnimal : Scene {
         entities.append(croco)
     }
     
+    /* Add Shark entity with statemachine */
     func makeShark(name : String, texName : String, startingPoint : CGPoint, targetPoint : CGPoint, direction : String) {
         shark.name = name
         shark.direction = "left"
@@ -175,36 +236,45 @@ class FavouriteAnimal : Scene {
         entities.append(shark)
     }
     
+    /* Add the hearth button entity */
     func makeHearthButton(){
         hearthBtn = GKEntity()
         let spriteComp = SpriteComponent(atlas: gameBarAtlas, name: "Hjerte2", zPos: 3)
         spriteComp.sprite.name = "hearthBtn"
         hearthBtn!.addComponent(spriteComp)
-        hearthBtn!.addComponent(PositionComponent(currentPosition: CGPoint(x: self.frame.midX, y: 1850), targetPosition: CGPoint(x: self.frame.midX, y: 1750)))
+        hearthBtn!.addComponent(PositionComponent(currentPosition: CGPoint(x: self.frame.midX - 40, y: 1800), targetPosition: CGPoint(x: self.frame.midX, y: 1700)))
         hearthBtn!.addComponent(PumpingComponent(scene: self))
         self.entities.append(hearthBtn!)
         self.addChild(spriteComp.sprite)
 
     }
     
+    /* Create a hearth */
     func makeHearth() {
+        if isFirstHearth {
+            self.playSpeak(name: "Yndlingsdyr6", length: 4)
+            isFirstHearth = false
+        }
         let hearth = GKEntity()
         let spriteComp = SpriteComponent(atlas: gameBarAtlas, name: "Hjerte2", zPos: 4)
         spriteComp.sprite.name = "hearth"
         hearth.addComponent(spriteComp)
-        hearth.addComponent(PositionComponent(currentPosition: CGPoint(x: self.frame.midX + 50, y: 1800), targetPosition: CGPoint(x: self.frame.midX + 50, y: 1800)))
+        hearth.addComponent(PositionComponent(currentPosition: CGPoint(x: self.frame.midX + 50, y: 1750), targetPosition: CGPoint(x: self.frame.midX + 50, y: 1750)))
         hearth.addComponent(InteractionComponent())
         self.entities.append(hearth)
         self.addChild(spriteComp.sprite)
         let scaleAction = self.scaleUpAndDown(duration: 0.2, delay: 0.3)
         spriteComp.sprite.run(scaleAction)
+        updateSystems()
     }
     
+    /* Get health bar to a either shark or croco from the entities array  */
     func getHealthBar(name: String) -> GKEntity {
-        let healthBar = self.entities.first(where: { $0.component(ofType: HealthComponent.self)?.name == name})! 
-            return healthBar
+        let healthBar = self.entities.first(where: { $0.component(ofType: HealthComponent.self)?.name == name})!
+        return healthBar
     }
     
+    /* Scale up and scle down animation */
     func scaleUpAndDown(duration : TimeInterval, delay : TimeInterval) -> SKAction {
         let wait = SKAction.wait(forDuration: delay)
         let scaleUp = SKAction.scale(to: 1.5, duration: duration)
@@ -216,25 +286,27 @@ class FavouriteAnimal : Scene {
         return sequence
     }
     
+    /* Check losing conditions */
     func lose(){
         let crocoHealthBar = getHealthBar(name: "croco")
         guard let crocoHealth = crocoHealthBar.component(ofType: HealthComponent.self)?.health else {return}
-        if crocoHealth <= 0 && croco.stateMachine.currentState is GettingHitState {
-            croco.stateMachine.enter(DieState.self)
-            restartTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: {[self] timer in
-            restartGame()
-            })
-        }
         let sharkHealthBar = getHealthBar(name: "shark")
         guard let sharkHealth = sharkHealthBar.component(ofType: HealthComponent.self)?.health else {return}
+        if crocoHealth <= 0 && croco.stateMachine.currentState is GettingHitState {
+            croco.stateMachine.enter(DieState.self)
+            restartTimer1 = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: {[self] timer in
+            LoseGame(loser: 0)
+            })
+        }
         if sharkHealth <= 0 && shark.stateMachine.currentState is GettingHitState{
             shark.stateMachine.enter(DieState.self)
-            restartTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: {[self] timer in
-            restartGame()
+            restartTimer2 = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: {[self] timer in
+            LoseGame(loser: 1)
             })
         }
     }
     
+    /* Animation to drown the losing competitor */
     func drown(competitor: Competitor){
         guard let spriteComponent = competitor.component(ofType: SpriteComponent.self) else {return}
         var turnAction : SKAction!
@@ -250,11 +322,13 @@ class FavouriteAnimal : Scene {
         spriteComponent.sprite.run(sequence)
     }
     
+    /* Check winning conditions */
     func win(){
         let crocoHealthBar = getHealthBar(name: "croco")
         guard let crocoHealth = crocoHealthBar.component(ofType: HealthComponent.self)?.health else {return}
         let sharkHealthBar = getHealthBar(name: "shark")
         guard let sharkHealth = sharkHealthBar.component(ofType: HealthComponent.self)?.health else {return}
+        print("Game status: ", musicPlayer.isPlaying(), "Shark Health: ", sharkHealth, "Croco Health: ", crocoHealth)
         if !musicPlayer.isPlaying() && sharkHealth > 0 && crocoHealth > 0 {
             seekTimer?.invalidate()
             victoryDance(competitor: croco)
@@ -266,14 +340,17 @@ class FavouriteAnimal : Scene {
         }
     }
     
+    /* End the game and add endsign */
     func endGame(){
         print("Ending Game")
         self.croco.component(ofType: SpriteComponent.self)?.sprite.removeAction(forKey: "victoryDance")
         self.shark.component(ofType: SpriteComponent.self)?.sprite.removeAction(forKey: "victoryDance")
         let endSign = self.makeEndSign(position: CGPoint(x: (self.frame.midX), y: self.frame.midY))
         self.addChild(endSign)
+        self.playSpeakNoMusic(name: "Yndlingsdyr12")
     }
     
+    /* Victory dance animation */
     func victoryDance(competitor : Competitor){
         guard let swimmingComp = competitor.component(ofType: SwimmingComponent.self) else {return}
         guard let spriteComponent = competitor.component(ofType: SpriteComponent.self) else {return}
@@ -287,14 +364,12 @@ class FavouriteAnimal : Scene {
         let turnAction = SKAction.rotate(toAngle: angle, duration: 0.3)
         let danceUp = SKAction.moveTo(y: spriteComponent.sprite.position.y + 30, duration: 0.1)
         let danceDown = SKAction.moveTo(y: spriteComponent.sprite.position.y - 30, duration: 0.1)
-        let printAction = SKAction.run {
-            print("Victory")
-        }
         let danceSeq = SKAction.sequence([danceUp, danceDown])
         spriteComponent.sprite.run(turnAction)
         spriteComponent.sprite.run(.repeatForever(danceSeq), withKey: "victoryDance")
     }
     
+    /* Handle the competitor cantact */
     func handleContact() {
         guard let sharkNode = self.shark.component(ofType: SpriteComponent.self)?.sprite else {return}
         guard let crocoNode = self.croco.component(ofType: SpriteComponent.self)?.sprite else {return}
@@ -327,8 +402,10 @@ class FavouriteAnimal : Scene {
                 croco.perform(#selector(croco.enterMovingState), with: nil, afterDelay: 4.0)
             }
         }
+        updateSystems()
     }
     
+    /* Increase competitor health */
     func increaseHealth(name : String){
         let healthBar = getHealthBar(name: name)
         guard let hasHealth = healthBar.component(ofType: HealthComponent.self) else {return}
@@ -337,37 +414,61 @@ class FavouriteAnimal : Scene {
         }
     }
     
+    /* Remove an entity form entites array */
     func removeEntity(entity : GKEntity) {
         guard let index = entities.firstIndex(of: entity) else { return }
         entity.component(ofType: SpriteComponent.self)?.willRemoveFromEntity()
         self.entities.remove(at: index)
     }
     
-    func restartGame(){
+    /* Lose the game and add restart sign */
+    func LoseGame(loser : Int){
         gameIsRunning = false
         musicPlayer.fadeOut()
         let restartSign = self.makeRestartSign(position: CGPoint(x: self.frame.midX, y: self.frame.midY))
         addChild(restartSign)
+        if loser == 0 {
+            self.playSpeakNoMusic(name: "Yndlingsdyr11")
+        }
+        if loser == 1 {
+            self.playSpeakNoMusic(name: "Yndlingsdyr10")
+        }
     }
     
+    /* Restart the game */
     override func restart(){
         self.viewController.selectScene(selectedScene: FavouriteAnimal(size: self.viewController.sceneSize))
     }
     
     override func willMove(from view: SKView) {
         print("Will move from animals")
+        removeSystems()
         endTimer?.invalidate()
         endTimer = nil
-        restartTimer?.invalidate()
-        restartTimer = nil
+        startTimer?.invalidate()
+        restartTimer1?.invalidate()
+        restartTimer2?.invalidate()
         seekTimer?.invalidate()
         seekTimer = nil
+        speakTimer1?.invalidate()
+        speakTimer2?.invalidate()
+        speakTimer3?.invalidate()
+        speakTimer4?.invalidate()
+        speakTimer5?.invalidate()
         self.croco.component(ofType: SpriteComponent.self)?.willRemoveFromEntity()
         self.shark.component(ofType: SpriteComponent.self)?.willRemoveFromEntity()
-        shark.name = nil
-        shark.direction = nil
-        croco.name = nil
-        croco.direction = nil
+        shark.removeComponent(ofType: SwimmingComponent.self)
+        shark.removeComponent(ofType: SpriteComponent.self)
+        shark.removeComponent(ofType: SeekComponent.self)
+        shark.removeComponent(ofType: PositionComponent.self)
+        shark.removeComponent(ofType: FightingComponent.self)
+        shark.removeComponent(ofType: HitingComponent.self)
+        croco.removeComponent(ofType: SwimmingComponent.self)
+        croco.removeComponent(ofType: SpriteComponent.self)
+        croco.removeComponent(ofType: SeekComponent.self)
+        croco.removeComponent(ofType: PositionComponent.self)
+        croco.removeComponent(ofType: FightingComponent.self)
+        croco.removeComponent(ofType: HitingComponent.self)
         shark.stateMachine = nil
         croco.stateMachine = nil
         shark = nil
@@ -380,7 +481,6 @@ class FavouriteAnimal : Scene {
             if entity.component(ofType: SpriteComponent.self)?.name == "Haj lukket mund" || entity.component(ofType: SpriteComponent.self)?.name == "Krokodille lukket mund" {
                 print("Removing state machine")
                 var competitor = entity as? Competitor
-                print("statemachine: ", competitor!.stateMachine)
                 competitor!.stateMachine = nil
                 competitor!.name = nil
                 competitor!.direction = nil
@@ -395,12 +495,7 @@ class FavouriteAnimal : Scene {
             }
             print("Removing entity")
             removeEntity(entity: entity)
-            
         }
-        print(shark)
-        print(croco)
-
-        
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -410,19 +505,15 @@ class FavouriteAnimal : Scene {
         }
         // Calculate time since last update
         let dt = currentTime - self.lastUpdateTime
+        for system in componentSystems {
+            system.update(deltaTime: dt)
+        }
         if gameIsRunning {
-            for system in componentSystems {
-                system.update(deltaTime: dt)
-            }
-            
-            // Update entities
-            for entity in self.entities {
-                
-                entity.update(deltaTime: dt)
-                
-            }
+            timePlayed += dt
+
             handleContact()
             lose()
+
             win()
         }
         if !gameIsRunning {

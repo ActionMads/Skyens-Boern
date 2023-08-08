@@ -23,4 +23,7 @@ class PositionComponent : GKComponent {
     required init?(coder aDecoder: NSCoder) {
         fatalError("Not implmented")
     }
+    deinit {
+        print(self, "has deinitialized")
+    }
 }

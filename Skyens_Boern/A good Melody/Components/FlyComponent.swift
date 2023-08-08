@@ -19,6 +19,7 @@ class FlyComponent : GKComponent {
     var isFirstRun : Bool = true
     var flyArea = CGRect(x: 100, y: 1000, width: 2600, height: 1000)
     let scene : Melody
+    var canFly : Bool = true
     
     init(scene : Melody) {
         self.scene = scene

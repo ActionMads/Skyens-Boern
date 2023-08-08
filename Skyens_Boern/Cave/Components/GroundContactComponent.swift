@@ -17,4 +17,8 @@ class GroundContactComponent: GKComponent {
     let topWall: CGFloat = 2048
     var isRotating: Bool = false
     var hasRotated: Bool = false
+    
+    deinit {
+        print(self, "has deinitialized")
+    }
 }

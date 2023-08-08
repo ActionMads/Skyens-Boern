@@ -48,15 +48,33 @@ extension Scene {
         
         
         let node = self.topNode(at: point)
-        print("Node name: ", node?.name)
+        print("Node name: ", node?.name as Any)
         switch recognizer.state {
         case .began:
-            print(recognizer.state)
+            print("recognizer state: ", recognizer.state)
             if node?.name == "yes" || node?.name == "no" {
                 self.setTextureButton(button: node as! SKSpriteNode)
 
             }
         case .ended:
+            if gameIsRunning {
+                if node?.name == "man" {
+                    if canJump {
+                        node?.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 2500))
+                        jump(sprite: node as! SKSpriteNode)
+                    }
+                }
+                if node?.name == "activeDromedary" {
+                    if canJump {
+                        dromedary.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 2500))
+                        jump(sprite: dromedary)
+                    }
+                }
+                if node?.name == "hero"{
+                    shot()
+                }
+                    moveShipTowards(location: point)
+            }
             print("ended")
             if node?.name == "startBtn" {
                 self.startGame()
@@ -65,6 +83,9 @@ extension Scene {
             if node?.name == "backBtn" {
                 self.backToHome()
             }
+            if node?.name == "helpBtn" {
+                self.helpBtnAction()
+            }
             if node?.name == "yes" {
                self.restart()
             }
@@ -72,47 +93,48 @@ extension Scene {
                 self.backToHome()
             }
             if node?.name == "Piano" || node?.name == "Flower" {
-                print("What name: ", node?.name)
                 node?.entity?.component(ofType: ProgressingComponent.self)?.isActive = true
             }
             if node?.name == "hearthBtn" {
-                node?.entity?.component(ofType: PumpingComponent.self)?.isActive = true
+                if gameIsRunning {
+                    node?.entity?.component(ofType: PumpingComponent.self)?.isActive = true
+                }
             }
             if node?.name == btnImageNames.btn1.rawValue {
                 print(btnImageNames.btn1.rawValue, " Was pressed")
                 self.musicPlayer.fadeOut()
                 self.viewController.previusScene = self
-                self.viewController.isFirst == false
+                self.viewController.isFirst = false
                 viewController.selectScene(selectedScene: Cave(size: self.viewController.sceneSize))
             }
             if node?.name == btnImageNames.btn2.rawValue {
                 self.musicPlayer.fadeOut()
                 self.viewController.previusScene = self
-                self.viewController.isFirst == false
+                self.viewController.isFirst = false
                 self.viewController.selectGKScene(sceneName: "Adventure")
             }
             if node?.name == btnImageNames.btn3.rawValue {
                 self.musicPlayer.fadeOut()
                 self.viewController.previusScene = self
-                self.viewController.isFirst == false
+                self.viewController.isFirst = false
                 self.viewController.selectScene(selectedScene: Melody(size: self.viewController.sceneSize))
             }
             if node?.name == btnImageNames.btn4.rawValue {
                 self.musicPlayer.fadeOut()
                 self.viewController.previusScene = self
-                self.viewController.isFirst == false
+                self.viewController.isFirst = false
                 self.viewController.selectGKScene(sceneName: "ThereOnceWasAMan")
             }
             if node?.name == btnImageNames.btn5.rawValue {
                 self.musicPlayer.fadeOut()
                 self.viewController.previusScene = self
-                self.viewController.isFirst == false
+                self.viewController.isFirst = false
                 self.viewController.selectScene(selectedScene: FavouriteAnimal(size: self.viewController.sceneSize))
             }
             if node?.name == btnImageNames.btn6.rawValue {
                 self.musicPlayer.fadeOut()
                 self.viewController.previusScene = self
-                self.viewController.isFirst == false
+                self.viewController.isFirst = false
                 self.viewController.selectScene(selectedScene: GoodnightSong(size: self.viewController.sceneSize))
             }
         default:

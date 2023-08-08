@@ -26,12 +26,19 @@ class Scene : SKScene {
     var withCamera : Bool = false
     var sizeDivider : CGFloat = 2
     var gameIsRunning : Bool = false
+    let speakPlayer : MusicPlayer = MusicPlayer()
+    var helpBtn : SKSpriteNode!
+    var helpIsOn : Bool = false
+    var canJump : Bool = false
+    var dromedary: SKSpriteNode!
+    var soundIsPlaying : Bool = false
     
     override func didMove(to view: SKView) {
         self.setupInteractionHandlers()
     }
     
     override func sceneDidLoad(){
+        
     }
     
     func topNode(  at point : CGPoint ) -> SKNode? {
@@ -53,6 +60,18 @@ class Scene : SKScene {
         return topMostNode
     }
     
+    func jump(sprite: SKSpriteNode){
+        
+    }
+    
+    func shot(){
+        
+    }
+    
+    func moveShipTowards(location: CGPoint){
+        
+    }
+    
     func startGame() {
     }
     
@@ -67,12 +86,44 @@ class Scene : SKScene {
         self.viewController.isFirst = false
     }
     
+    func playSpeak(name: String, length: CGFloat){
+        if self.helpIsOn && self.soundIsPlaying == false {
+            print("preparing speak")
+            let fadeDown = SKAction.run {
+                self.soundIsPlaying = true
+                self.musicPlayer.fadeDown()
+            }
+            let fadeUp = SKAction.run {
+                self.musicPlayer.fadeIn()
+            }
+            let playSpeak = SKAction.run {
+                self.speakPlayer.play(url: name)
+            }
+            let setSoundIsPlaying = SKAction.run {
+                self.soundIsPlaying = false
+            }
+            let wait1 = SKAction.wait(forDuration: 1)
+            let wait2 = SKAction.wait(forDuration: length)
+            let sequence = SKAction.sequence([fadeDown, wait1, playSpeak, wait2, fadeUp, setSoundIsPlaying])
+            self.run(sequence)
+        }
+    }
+    
+    func playSpeakNoMusic(name : String){
+        if self.helpIsOn {
+            let playSpeak = SKAction.run {
+                self.speakPlayer.play(url: name)
+            }
+            self.run(playSpeak)
+        }
+    }
+    
     override func willMove(from view: SKView) {
         print("will move")
     }
     
     override func update(_ currentTime: TimeInterval) {
-        print("previus scene: ", self.viewController.previusScene)
+        print("previus scene: ", self.viewController.previusScene as Any)
         if self.viewController.previusScene == nil && self.viewController.isFirst == false {
             print("Previus Scene released")
         }

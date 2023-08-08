@@ -28,5 +28,8 @@ class ChangeComponent : GKComponent {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    deinit {
+        print(self, "has deinitialized")
+    }
     
 }

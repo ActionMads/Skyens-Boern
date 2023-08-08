@@ -34,7 +34,6 @@ class HealthComponent : GKComponent {
     func removeIndicator(index: Int) {
         let indicator = indicators[index]
         indicator.component(ofType: SpriteComponent.self)?.sprite.removeFromParent()
-        let entitiesIndex = scene.entities.firstIndex(of: indicator)
         scene.removeEntity(entity: indicator)
         indicators.remove(at: index)
     }
@@ -51,6 +50,9 @@ class HealthComponent : GKComponent {
         }
         if self.name == "shark" {
             indicators.insert(indicator, at: 0)
+        }
+        for system in self.scene.componentSystems {
+            system.addComponent(foundIn: indicator)
         }
     }
     

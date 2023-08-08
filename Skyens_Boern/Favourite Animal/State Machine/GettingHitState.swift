@@ -34,10 +34,12 @@ class GettingHitState: GKState {
     }
     
     override func didEnter(from previousState: GKState?) {
+        /* If entering from MovingState disable swim and after delay enter moving state */
         if let _ = previousState as? MovingState {
             entity?.component(ofType: SwimmingComponent.self)?.canSwim = false
             entity?.perform(#selector(entity?.enterMovingState), with: nil, afterDelay: 1.5)
         }
+        /* If entering from restingstate turn off invunrabillity after delay enter movingstate*/
         if let _ = previousState as? RestingState {
             entity?.component(ofType: HitingComponent.self)?.isInvunreble = false
             entity?.perform(#selector(entity?.enterMovingState), with: nil, afterDelay: 1.5)

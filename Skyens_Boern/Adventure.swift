@@ -15,7 +15,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
     weak var tileMap: SKTileMapNode!
     var mapLocation: CGPoint!
 	var x: CGFloat = 20000
-    var ship: SKSpriteNode!
+    var hero: SKSpriteNode!
     var morphPoint1: TimeInterval = 47.0
 	var bounds: CGPoint = CGPoint(x: 0, y: 0)
     var isFiring: Bool = false
@@ -24,7 +24,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
     var startBtn: SKSpriteNode!
     var playableRect: CGRect!
 	var healthBar: SKSpriteNode!
-    let shipMovePointsPerSec: CGFloat = 240.0
+    let shipMovePointsPerSec: CGFloat = 320
     var velocity = CGPoint(x: 0, y: 0)
 	private var hasTouchedShip: Bool = false
     private var lastUpdateTime : TimeInterval = 0
@@ -47,6 +47,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 	let heroAtlas : SKTextureAtlas = SKTextureAtlas(named: "Hero")
 	let enemyAtlas : SKTextureAtlas = SKTextureAtlas(named: "Enemies")
 	let explosionAtlas : SKTextureAtlas = SKTextureAtlas(named: "Explosion")
+	var hasShotFirstEnemy : Bool = false
 
     
 	func debugDrawPlayableArea() {
@@ -59,25 +60,28 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		shape.zPosition = 2
         addChild(shape)
     }
-    
+    /* Create an area where playing takes place */
     func makePlayableArea() {
 		self.playableRect = CGRect(x: self.frame.minX, y: self.frame.minY,
 								   width: self.frame.width,
 								   height: self.frame.height)
 		print("Frame width", self.frame.width)
-		debugDrawPlayableArea()
     }
     
     override func sceneDidLoad() {
 		self.physicsWorld.contactDelegate = self
         setUpGame()
 		self.makeBackBtn()
+		self.makeHelpBtn()
     }
     
+	/* Checks the current map location and activates events at certain points */
+	
 	func checkMapLocation(location: CGFloat){
 		if location < 20000 && location > 19990 {
 			bulletTexture = heroAtlas.textureNamed("Skud_Skib")
 			rotateShip()
+			playSpeak(name: "Eventyr1", length: 5)
 			self.run(SKAction.repeatForever( SKAction.sequence([SKAction.run(self.spawnWaterEnemy),SKAction.wait(forDuration: 4.0)])), withKey: "spawnWaterEnemy")
 		}
 		if location < 11000 && location > 10990 {
@@ -88,17 +92,33 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 			self.rotateShipToCenter()
 			self.bounds = CGPoint(x: self.playableRect.minX, y: self.playableRect.minY + 200)
 			self.morph()
-			self.ship.removeAction(forKey: "rotateAction")
+			self.hero.removeAction(forKey: "rotateAction")
+			playSpeak(name: "Eventyr4", length: 5)
 			self.run(SKAction.repeatForever( SKAction.sequence([SKAction.run(self.spawnAirEnemy),SKAction.wait(forDuration: 3.0)])), withKey: "spawnAirEnemy")
+			self.hasShotFirstEnemy = false
+		}
+		if location < 9700 && location > 9695 {
+			playSpeak(name: "Eventyr5", length: 4)
+		}
+		if location < 9200 && location > 9195 {
+			playSpeak(name: "Eventyr7", length: 4)
+		}
+		if location < 7500 && location > 7495 {
+			playSpeak(name: "Eventyr6", length: 4)
 		}
 		if location < 1000 && location > 990 {
 			self.removeAction(forKey: "spawnAirEnemy")
 		}
 		if location < -100 && location > -110 {
 			self.bulletTexture = heroAtlas.textureNamed("Skud_Rum")
-			self.bounds = CGPoint(x: self.playableRect.minX, y: self.playableRect.minY + self.ship.size.height/2)
+			self.bounds = CGPoint(x: self.playableRect.minX, y: self.playableRect.minY + self.hero.size.height/2)
 			self.morphToSpace()
-						self.run(SKAction.repeatForever( SKAction.sequence([SKAction.run(self.spawnSpaceEnemy),SKAction.wait(forDuration: 3.0)])), withKey: "spawnSpaceEnemy")
+			self.playSpeak(name: "Eventyr8", length: 6)
+			self.run(SKAction.repeatForever( SKAction.sequence([SKAction.run(self.spawnSpaceEnemy),SKAction.wait(forDuration: 3.0)])), withKey: "spawnSpaceEnemy")
+			self.hasShotFirstEnemy = false
+		}
+		if location < 50 && location > 45 {
+			playSpeak(name: "Eventyr9", length: 3)
 		}
 		if location < -17000 && location > -17010 {
 			self.removeAction(forKey: "spawnSpaceEnemy")
@@ -110,6 +130,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		}
 	}
     
+	/* Sets up the game for start */
     func setUpGame(){
 		print("frame width", self.frame.size.width)
         self.isPaused = true
@@ -123,6 +144,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		
     }
 	
+	/* Adds a camera node to scale the game for different devices */
 	func addCamera(){
 		print("screen height: ", UIScreen.main.bounds.width)
 		print("Orientation: ", UIDevice.current.orientation.isLandscape)
@@ -135,88 +157,47 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		let playableAreaScaleForIpadAndIphone = screenHeight / tileMap.mapSize.height
 		let camera = SKCameraNode()
 		camera.setScale(1/playableAreaScaleForIpadAndIphone)
+		let scale = playableAreaScaleForIpadAndIphone*2
+		self.calculateSizeDivider(scale: scale)
 		self.camera = camera
 		self.addChild(camera)
 	}
     
+	/* Start the game */
 	override func startGame(){
         gameIsRunning = true
-        musicPlayer.playMusic(url: "04 Eventyr")
+        musicPlayer.play(url: "04 Eventyr")
 		startBtn.isHidden = true
 		x = 20000
         self.isPaused = false
     }
     
+	/* Create a RestartSign with buttons */
 	func makeRestartSign() {
 		let restartSign = self.makeRestartSign(position: CGPoint(x: self.frame.midX, y: self.frame.midY))
         addChild(restartSign)
+		playSpeakNoMusic(name: "Eventyr3")
 		pauseGame()
 	}
-
 	
-/*	func makeRestartButtons(restartSign: SKSpriteNode){
-		let yesButton = SKSpriteNode(imageNamed: "Ja_Grå.png")
-		let noButton = SKSpriteNode(imageNamed: "Nej_Grå.png")
-		yesButton.size = CGSize(width: 200, height: 100)
-		noButton.size = CGSize(width: 200, height: 100)
-		noButton.zPosition = 8
-		yesButton.zPosition = 8
-		yesButton.position = CGPoint(x: playableRect.midX - yesButton.size.width/2 - 67, y: playableRect.midY - yesButton.size.height - 110)
-		noButton.position = CGPoint(x: yesButton.position.x + noButton.size.width + 21, y: yesButton.position.y)
-		yesButton.name = "yes"
-		noButton.name = "no"
-		restartSign.addChild(yesButton)
-		restartSign.addChild(noButton)
-	}
-
-	func setTextureButton(button: SKSpriteNode){
-		var texture: SKTexture!
-		if button.name == "yes"{
-			texture = SKTexture(imageNamed: "Ja_Grøn.png")
-		}
-		if button.name == "no"{
-			texture = SKTexture(imageNamed: "Nej_Rød.png")
-		}
-		let setTextureAction = SKAction.setTexture(texture)
-		button.run(setTextureAction)
-	}
-
-	func makeStartButton() {
-        startButton = SKLabelNode(text: "Start spillet")
-        startButton.fontSize = 100
-        startButton.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        startButton.name = "startButton"
-        startButton.zPosition = 7
-        self.addChild(startButton)
-    }
-	
-	func makeEndSign() {
-		let endSign = SKSpriteNode(imageNamed: "SlutSkilt")
-		endSign.size = CGSize(width: 833, height: 717)
-		endSign.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-		endSign.name = "endBtn"
-		endSign.zPosition = 7
-		addChild(endSign)
-		makeRestartButtons(restartSign: endSign)
-	}
-
-*/
-	
+	/* Make the health bar node */
 	func makeHealthBar() {
 		healthBar = SKSpriteNode(texture: menuAtlas.textureNamed("LivSkilt"))
 		healthBar.size = CGSize(width: 600, height: 100)
 		healthBar.position = CGPoint(x: playableRect.minX + healthBar.size.width/2 + 20, y: playableRect.maxY - healthBar.size.height/2 - 20)
 		healthBar.zPosition = 8
 		self.addChild(healthBar)
-		createHealthBar()
+		addHealth()
 	}
 	
+	/* Update the healthbar */
 	func updateHealthBar(){
 		let currentHealth = self.childNode(withName: "health \(health + 1)")
 		currentHealth?.removeFromParent()
 	}
 	
-	func createHealthBar() {
+	/* Add health to the healthbar */
+	func addHealth() {
 		var oneHealthXPosition = healthBar.position.x
 		var i = 0
 		while i <= health {
@@ -231,6 +212,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		}
 	}
 	
+	/* Create and edge node */
 	func makeEdge(){
 		let path = CGMutablePath()
 		path.addRect(playableRect)
@@ -245,8 +227,9 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		addChild(edge)
 	}
 	
+	/* Check bullet position and remove when off screen */
 	func checkBulletPosition(){
-		if var bullet = self.childNode(withName: "bullet") as? SKSpriteNode{
+		if let bullet = self.childNode(withName: "bullet") as? SKSpriteNode{
 			print(bullet.position.x)
 			if bullet.position.x > playableRect.width {
 				enemyhitBullet(bullet: bullet)
@@ -255,6 +238,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		}
 	}
 	
+	/* Final celebration animation if player is victorios */
 	func endAnimation() {
 		let moveToCenter = SKAction.move(to: CGPoint(x: playableRect.midX, y: playableRect.midY), duration: 0.5)
 		let wait = SKAction.wait(forDuration: 0.5)
@@ -266,16 +250,18 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		let shakeRight = SKAction.rotate(byAngle: -.pi/16, duration: 0.02)
 		let shakeSequence = SKAction.sequence([shakeLeft, shakeRight])
 		let runShakeSequence = SKAction.repeat(shakeSequence, count: 20)
-		let moveUp = SKAction.move(to: CGPoint(x: playableRect.midX, y: playableRect.height + ship.size.height), duration: 0.5)
+		let moveUp = SKAction.move(to: CGPoint(x: playableRect.midX, y: playableRect.height + hero.size.height), duration: 0.5)
 		let makeEndSign = SKAction.run {
-			let endSign = self.makeEndSign(position: CGPoint(x: self.frame.midX, y: self.frame.midY)) as! SKSpriteNode
+			let endSign = self.makeEndSign(position: CGPoint(x: self.frame.midX, y: self.frame.midY))
 			self.addChild(endSign)
+			self.playSpeakNoMusic(name: "Eventyr10")
 		}
 		let endSequence = SKAction.sequence([moveToCenter, changeTexture, rotateAction, wait, runShakeSequence, rotateToCenterAction, changeTexture2, moveUp, makeEndSign])
-		ship.run(endSequence)
+		hero.run(endSequence)
 		
 	}
 	
+	/* Fireworks animation for end animation */
 	func fireworks(){
 		let firework = SKSpriteNode(texture: explosionAtlas.textureNamed("Firework"))
 		firework.size = CGSize(width: 83, height: 83)
@@ -290,10 +276,12 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		firework.run(sequence)
 	}
 	
+	/* End the game */
 	func endGame(){
 		endAnimation()
 	}
     
+	/* Load the nodes from tilemap and add physicsbody elements */
     func loadNodes() {
         guard let tileMap = childNode(withName: "tileMap")
                                        as? SKTileMapNode else {
@@ -308,7 +296,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
             fatalError("Sprite Nodes not loaded")
         }
         
-        self.ship = ship
+        self.hero = ship
         ship.zPosition = 5
 		ship.isUserInteractionEnabled = false
 		ship.physicsBody = SKPhysicsBody(rectangleOf: ship.size)
@@ -322,7 +310,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		
     }
     
-	func populatePhysicsOnMap() {
+/*	func populatePhysicsOnMap() {
 		print("starting poulation")
 		let forground = tileMap.childNode(withName: "Forground") as! SKTileMapNode
 		self.forground = forground
@@ -335,7 +323,6 @@ class Adventure: Scene, SKPhysicsContactDelegate {
             for row in 0..<forground.numberOfRows {
                 let tileDefinition = forground.tileDefinition(atColumn: col, row: row)
                 let isGroundTile = tileDefinition?.userData?["isGround"] as? Bool
-				print(isGroundTile)
                 if (isGroundTile == true) {
 					let thisTileSize = tileDefinition?.size
 					let tileX = CGFloat(col) * tileSize.width - halfWidth
@@ -366,25 +353,28 @@ class Adventure: Scene, SKPhysicsContactDelegate {
                 }
             }
         }
-	}
+	} */
 	
+	/* Rotate animation for ship on water*/
 	func rotateShip(){
 		let rotateRight = SKAction.rotate(toAngle: .pi / 25, duration: 1.0)
 		let rotateCenter = SKAction.rotate(toAngle: 0, duration: 1.0)
 		let rotateLeft = SKAction.rotate(toAngle: -.pi / 25, duration: 1.0)
 		let sequence = SKAction.sequence([rotateRight, rotateCenter, rotateLeft, rotateCenter])
-		ship.run(.repeatForever(sequence), withKey: "rotateAction")
+		hero.run(.repeatForever(sequence), withKey: "rotateAction")
 	}
 	
+	/* Rotate ship to center position */
 	func rotateShipToCenter() {
 		let rotateCenter = SKAction.rotate(toAngle: 0, duration: 0.1)
-		ship.run(rotateCenter)
+		hero.run(rotateCenter)
 	}
 	
-    func shot() {
+	/* create a bullet node, add physicsbody, and create firingAction */
+	override func shot() {
 		let projectile = SKSpriteNode(texture: bulletTexture)
 		let fireProjectile = SKAction.moveTo(x: playableRect.size.width, duration: 1.5)
-		projectile.position = CGPoint(x: ship.position.x, y: ship.position.y)
+		projectile.position = CGPoint(x: hero.position.x, y: hero.position.y)
 		projectile.zPosition = 4
 		projectile.size = CGSize(width: 104, height: 63)
 		projectile.physicsBody = SKPhysicsBody(rectangleOf: projectile.size)
@@ -404,6 +394,8 @@ class Adventure: Scene, SKPhysicsContactDelegate {
         projectile.run(fireProjectile)
         isFiring = true
 	}
+	
+	/* morph hero into flyMode*/
     func morph() {
 		let fadeOut = SKAction.fadeOut(withDuration: 0.3)
 		let fadeIn = SKAction.fadeIn(withDuration: 0.3)
@@ -411,10 +403,10 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		let changeToPlane1 = SKAction.setTexture(heroAtlas.textureNamed("Fly"))
 		let setIsMorphedAction = SKAction.run(setIsMorphed)
 		let sequence = SKAction.sequence([fadeOut,setAlphaAction, changeToPlane1,fadeIn,setIsMorphedAction])
-		ship.physicsBody?.affectedByGravity = false
-		ship.physicsBody?.isDynamic = false
-		ship.scale(to: CGSize(width: 250, height: 250))
-        ship.run(sequence, withKey: "fly")
+		hero.physicsBody?.affectedByGravity = false
+		hero.physicsBody?.isDynamic = false
+		hero.scale(to: CGSize(width: 250, height: 250))
+        hero.run(sequence, withKey: "fly")
         
     }
 	
@@ -422,6 +414,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		isMorphed = true
 	}
     
+	/*morph hero into Spacemode*/
     func morphToSpace() {
 		let fadeOut = SKAction.fadeOut(withDuration: 0.3)
 		let fadeIn = SKAction.fadeIn(withDuration: 0.3)
@@ -432,11 +425,12 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		let sequence = SKAction.sequence([changeToSpace, wait, changeToSpace2, wait])
 		let fadeSequence = SKAction.sequence([fadeOut,setAlphaAction,changeToSpace,fadeIn])
 		let block = SKAction.sequence([fadeSequence, .repeatForever(sequence)])
-		ship.removeAction(forKey: "fly")
-		ship.run(block)
+		hero.removeAction(forKey: "fly")
+		hero.run(block)
 		isSpace = true
     }
     
+	/*move hero diagonally in fly and space mode*/
     func moveSprite(sprite: SKSpriteNode, velocity: CGPoint) { // 1
         let amountToMove = CGPoint(x: 0, y: velocity.y * CGFloat(dt))
         sprite.position = CGPoint(
@@ -444,14 +438,16 @@ class Adventure: Scene, SKPhysicsContactDelegate {
         y: sprite.position.y + amountToMove.y)
     }
     
-    func moveShipTowards(location: CGPoint) {
-        let offset = CGPoint(x: location.x - ship.position.x, y: location.y - ship.position.y)
+	/* Set direction for hero in fly and space mode*/
+	override func moveShipTowards(location: CGPoint) {
+        let offset = CGPoint(x: location.x - hero.position.x, y: location.y - hero.position.y)
          let length = sqrt(
         Double(offset.x * offset.x + offset.y * offset.y))
         let direction = CGPoint(x: offset.x / CGFloat(length), y: offset.y / CGFloat(length))
         velocity = CGPoint(x: direction.x * shipMovePointsPerSec, y: direction.y * shipMovePointsPerSec)
     }
     
+	/* Add physicsbody to enemy*/
 	func addPhysicsToEnemy(enemy: SKSpriteNode){
 		enemy.physicsBody = SKPhysicsBody(rectangleOf: enemy.size)
 		enemy.physicsBody?.isDynamic = true
@@ -463,6 +459,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		enemy.physicsBody?.usesPreciseCollisionDetection = true
 	}
 	
+	/* Spawn a space enemy and create move action*/
     func spawnSpaceEnemy() {
 		let enemy = SKSpriteNode(texture: enemyAtlas.textureNamed("AsteroideLys"))
 		enemy.scale(to: CGSize(width: 150, height: 150))
@@ -482,7 +479,8 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		let group = SKAction.group([sequence, .repeatForever(rotateAction)])
         enemy.run(group)
     }
-    
+	
+	/* Spawn a air enemy and create move action*/
     func spawnAirEnemy() {
 		let enemy = SKSpriteNode(texture: enemyAtlas.textureNamed("Fugl01"))
 		let flyAction = SKAction.animate(with: [enemyAtlas.textureNamed("Fugl01"), enemyAtlas.textureNamed("Fugl02")], timePerFrame: 0.2)
@@ -510,6 +508,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		enemy.run(group)
     }
     
+	/* Spawn a water enemy and create move action*/
     func spawnWaterEnemy() {
 		let enemy = SKSpriteNode(texture: enemyAtlas.textureNamed("FuldHaj"))
 		let actionMove = SKAction.moveTo(x: -playableRect.size.width, duration: 6.0)
@@ -530,11 +529,13 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		
     }
     
+	/*Restart scene*/
 	override func restart(){
 		self.viewController?.selectGKScene(sceneName: "Adventure")
 
     }
     
+	/* Kill enemy and create death animation*/
 	func killEnemy(enemy: SKSpriteNode) {
 		enemy.physicsBody = nil
 		enemy.name = "usedEnemy"
@@ -549,6 +550,10 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		let setEnemyIsHitAction = SKAction.run(setEnemyIsHit)
         let sequence = SKAction.sequence([scaleUp, wait, scaleDown, removeAction, setEnemyIsHitAction])
         enemy.run(sequence)
+		if !hasShotFirstEnemy {
+			playSpeak(name: "Eventyr2", length: 2)
+			hasShotFirstEnemy = true
+		}
     }
     
     func setEnemyIsRemoved() {
@@ -565,6 +570,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		}
 	}
 	
+	/* Create hero death animation*/
 	func explosion(){
 		let explosionNode = SKSpriteNode(texture: explosionAtlas.textureNamed("Eksplosion04"), size: CGSize(width: 66, height: 83))
 		let explosion01 = SKAction.setTexture(explosionAtlas.textureNamed("Eksplosion01"))
@@ -579,7 +585,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		let removeAction = SKAction.removeFromParent()
 		let pauseGameAction = SKAction.run(pauseGame)
 		let sequence = SKAction.sequence([pauseGameAction, explosion04, wait, scaleAction, explosion03, wait, scaleAction, explosion02, wait, scaleAction, explosion01, removeHeroAction, wait, scaleDownAction, explosion02, wait, scaleDownAction, explosion03, wait, scaleDownAction, explosion04, removeAction, makeRestartButtonAction])
-		explosionNode.position = ship.position
+		explosionNode.position = hero.position
 		explosionNode.zPosition = 7
 		addChild(explosionNode)
 		explosionNode.run(sequence)
@@ -587,7 +593,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 	}
 	
 	func removeHero(){
-		ship.removeFromParent()
+		hero.removeFromParent()
 	}
 	
 	func pauseGame(){
@@ -596,25 +602,32 @@ class Adventure: Scene, SKPhysicsContactDelegate {
         musicPlayer.fadeOut()
 	}
 	
+	/* Hero death*/
     func death() {
-		let enemy = childNode(withName: "enemy") as! SKSpriteNode
-		enemy.removeAllActions()
-		enemy.removeFromParent()
-		removeAction(forKey: "spawnWaterEnemy")
-		explosion()
+		if let enemy = childNode(withName: "enemy") as? SKSpriteNode {
+			enemy.removeAllActions()
+			enemy.removeFromParent()
+		}
+			removeAction(forKey: "spawnWaterEnemy")
+			explosion()
+		
+		
     }
     
+	/* Enemy is shot down by bullet*/
     func enemyhitBullet(bullet: SKSpriteNode){
 		bullet.removeAllActions()
         bullet.removeFromParent()
     }
     
+	/* Hero is hit reduce health*/
     func reduceHealth(){
 			health -= 1
 			updateHealthBar()
 			print(health, "reduce")
     }
     
+	/* Shark attacks hero animation*/
 	func enemyAttack(enemy: SKSpriteNode) {
 		print("Attack")
 		enemy.name = "usedEnemy"
@@ -624,9 +637,9 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		let diveSequence = SKAction.sequence([diveAction,removeAction])
 		enemy.run(diveSequence)
 		let shark = SKSpriteNode(texture: enemyAtlas.textureNamed("Haj"))
-		shark.position = CGPoint(x: ship.position.x, y: playableRect.minY)
+		shark.position = CGPoint(x: hero.position.x, y: playableRect.minY)
 		shark.scale(to: CGSize(width: 300, height: 300))
-		let attackAction = SKAction.move(to: CGPoint(x: shark.position.x, y: ship.position.y), duration: 1)
+		let attackAction = SKAction.move(to: CGPoint(x: shark.position.x, y: hero.position.y), duration: 1)
 		let attackReverseAction = SKAction.move(to: CGPoint(x: shark.position.x, y: playableRect.minY), duration: 1)
 		let enemyHitShipAction = SKAction.run(enemyHitShip)
 		let sequence = SKAction.sequence([attackAction,enemyHitShipAction,attackReverseAction, removeAction])
@@ -634,6 +647,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		shark.run(sequence)
 	}
 	
+	/* Enemy hits hero animation and health check*/
     func enemyHitShip() {
 		let scaleUp = SKAction.scale(to: CGSize(width: 500, height: 500), duration: 0.2)
 		let wait = SKAction.wait(forDuration: 0.2)
@@ -641,71 +655,24 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		let reduceHealthAction = SKAction.run(reduceHealth)
 		let checkHealthAction = SKAction.run(checkHealth)
 		let sequence = SKAction.sequence([scaleUp, wait, scaleDown, reduceHealthAction,checkHealthAction])
-		ship.run(sequence)
+		hero.run(sequence)
     }
     
+	/* Check if hero is off bounds*/
 	func boundsCheckShip() {
 		let bottomLeft: CGPoint = bounds
 		
-		let topRight = CGPoint(x: playableRect.maxX, y: playableRect.maxY - ship.size.height/2)
-		if ship.position.y <= bottomLeft.y {
-			ship.position.y = bottomLeft.y
+		let topRight = CGPoint(x: playableRect.maxX, y: playableRect.maxY - hero.size.height/2)
+		if hero.position.y <= bottomLeft.y {
+			hero.position.y = bottomLeft.y
 			velocity.y = -velocity.y
 		}
-		if ship.position.y >= topRight.y {
-			ship.position.y = topRight.y
+		if hero.position.y >= topRight.y {
+			hero.position.y = topRight.y
 			velocity.y = -velocity.y
 		}
     }
-	
-	func findCurrentGroundLevel(currentShipPosition: CGPoint) {
-		var tilePosition = CGPoint(x: currentShipPosition.x, y: currentShipPosition.y)
-		var forground = tileMap.childNode(withName: "Forground") as! SKTileMapNode
-		var column = forground.tileColumnIndex(fromPosition: tilePosition)
-		var row = forground.tileRowIndex(fromPosition: tilePosition)
-		let tileDefinition = forground.tileDefinition(atColumn: column, row: row)
-		var groundLevel = tileDefinition?.userData?["groundLevel"] as! Float
-		print(groundLevel)
-	}
-    
-    func checkCollisions() {
-		var hitEnemies: [SKSpriteNode] = []
-		self.enumerateChildNodes(withName: "enemy") { node, _ in
-				var enemy = node as! SKSpriteNode
-				if var bullet = self.childNode(withName: "bullet") as? SKSpriteNode {
-						if bullet.frame.intersects(enemy.frame) {
-							print("enemy hit")
-							self.enemyIsHit = true
-							hitEnemies.append(enemy)
-							self.enemyhitBullet(bullet: bullet)
-						}
-					}
-
-				}
-            
-			
 		
-		for enemy in hitEnemies{
-			killEnemy(enemy: enemy)
-		}
-
-		var enemiesHitShip: [SKSpriteNode] = []
-        if var enemy = childNode(withName: "enemy") as? SKSpriteNode {
-			if self.ship.frame.intersects(enemy.frame){
-				enemiesHitShip.append(enemy)
-			}
-        }
-		
-		for enemy in enemiesHitShip {
-			if self.health == 0 {
-				self.death()
-			}
-			hasTouchedShip = true
-			if !enemyIsHit {
-			}
-		}
-    }
-	
 	func checkForground(point: CGPoint) {
 		let forground = tileMap.childNode(withName: "Forground") as! SKTileMapNode
 		let col = forground.tileColumnIndex(fromPosition: point)
@@ -714,8 +681,6 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		let tileDefinition = forground.tileDefinition(atColumn: col, row: row)
 		let isEarth = tileDefinition?.userData?["isEarth"] as? Bool
 		let isSpace = tileDefinition?.userData?["isSpace"] as? Bool
-		print("isEarth", isEarth)
-		print("isSpace", isSpace)
 		if isEarth == true || isSpace == true {
 			
 			self.removeAction(forKey: "spawnWaterEnemy")
@@ -723,6 +688,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		}
 	}
     
+	/* Physicsbody contact*/
 	func didBegin(_ contact: SKPhysicsContact) {
 		print("first contact")
 		if contact.bodyA.node?.name == "enemy" && contact.bodyB.node?.name == "bullet"  {
@@ -771,47 +737,10 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 	
 	override func willMove(from view: SKView) {
 		print("will move from adventure")
-		self.ship.removeAllActions()
-		self.ship.removeFromParent()
+		self.hero.removeAllActions()
+		self.hero.removeFromParent()
 		self.removeAllActions()
 	}
-	
-    func touchDown(atPoint pos : CGPoint) {
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            let location = touch.location(in: self)
-			let touchedNode = atPoint(location)
-			print(touchedNode.name)
-            if gameIsRunning {
-                if touchedNode.name == "hero"{
-                    print("shipTouched")
-					shot()
-                }
-                    moveShipTowards(location: location)
-            }
-        }
-    }
-    	
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {		
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
 	
 	/*func makeShipFloat(currentWaterNode: SKShapeNode) {
 		if currentWaterNode.frame.contains(CGPoint(x:ship.position.x, y:ship.position.y-ship.size.height/2.0)) {
@@ -854,14 +783,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		checkBulletPosition()
         if isMorphed && gameIsRunning {
 			boundsCheckShip()
-			moveSprite(sprite: ship, velocity: CGPoint(x: 0, y: velocity.y))
-		}else{
-			//moveShipTowards(location: <#T##CGPoint#>)
-			//moveSprite(sprite: ship, velocity: velocity)
+			moveSprite(sprite: hero, velocity: CGPoint(x: 0, y: velocity.y))
 		}
     }
-	
-	override func didEvaluateActions() {
-		//checkCollisions()
-	}
 }

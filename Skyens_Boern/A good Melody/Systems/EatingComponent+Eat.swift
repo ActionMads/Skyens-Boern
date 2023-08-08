@@ -12,6 +12,8 @@ import GameplayKit
 
 extension EatingComponent {
     override func update(deltaTime seconds: TimeInterval) {
+        
+        // If can eat is true and frog is not dancing start eating bees
         if scene.canEat {
             print("Able to eat")
             guard let hasDancing = entity?.component(ofType: JollyDancingComponent.self) else {return}
@@ -26,16 +28,15 @@ extension EatingComponent {
                     self.eatingCount -= seconds
                 }
                 
+                // Enumate bees in scene and check if the intersect with frog. Then start the eating animation
                 scene.enumerateChildNodes(withName: "Bi-Small") { node, _ in
                     let bee = node as! SKSpriteNode
-                    print("bee name", bee.name)
                     if bee.frame.intersects(hasSprite.sprite.frame) {
                         self.isEating = true
                         print("EatingCount:", self.eatingCount)
                         if self.eatingCount <= 1 && self.eatingCount > 0.99 {
                             hasSprite.setTexture(texture: self.tongueTex!)
-                            bee.entity?.component(ofType: SpriteComponent.self)?.sprite.removeAllActions()
-                            bee.entity?.removeComponent(ofType: FlyComponent.self)
+                            bee.entity?.component(ofType: FlyComponent.self)?.canFly = false
                             let tonguePoint = CGPoint(x: hasPosition.currentPosition.x, y: hasPosition.currentPosition.y + hasSprite.sprite.size.height/2)
                             bee.entity?.component(ofType: PositionComponent.self)?.currentPosition = tonguePoint
                         }
@@ -48,7 +49,11 @@ extension EatingComponent {
                             hasSprite.setTexture(texture: self.scene.frogAtlas.textureNamed("FrøNy"))
                             bee.entity?.component(ofType: SpriteComponent.self)?.sprite.removeAllActions()
                             bee.entity?.component(ofType: CollectingNectarComponent.self)?.timer?.invalidate()
+                            bee.entity?.component(ofType: CollectingNectarComponent.self)?.timer = nil
                             let index = self.scene.bees.firstIndex(of: bee.entity!)
+                            for system in self.scene.componentSystems {
+                                system.removeComponent(foundIn: bee.entity!)
+                            }
                             self.scene.bees.remove(at: index!)
                             self.scene.removeEntity(entity: bee.entity!)
                             self.isEating = false

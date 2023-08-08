@@ -19,20 +19,23 @@ class TimeComponent: GKComponent {
     var lastSec : Int
     var timer : Timer!
     var timeIsUp : Bool
+    var scene : Cave
+    var hasPlayedSpeak : Bool = false
     
-    override init() {
+    init(scene : Cave) {
         self.timeIsUp = false
         self.timeLeft = startTime
         self.min = Int(startTime/60)
         self.firstSec = (Int(startTime) % 60) / 10
         self.lastSec = (Int(startTime) % 60) % 10
+        self.scene = scene
         super.init()
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
             self.decrement()
+            self.hasPlayedSpeak = false
+            print("clock timer firing")
         })
-        timer.fire()
-
     }
     
     required init?(coder: NSCoder) {
@@ -52,5 +55,8 @@ class TimeComponent: GKComponent {
         firstSec = (Int(timeLeft) % 60) / 10
         lastSec = (Int(timeLeft) % 60) % 10
         print("Timeleft ", min, ": ", firstSec,lastSec)
+    }
+    deinit {
+        print(self, "has deinitialized")
     }
 }
