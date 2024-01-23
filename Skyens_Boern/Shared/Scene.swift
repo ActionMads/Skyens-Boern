@@ -10,10 +10,10 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-
-
+// The scene class which all other scenes inherit from
 class Scene : SKScene {
     
+    // Gobal varibles
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
     var panRecogniser: UIPanGestureRecognizer!
@@ -28,19 +28,23 @@ class Scene : SKScene {
     var gameIsRunning : Bool = false
     let speakPlayer : MusicPlayer = MusicPlayer()
     var helpBtn : SKSpriteNode!
-    var helpIsOn : Bool = false
+    var helpIsOn : Bool = true
     var canJump : Bool = false
     var dromedary: SKSpriteNode!
     var soundIsPlaying : Bool = false
+    var itemHasBeenTouched : Bool = false
+    let defaults = UserDefaults.standard
     
+    // OVerride Did move to view
     override func didMove(to view: SKView) {
         self.setupInteractionHandlers()
     }
     
+    // Override scene did load
     override func sceneDidLoad(){
-        
     }
     
+    // Get the top node according to zposition
     func topNode(  at point : CGPoint ) -> SKNode? {
         // 2.
         var topMostNode : SKNode? = nil
@@ -60,24 +64,29 @@ class Scene : SKScene {
         return topMostNode
     }
     
+    // Following fuctions a define so that the can be call from scene+Touch extension
+    
+    // Define a jump function
     func jump(sprite: SKSpriteNode){
-        
     }
     
+    // Define a shot function
     func shot(){
-        
     }
     
+    // Define moveShipTowards function
     func moveShipTowards(location: CGPoint){
-        
     }
     
+    // Define startgame function
     func startGame() {
     }
     
+    // Define restart function
     func restart() {
     }
     
+    // BackToHome function
     func backToHome() {
         gameIsRunning = false
         musicPlayer.fadeOut()
@@ -86,6 +95,7 @@ class Scene : SKScene {
         self.viewController.isFirst = false
     }
     
+    // Play speak
     func playSpeak(name: String, length: CGFloat){
         if self.helpIsOn && self.soundIsPlaying == false {
             print("preparing speak")
@@ -109,6 +119,7 @@ class Scene : SKScene {
         }
     }
     
+    // Play speak when there is no music playing
     func playSpeakNoMusic(name : String){
         if self.helpIsOn {
             let playSpeak = SKAction.run {
@@ -118,11 +129,28 @@ class Scene : SKScene {
         }
     }
     
+    func playPauseMusic(node : SKSpriteNode, parentName : String) -> String {
+        return ""
+    }
+    
+    func stopMusic(parentName : String){
+    }
+    
+    // wiggle a sprite that can be interacted with to guide the player
+    func wiggle(sprite : SKSpriteNode){
+        let turnLeft = SKAction.rotate(toAngle: -0.1, duration: 0.1)
+        let turnRight = SKAction.rotate(toAngle: 0.1, duration: 0.1)
+        let turnCenter = SKAction.rotate(toAngle: 0, duration: 0.1)
+        let sequence = SKAction.sequence([turnLeft, turnRight, turnLeft, turnRight, turnLeft, turnRight, turnCenter])
+        sprite.run(sequence)
+    }
+    
     override func willMove(from view: SKView) {
         print("will move")
     }
     
     override func update(_ currentTime: TimeInterval) {
+        // Test to see if previus scene is released proberly
         print("previus scene: ", self.viewController.previusScene as Any)
         if self.viewController.previusScene == nil && self.viewController.isFirst == false {
             print("Previus Scene released")

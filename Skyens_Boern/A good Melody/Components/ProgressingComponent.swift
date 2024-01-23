@@ -18,6 +18,7 @@ class ProgressingComponent : GKComponent {
     var timer : Timer!
     let scene : Melody!
     
+    // initialize component with scene object and start timer that increment progresscircle every 0.25 sec.
     init(scene : Melody) {
         self.scene = scene
         super.init()

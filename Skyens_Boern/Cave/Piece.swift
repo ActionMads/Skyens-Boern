@@ -8,14 +8,18 @@
 import Foundation
 import CoreGraphics
 
+// The piece class containing info on a puzzle piece
 class Piece {
     var name: String
     var targetPosition : CGPoint
     var targetRotation : CGFloat
     var zPos : CGFloat
+    var id : Int
     
-    init(name: String, targetPosition: CGPoint, targetRotation: CGFloat, zPos: CGFloat) {
+    // initiate with parameters
+    init(name: String, targetPosition: CGPoint, targetRotation: CGFloat, zPos: CGFloat, id : Int) {
         self.name = name
+        self.id = id
         self.targetPosition = targetPosition
         self.targetRotation = targetRotation
         self.zPos = zPos

@@ -5,6 +5,7 @@
 //  Created by Mads Munk on 14/08/2021.
 //  Copyright © 2021 Mads Munk. All rights reserved.
 //
+//  SeekComponent responsible for making the competitor seek out each other for and attack.
 
 import Foundation
 import GameplayKit

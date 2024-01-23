@@ -11,6 +11,7 @@
 import Foundation
 import GameplayKit
 
+// Bottle entity with state machine
 class Bottle : GKEntity {
     
     var stateMachine : GKStateMachine!

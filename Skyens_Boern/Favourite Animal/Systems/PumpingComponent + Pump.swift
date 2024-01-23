@@ -12,6 +12,7 @@ import SpriteKit
 
 extension PumpingComponent {
     override func update(deltaTime seconds: TimeInterval) {
+        // if the hearthBtn is active/has been activated first run scale animation and when time is up create a new hearth
         if isActive {
             print("Time Left: ", timeLeft)
             guard let hasSprite = entity?.component(ofType: SpriteComponent.self) else {
@@ -20,8 +21,10 @@ extension PumpingComponent {
                 let action = self.scene.scaleUpAndDown(duration: 0.5, delay: 0)
                 hasSprite.sprite.run(.repeatForever(action))
                 isFirst = false
+                hasBeenPushed = true
             }
             
+            // reduce time left until hearth should be created
             self.timeLeft -= seconds
             if timeLeft <= 0 {
                 hasSprite.sprite.removeAllActions()
@@ -29,6 +32,7 @@ extension PumpingComponent {
                 self.scene.makeHearth()
                 self.isActive = false
                 isFirst = true
+                // reset the time left
                 timeLeft = progressTime
             }
         }

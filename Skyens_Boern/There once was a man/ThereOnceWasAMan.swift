@@ -63,7 +63,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
 
     private var lastUpdateTime : TimeInterval = 0
     
-    
+    // When Scene loads setup game elements
     override func sceneDidLoad() {
         loadNodes()
         startButton = self.makeStartSign(position: CGPoint(x: self.frame.midX, y: self.frame.midY))
@@ -78,6 +78,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
 
     }
     
+    // Add a cameranode to scale the scene according to the screen size
     func addCamera(){
         print("screen height: ", UIScreen.main.bounds.size.width)
         print("Orientation: ", UIDevice.current.orientation.isLandscape)
@@ -91,13 +92,13 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         let camera = SKCameraNode()
         camera.setScale(1/playableAreaScaleForIpadAndIphone)
         let scale = playableAreaScaleForIpadAndIphone*2
-        self.calculateSizeDivider(scale: scale)
+        self.setSizeDivider(scale: scale)
         self.camera = camera
         self.addChild(self.camera!)
     }
     
+    // schedual with timers activating scene events
     func schedual(){
-        
         timer2 = Timer.scheduledTimer(withTimeInterval: 25, repeats: false, block: { [self] timer in
             print("second event")
             animateNose(noseIMG1: "NæseRød01", noseIMG2: "NæseRød02", noseToAni: nose)
@@ -122,6 +123,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
 
     }
     
+    // check where in the map hero is
     func checkMapLocation(mapXLocation : CGFloat){
         if mapXLocation >= -13500 && mapXLocation <= -13490 {
             canJump = false
@@ -131,6 +133,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         }
     }
     
+    // Dancer animation
     func animateDancer(){
         let move01 = SKAction.setTexture(dancerAtlas.textureNamed("DanserMove01"))
         let move02 = SKAction.setTexture(dancerAtlas.textureNamed("DanserMove02"))
@@ -142,6 +145,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         dancer.run(.repeatForever(sequence), withKey: "dance")
     }
     
+    // add hidden enhanced node to wizard
     func addNodeToWizard(){
         wizardEnhancedNode = SKSpriteNode()
         wizardEnhancedNode!.name = "enhancedNode"
@@ -150,6 +154,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         wizard.addChild(wizardEnhancedNode!)
     }
     
+    // Dancer leaves animation
     func dancerLeave() {
         dancer.removeAction(forKey: "dance")
         let walk01 = SKAction.setTexture(dancerAtlas.textureNamed("DanserStårFraSide"))
@@ -161,11 +166,13 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         dancer.run(.repeatForever(sequence))
     }
     
+    // Remove Dancer
     func removeDancer() {
         dancer.removeAllActions()
         dancer.removeFromParent()
     }
     
+    // Animate man mounting dromedary
     func animateMounting(){
         isMounting = true
         man.physicsBody?.affectedByGravity = false
@@ -184,6 +191,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         man.name = "activeDromedary"
     }
     
+    // Activate dromedary and add physics
     func activateDromedary(){
         dromedary.move(toParent: self.scene!)
         dromedary.removeAction(forKey: "standingDromedary")
@@ -194,13 +202,16 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         canJump = true
     }
     
+    // Start ending
     func ending(){
         mapSpeed = 0
         dromedary.removeAllActions()
+        defaults.set(true, forKey: "thereOnceWasAManCompleted")
         unMountMan()
         unMountWizard()
     }
     
+    // Unmount the wizard from the dromedary and land on ground facing front
     func unMountWizard() {
         let wait = SKAction.wait(forDuration: 0.3)
         let moveToScene = SKAction.run {
@@ -217,6 +228,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         wizard.run(sequence, completion: endSign)
     }
     
+    // Unmount the man and land on ground facing front
     func unMountMan(){
         let wait = SKAction.wait(forDuration: 0.2)
         let moveToScene = SKAction.run {
@@ -232,6 +244,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         man.run(sequence)
     }
     
+    // man and wizard celebration animation
     func celebrationAni(){
         let moveManUp = SKAction.moveTo(y: man.position.y + 40, duration: 0.1)
         let moveManDown = SKAction.moveTo(y: man.position.y, duration: 0.1)
@@ -244,6 +257,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         
     }
     
+    // Add end sign and start celebration action
     func endSign(){
         let wait = SKAction.wait(forDuration: 5.0)
         let endAction = SKAction.run { [self] in
@@ -258,16 +272,19 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         
     }
     
+    // Open the book animation
     func openBook(){
         book.texture = bookAtlas.textureNamed("BogÅben")
         let changePos = SKAction.move(to: CGPoint(x: -book.size.width, y: 0), duration: 0)
         book.run(changePos)
     }
     
+    // Mount the man
     func mountMan() {
         man.move(toParent: dromedary)
     }
     
+    // Mount man nose
     func mountNose(){
         nose = SKSpriteNode(texture: noseAtlas.textureNamed("NæseGrå"))
         nose.size = CGSize(width: 50, height: 64)
@@ -280,17 +297,19 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         noseXPosition = nose.position.x
     }
     
+    // remount nose
     func remountNose(){
         let rotateAction = SKAction.rotate(byAngle: +.pi/2, duration: 0)
         changeNosePosition(position: CGPoint(x: noseXPosition + 26, y: man.position.y - 110))
         nose.run(rotateAction)
     }
-        
+      
+    // Man meeting wizard
     func meeting(){
         mountWizard()
-        
     }
     
+    //
     func manMeetingAni(){
         let change = SKAction.setTexture(manAtlas.textureNamed("MandBøjet"))
         man.run(change)
@@ -299,12 +318,14 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         noseMeetingAni()
     }
     
+    // nose meeting animation
     func noseMeetingAni(){
         let rotatateAction = SKAction.rotate(byAngle: -.pi/2, duration: 0)
         changeNosePosition(position: CGPoint(x: man.position.x - 14, y: man.position.y - 78))
         nose.run(rotatateAction)
     }
     
+    // Add Physics to dromedary
     func addPhysicsToDromedary() {
         dromedary.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 200, height: dromedary.size.height))
         dromedary.physicsBody?.affectedByGravity = true
@@ -315,6 +336,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         dromedary.physicsBody?.contactTestBitMask = edgeCollisionMask
     }
     
+    // Animate dromedary walk
     func animateDromedary() {
         let run01 = SKAction.setTexture(dromedaryAtlas.textureNamed("Dromedar_HaleNed"))
         let run02 = SKAction.setTexture(dromedaryAtlas.textureNamed("DromedarILøb_HaleOp"))
@@ -328,6 +350,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         dromedary.name = "activeDromedary"
     }
     
+    // Standin dromedary animation
     func standingDromedary(){
         let taleDown = SKAction.setTexture(dromedaryAtlas.textureNamed("Dromedar_HaleNed"))
         let taleUp = SKAction.setTexture(dromedaryAtlas.textureNamed("Dromedar_HaleOp"))
@@ -339,6 +362,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
 
     }
     
+    // Load tilemap nodes
     func loadNodes() {
         guard let tileMap = childNode(withName: "tileMap")
                                        as? SKTileMapNode else {
@@ -456,7 +480,9 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         self.man = man
         man.name = "man"
         tileMap.zPosition = 0
+        // Mount mans nose
         mountNose()
+        // Add physics to man
         man.physicsBody = SKPhysicsBody(rectangleOf: man.size)
         man.physicsBody?.affectedByGravity = true
         man.physicsBody?.isDynamic = true
@@ -466,6 +492,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         
     }
     
+    // Make the wizards nose
     func makeWizNose(){
         wizNose = SKSpriteNode(texture: noseAtlas.textureNamed("TroldeNæseFront02"))
         wizNose.position = CGPoint(x: 6, y: 20)
@@ -474,6 +501,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         wizard.addChild(wizNose)
     }
     
+    // Turn wizard
     func turnWizard(){
         let turnAction = SKAction.setTexture(wizardAtlas.textureNamed("TroldSide03"))
         wizard.run(turnAction)
@@ -484,18 +512,21 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         wizNose.position = CGPoint(x: -30, y: 25)
     }
     
+    // Set wizard nose to face front
     func setWizNoseToFront(){
         wizNose.position = CGPoint(x: 6, y: 20)
         wizNose.size = CGSize(width: 64, height: 64)
         animateNose(noseIMG1: "TroldeNæseFront02", noseIMG2: "TroldeNæseFront01", noseToAni: wizNose)
     }
     
+    // Set mans nose to face front
     func setManNoseToFront() {
         nose.position = CGPoint(x: 0, y: 80)
         nose.size = CGSize(width: 64, height: 64)
         animateNose(noseIMG1: "MandNæseFront", noseIMG2: "MandNæseFront02", noseToAni: nose)
     }
     
+    // Mount the wizard to the dromedary
     func mountWizard(){
         wizardIsMounting = true
         let wait = SKAction.wait(forDuration: 1.5)
@@ -523,19 +554,22 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         wizard.name = "activeDromedary"
     }
     
+    // Set the can jump boolean
     func setCanJump(){
         canJump = true
     }
     
+    // start the game
     override func startGame() -> Void {
         x = 21350
         gameIsRunning = true
         self.musicPlayer.play(url: "05 Der var engang en mand")
-        run()
+        walk()
         startButton.isHidden = true
         schedual()
     }
     
+    // Make the edgenode
     func makeEdge() {
         let rect = CGSize(width: self.frame.width, height: 50)
         edge = SKSpriteNode()
@@ -544,11 +578,14 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         edge.name = "edge"
         addChild(edge)
     }
+    
+    // Set up physic in the scene
     func setUpPhysics(){
         self.physicsWorld.contactDelegate = self
         self.physicsWorld.speed = 1.0
     }
     
+    // Remove physics objects off screen
     func removePhysicsOffScreen(){
         groundMinX += mapSpeed
         ground.enumerateChildNodes(withName: "ground", using: { node, _ in
@@ -561,6 +598,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
                                    })
     }
     
+    // Jump animation for man and dromedary
     override func jump(sprite: SKSpriteNode) {
         let wait = SKAction.wait(forDuration: 1.8)
         var jump: SKAction!
@@ -570,7 +608,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
             noseStartPos = 16 + nose.size.width/2
             sprite.removeAction(forKey: "walk")
             jump = SKAction.setTexture(manAtlas.textureNamed("MandHop"))
-            runAgain = SKAction.run(run)
+            runAgain = SKAction.run(walk)
         }
         if sprite.name == "activeDromedary" {
             noseStartPos = nose.position.x
@@ -595,10 +633,12 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         sprite.run(actionGroup)
     }
     
+    // stop all action on man
     func stop(){
         man.removeAllActions()
     }
-
+    
+    // If man dies do this
     func death(){
         self.musicPlayer.fadeOut()
         mapSpeed = 0
@@ -612,6 +652,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         })
     }
     
+    // Animate the nose
     func animateNose(noseIMG1: String, noseIMG2: String, noseToAni: SKSpriteNode) {
         let redNose = SKAction.setTexture(noseAtlas.textureNamed(noseIMG1))
         let bigRedNose = SKAction.setTexture(noseAtlas.textureNamed(noseIMG2))
@@ -620,24 +661,28 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         noseToAni.run(.repeatForever(sequence), withKey: "noseBlink")
     }
     
+    // Change the nose position when man animates
     func changeNosePosition(position: CGPoint){
         noseXPosition = position.x
         let moveNose = SKAction.move(to: CGPoint(x: noseXPosition, y: position.y), duration: 0)
         nose.run(moveNose)
     }
     
+    // Move nose right
     func moveNoseRight(){
         noseXPosition += 10
         let moveNoseRight = SKAction.move(to: CGPoint(x: noseXPosition, y: nose.position.y), duration: 0)
         nose.run(moveNoseRight)
     }
     
+    // Move nose left
     func moveNoseLeft(){
         noseXPosition -= 10
         let moveNoseLeft = SKAction.move(to: CGPoint(x: noseXPosition, y: nose.position.y), duration: 0)
         nose.run(moveNoseLeft)
     }
     
+    // Book animations when meet by heros
     func bookAni(){
         book.move(toParent: man)
         let moveBook = SKAction.move(to: CGPoint(x: -30, y: -40), duration: 0.3)
@@ -646,18 +691,20 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         book.name = "activeDromedary"
     }
     
-    func run(){
+    // Run/walk
+    func walk(){
         let duration = 0.2
         let wait = SKAction.wait(forDuration: duration)
-        let run1 = SKAction.setTexture(manAtlas.textureNamed("Mand01"))
-        let run3 = SKAction.setTexture(manAtlas.textureNamed("Mand02"))
+        let walk1 = SKAction.setTexture(manAtlas.textureNamed("Mand01"))
+        let walk3 = SKAction.setTexture(manAtlas.textureNamed("Mand02"))
         let moveNoseR = SKAction.run(moveNoseRight)
         let moveNoseL = SKAction.run(moveNoseLeft)
-        let sequence = SKAction.sequence([run3, moveNoseR, wait, run1, moveNoseL, wait])
+        let sequence = SKAction.sequence([walk3, moveNoseR, wait, walk1, moveNoseL, wait])
         man.run(.repeatForever(sequence), withKey: "walk")
         man.name = "man"
     }
     
+    // collision detection
     func collisionDetection(){
         if self.dromedary.intersects(self.book){
             bookAni()
@@ -725,10 +772,12 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         }
     }
     
+    // Restart the scene
     override func restart(){
         self.viewController.selectGKScene(sceneName: "ThereOnceWasAMan")
     }
     
+    // Clean before moving from scene
     override func willMove(from view: SKView) {
         timer1?.invalidate()
         timer2?.invalidate()
@@ -750,6 +799,7 @@ class ThereOnceWasAMan: Scene, SKPhysicsContactDelegate {
         print("Cleaned up")
     }
     
+    // Gameloop update
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         // Initialize _lastUpdateTime if it has not already been

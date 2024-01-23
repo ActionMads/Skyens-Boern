@@ -27,10 +27,12 @@ class HealthComponent : GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // Reduce health withe the specified amoumt
     func reduceHealthWith(amount : CGFloat) {
         health -= amount
     }
     
+    // Remove health indicator entity from the healthBar
     func removeIndicator(index: Int) {
         let indicator = indicators[index]
         indicator.component(ofType: SpriteComponent.self)?.sprite.removeFromParent()
@@ -38,6 +40,7 @@ class HealthComponent : GKComponent {
         indicators.remove(at: index)
     }
     
+    // Add health indicator to the healthbar
     func addIndicator(position : CGPoint){
         let indicator = GKEntity()
         let spriteComp = SpriteComponent(atlas: scene.gameBarAtlas, name: "Liv", zPos: 3)
@@ -45,12 +48,14 @@ class HealthComponent : GKComponent {
         indicator.addComponent(PositionComponent(currentPosition: position, targetPosition: position))
         self.scene.addChild(spriteComp.sprite)
         self.scene.entities.append(indicator)
+        // Identify correct healthbar according the the competitor
         if self.name == "croco" {
             indicators.append(indicator)
         }
         if self.name == "shark" {
             indicators.insert(indicator, at: 0)
         }
+        // Add components to component systems array
         for system in self.scene.componentSystems {
             system.addComponent(foundIn: indicator)
         }

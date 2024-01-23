@@ -20,6 +20,7 @@ class RefuelingState : GKState {
         self.entity = withEntity
     }
     
+    // switch which decides what state is allowed next
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         switch stateClass {
         case is FullState.Type:

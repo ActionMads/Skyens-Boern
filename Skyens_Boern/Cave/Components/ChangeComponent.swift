@@ -16,7 +16,8 @@ class ChangeComponent : GKComponent {
     var currentNumber: Int
     var currentSpriteName : String
     
-    
+    // initiate change component with parameters clock entity and a digit string
+    // set currentNumber and currentSpriteName
     init(clock: GKEntity, digit: String) {
         self.digit = digit
         self.clock = clock

@@ -23,6 +23,7 @@ class DryOutComponent : GKComponent {
     var isDry : Bool = false
     var isRevived : Bool = false
     
+    // component with sprite atlas and scene. Set the timeleft to dryout and time to remove
     init(scene : Melody) {
         self.scene = scene
         timeLeft = timeToDryOut + timeToRemove
@@ -35,6 +36,7 @@ class DryOutComponent : GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // set texture of sprite
     func setTexture(texture : SKTexture) {
         guard let hasSprite = entity?.component(ofType: SpriteComponent.self) else {return}
 

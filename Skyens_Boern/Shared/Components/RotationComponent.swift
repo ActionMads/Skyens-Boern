@@ -9,13 +9,15 @@
 import Foundation
 import GameplayKit
 import SpriteKit
+
+// Rotaion Component responsible for rotating an entity
 class RotationComponent : GKComponent {
 
-    // 1.
+    // Global varibles
     var currentRotation : CGFloat
     var targetRotation : CGFloat
 
-    // 2.
+    // Initalize the component with parameters
     init( currentRotation : CGFloat, targetRotation : CGFloat ) {
         self.currentRotation = currentRotation
         self.targetRotation = targetRotation

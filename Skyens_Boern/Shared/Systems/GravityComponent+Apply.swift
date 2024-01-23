@@ -9,8 +9,11 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
+// Extension/System to the gravity component
 extension GravityComponent{
     override func update(deltaTime seconds: TimeInterval) {
+        
+        // Only continue if entity has this component
         guard let positionComponent = entity?.component(ofType: PositionComponent.self) else { return }
                 
         if let interactionComponent = entity?.component(ofType: InteractionComponent.self) {
@@ -20,17 +23,21 @@ extension GravityComponent{
             }
         }
         
+        // Define entity position
         var position : CGPoint = positionComponent.currentPosition
         
-        if positionComponent.currentPosition.y < 400 {
+        // If position is less than 400 set the downforce to zero else set it to 2.5
+        if position.y < 400 {
             downForce = 0
         }
         else {
             downForce = 2.5
         }
         
+        // Reduce the position y by the down force
         position.y -= downForce
         
+        // Move the entity down by updating the current position
         positionComponent.currentPosition = position
     }
 }

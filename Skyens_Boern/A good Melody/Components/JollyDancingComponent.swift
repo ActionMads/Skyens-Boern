@@ -17,11 +17,13 @@ class JollyDancingComponent : GKComponent {
     var isDancing : Bool = false
     var isFirstDance : Bool = true
     
+    // initalize component with parameter Melody scene
     init(scene : Melody) {
         self.scene = scene
         super.init()
     }
     
+    // set testure of sprite
     func setTexture(texture : SKTexture, direction : String){
         let spriteComp = entity?.component(ofType: SpriteComponent.self)
         spriteComp?.setTexture(texture: texture)

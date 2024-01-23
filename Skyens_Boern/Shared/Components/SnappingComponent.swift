@@ -9,6 +9,8 @@
 import Foundation
 import GameplayKit
 import SpriteKit
+
+// Snappingcomponent responsible for snapping an entity into target position or rotation
 class SnappingComponent : GKComponent {
     var isSetup = false
     let positionTolerance : CGFloat = 250

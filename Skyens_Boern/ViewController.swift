@@ -23,6 +23,7 @@ class ViewController : UIViewController, UIGestureRecognizerDelegate {
         selectScene(selectedScene: HomeScene(size: sceneSize))
     }
     
+    // Select and present a specific GKScene
     func selectGKScene(sceneName : String){
         
         if let scene = GKScene(fileNamed: sceneName) {
@@ -56,6 +57,7 @@ class ViewController : UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    // select and present a specifc SKScene
     func selectScene(selectedScene : Scene) {
         scene = selectedScene
             
@@ -73,7 +75,7 @@ class ViewController : UIViewController, UIGestureRecognizerDelegate {
             view.preferredFramesPerSecond = 30
             view.showsFPS = true
             view.showsNodeCount = true
-            view.showsPhysics = true
+            view.showsPhysics = false
             view.ignoresSiblingOrder = true
             view.showsDrawCount = true
         }
@@ -99,7 +101,7 @@ class ViewController : UIViewController, UIGestureRecognizerDelegate {
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .landscapeLeft
+        return .landscape
     }
 
     override var prefersStatusBarHidden: Bool {

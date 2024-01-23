@@ -43,8 +43,9 @@ class FavouriteAnimal : Scene {
     var speakTimer5 : Timer?
     var timePlayed : TimeInterval = 0
     var canLose : Bool = false
+    var guidingTime : TimeInterval = 0
 
-    
+    // create scene elements
     override func sceneDidLoad() {
         makeBackground()
         makeBathtop()
@@ -115,13 +116,11 @@ class FavouriteAnimal : Scene {
             if competitorIndex == 1 {
                 competitorToAttack = self.shark
             }
-            if competitorToAttack!.stateMachine.currentState is MovingState {
-                if self.croco.stateMachine.currentState is RestingState || self.shark.stateMachine.currentState is RestingState {
-                    return
-                }else {
-                    print("Enter seek state")
-                    competitorToAttack!.stateMachine.enter(SeekingState.self)
-                }
+            if self.croco.stateMachine.currentState is RestingState || self.shark.stateMachine.currentState is RestingState {
+                return
+            } else if competitorToAttack!.stateMachine.currentState is MovingState {
+                print("Enter seek state")
+                competitorToAttack!.stateMachine.enter(SeekingState.self)
             }
         })
     }
@@ -241,8 +240,9 @@ class FavouriteAnimal : Scene {
         hearthBtn = GKEntity()
         let spriteComp = SpriteComponent(atlas: gameBarAtlas, name: "Hjerte2", zPos: 3)
         spriteComp.sprite.name = "hearthBtn"
+        spriteComp.sprite.scale(to: CGSize(width: spriteComp.sprite.size.width * 1.5, height: spriteComp.sprite.size.height * 1.5))
         hearthBtn!.addComponent(spriteComp)
-        hearthBtn!.addComponent(PositionComponent(currentPosition: CGPoint(x: self.frame.midX - 40, y: 1800), targetPosition: CGPoint(x: self.frame.midX, y: 1700)))
+        hearthBtn!.addComponent(PositionComponent(currentPosition: CGPoint(x: self.frame.midX - 40, y: 1700), targetPosition: CGPoint(x: self.frame.midX, y: 1600)))
         hearthBtn!.addComponent(PumpingComponent(scene: self))
         self.entities.append(hearthBtn!)
         self.addChild(spriteComp.sprite)
@@ -259,12 +259,13 @@ class FavouriteAnimal : Scene {
         let spriteComp = SpriteComponent(atlas: gameBarAtlas, name: "Hjerte2", zPos: 4)
         spriteComp.sprite.name = "hearth"
         hearth.addComponent(spriteComp)
-        hearth.addComponent(PositionComponent(currentPosition: CGPoint(x: self.frame.midX + 50, y: 1750), targetPosition: CGPoint(x: self.frame.midX + 50, y: 1750)))
+        hearth.addComponent(PositionComponent(currentPosition: CGPoint(x: self.frame.midX + 50, y: 1650), targetPosition: CGPoint(x: self.frame.midX + 50, y: 1550)))
         hearth.addComponent(InteractionComponent())
         self.entities.append(hearth)
         self.addChild(spriteComp.sprite)
         let scaleAction = self.scaleUpAndDown(duration: 0.2, delay: 0.3)
         spriteComp.sprite.run(scaleAction)
+        self.wiggle(sprite: spriteComp.sprite)
         updateSystems()
     }
     
@@ -277,8 +278,8 @@ class FavouriteAnimal : Scene {
     /* Scale up and scle down animation */
     func scaleUpAndDown(duration : TimeInterval, delay : TimeInterval) -> SKAction {
         let wait = SKAction.wait(forDuration: delay)
-        let scaleUp = SKAction.scale(to: 1.5, duration: duration)
-        let scaleDown = SKAction.scale(to: 1, duration: duration)
+        let scaleUp = SKAction.scale(to: 2.0, duration: duration)
+        let scaleDown = SKAction.scale(to: 1.5, duration: duration)
         let printAction = SKAction.run {
             print("Finished scaling up and down")
         }
@@ -346,6 +347,7 @@ class FavouriteAnimal : Scene {
         self.croco.component(ofType: SpriteComponent.self)?.sprite.removeAction(forKey: "victoryDance")
         self.shark.component(ofType: SpriteComponent.self)?.sprite.removeAction(forKey: "victoryDance")
         let endSign = self.makeEndSign(position: CGPoint(x: (self.frame.midX), y: self.frame.midY))
+        defaults.set(true, forKey: "favoriteAnimalCompleted")
         self.addChild(endSign)
         self.playSpeakNoMusic(name: "Yndlingsdyr12")
     }
@@ -435,6 +437,15 @@ class FavouriteAnimal : Scene {
         }
     }
     
+    func guiding(dt : TimeInterval){
+        guidingTime += dt
+        if hearthBtn.component(ofType: PumpingComponent.self)?.isActive == false && guidingTime >= 5.0 {
+            let action = self.scaleUpAndDown(duration: 0.5, delay: 0)
+            hearthBtn.component(ofType: SpriteComponent.self)?.sprite.run(action)
+            guidingTime = 0
+        }
+    }
+    
     /* Restart the game */
     override func restart(){
         self.viewController.selectScene(selectedScene: FavouriteAnimal(size: self.viewController.sceneSize))
@@ -508,9 +519,10 @@ class FavouriteAnimal : Scene {
         for system in componentSystems {
             system.update(deltaTime: dt)
         }
+        // when game is running handle contact between competitors and check if player has won or lost
         if gameIsRunning {
             timePlayed += dt
-
+            guiding(dt: dt)
             handleContact()
             lose()
 

@@ -37,8 +37,9 @@ class SeekingState : GKState {
         }
     }
     
-    /* Remove SeekComponent */
+   
     override func didEnter(from previousState: GKState?) {
+        /* Remove SeekComponent */
         if (entity?.component(ofType: SeekComponent.self)) != nil {
             entity?.removeComponent(ofType: SeekComponent.self)
         }

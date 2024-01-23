@@ -18,6 +18,7 @@ class EatingComponent : GKComponent {
     let noTongueTex : SKTexture?
     var eatingCount : TimeInterval = 1
     
+    // initialize component with parameter Melody scene and sprite atlases
     init(scene : Melody) {
         self.scene = scene
         tongueTex = scene.frogAtlas.textureNamed("FrøMedTungeMørk")

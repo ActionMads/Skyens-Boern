@@ -10,6 +10,7 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
+// Gravity component responsible for the down force of an entity
 class GravityComponent: GKComponent {
     var downForce : CGFloat = 2.5
     

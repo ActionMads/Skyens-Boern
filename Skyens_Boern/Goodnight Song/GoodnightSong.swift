@@ -62,7 +62,9 @@ class GoodnightSong : Scene {
             makeBlackScreen()
         })
         self.backToHomeTimer = Timer.scheduledTimer(withTimeInterval: 130, repeats: false, block: { [self] timer in
+            defaults.set(true, forKey: "goodnightSongCompleted")
             backToHome()
+            
         })
     }
     
@@ -92,8 +94,20 @@ class GoodnightSong : Scene {
         duvet.position = CGPoint(x: self.frame.width/2, y: -self.frame.height/2)
         duvet.zPosition = 2
         addChild(duvet)
+        let hand = SKSpriteNode(texture: goodnightAtlas.textureNamed("Hånd"))
+        hand.position = CGPoint(x: 0, y: 0)
+        hand.zPosition = 1
+        duvet.addChild(hand)
         let moveUp = SKAction.moveTo(y: self.frame.height/3, duration: 4.0)
-        duvet.run(moveUp)
+        let removeAction = SKAction.run {
+            hand.removeFromParent()
+        }
+        let moveHand = SKAction.moveTo(x: duvet.frame.maxX + hand.frame.width, duration: 3.0)
+        let runMoveHand = SKAction.run {
+            hand.run(moveHand)
+        }
+        let seq = SKAction.sequence([moveUp, runMoveHand])
+        duvet.run(seq)
     }
     
     /* Handshake animations */

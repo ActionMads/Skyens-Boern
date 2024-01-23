@@ -9,6 +9,7 @@
 import Foundation
 import GameplayKit
 
+// EdgingComponent responsible for defining the edges of the scene for a specific entity
 class EdgingComponent : GKComponent {
     let groundHeight: CGFloat = 450
     let rightWall: CGFloat = 2732

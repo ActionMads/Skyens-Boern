@@ -19,7 +19,10 @@ import SpriteKit
 import GameplayKit
 import UIKit
 
+// Extension to the scene class responsible for handling the touch functionallity
 extension Scene {
+    
+    // Setup the interaction handlers and add them to the view
     func setupInteractionHandlers() {
         print("setting up")
         panRecogniser = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
@@ -40,6 +43,7 @@ extension Scene {
 
     }
     
+    // Handle the longpress touch
     @objc func handleLongPress(_ recognizer : UILongPressGestureRecognizer ) {
         print("tap")
         let point = self.scene?.convertPoint(fromView: recognizer.location(in: self.view)) ?? .zero
@@ -49,14 +53,20 @@ extension Scene {
         
         let node = self.topNode(at: point)
         print("Node name: ", node?.name as Any)
+        
+        // handle the different states
         switch recognizer.state {
+        // When touch began
         case .began:
             print("recognizer state: ", recognizer.state)
             if node?.name == "yes" || node?.name == "no" {
                 self.setTextureButton(button: node as! SKSpriteNode)
 
             }
+        // When touch ended
         case .ended:
+            
+            // Game btns
             if gameIsRunning {
                 if node?.name == "man" {
                     if canJump {
@@ -73,9 +83,19 @@ extension Scene {
                 if node?.name == "hero"{
                     shot()
                 }
-                    moveShipTowards(location: point)
+                if node?.name == "Piano" || node?.name == "Flower" {
+                    node?.entity?.component(ofType: ProgressingComponent.self)?.isActive = true
+                }
+                if node?.name == "hearthBtn" {
+                    node?.entity?.component(ofType: PumpingComponent.self)?.isActive = true
+                    
+                }
+                // Adventure move the plane and the spaceship
+                moveShipTowards(location: point)
             }
             print("ended")
+            
+            // Info btn
             if node?.name == "startBtn" {
                 self.startGame()
                 node?.removeFromParent()
@@ -92,14 +112,11 @@ extension Scene {
             if node?.name == "no" {
                 self.backToHome()
             }
-            if node?.name == "Piano" || node?.name == "Flower" {
-                node?.entity?.component(ofType: ProgressingComponent.self)?.isActive = true
-            }
-            if node?.name == "hearthBtn" {
-                if gameIsRunning {
-                    node?.entity?.component(ofType: PumpingComponent.self)?.isActive = true
-                }
-            }
+            
+            // Game btns
+
+            
+            // Menu btns presenting a new scene
             if node?.name == btnImageNames.btn1.rawValue {
                 print(btnImageNames.btn1.rawValue, " Was pressed")
                 self.musicPlayer.fadeOut()
@@ -137,29 +154,46 @@ extension Scene {
                 self.viewController.isFirst = false
                 self.viewController.selectScene(selectedScene: GoodnightSong(size: self.viewController.sceneSize))
             }
+            if node?.name == btnImageNames.btn7.rawValue {
+                self.musicPlayer.fadeOut()
+                self.viewController.previusScene = self
+                self.viewController.isFirst = false
+                self.viewController.selectScene(selectedScene: MusicScene(size: self.viewController.sceneSize))
+            }
+            
+            // MusicBtns
+            if node?.name == "play" || node?.name == "pause" || node?.name == "resumePlay"{
+                node?.name = self.playPauseMusic(node: node as! SKSpriteNode, parentName: node?.parent?.name ?? "")
+            }
+            if node?.name == "stop" {
+                self.stopMusic(parentName: node?.parent?.name ?? "")
+            }
         default:
             break
         }
     }
-    // 3.
+    // Handle panning
     @objc func handlePan(_ recogniser : UIPanGestureRecognizer ) {
-        // 1.
+        // Get the touched point
         let point = self.scene?.convertPoint(fromView: recogniser.location(in: self.view)) ?? .zero
-        // 2.
+        // Set the entity being interacted with
         if recogniser.state == .began {
             self.entityBeingInteractedWith = self.topNode(at: point)?.entity
         }
-        // 3.
+        // if an entity is being interacted with
         guard let hasEntity = self.entityBeingInteractedWith else { return }
-        // 4.
+        // Only handle panning if touc is 1
         guard recogniser.numberOfTouches <= 1 else {
             self.entityBeingInteractedWith = nil
             hasEntity.component(ofType: InteractionComponent.self)?.state = .none
             return
         }
+        
+        // handle the different states
         switch recogniser.state {
         case .began:
             hasEntity.component(ofType: InteractionComponent.self)?.state = .move(.began, point)
+            self.itemHasBeenTouched = true
         case .changed:
             hasEntity.component(ofType: InteractionComponent.self)?.state = .move(.changed, point)
         case .ended, .cancelled, .failed:
@@ -170,23 +204,23 @@ extension Scene {
         }
 
     }
-     
+    
+    // Handle the rotation
     @objc func handleRotation(_ recogniser : UIRotationGestureRecognizer) {
-        // 1.
+        // Get the point touched
         let point = self.scene?.convertPoint(fromView: recogniser.location(in: self.view)) ?? .zero
+        // Set the entity being interacted with
         if recogniser.state == .began {
-
-            // 2.
             self.entityBeingInteractedWith = self.topNode(at: point)?.entity
         }
 
-        // 3.
+        // Create a let if an entity is being incteracted with
         guard let hasEntity = self.entityBeingInteractedWith else { return }
 
-        // 4.
+        // Reverse rotation direction so that it follows the gesture
         let rotation = recogniser.rotation * -1
 
-        // 5.
+        // Handle the different states
         switch recogniser.state {
         case .began:
             hasEntity.component(ofType: InteractionComponent.self)?.state = .rotate(.began, rotation)

@@ -18,16 +18,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Stille Morgen" translatesAutoresizingMaskIntoConstraints="NO" id="AQD-t6-fZa">
-                                <rect key="frame" x="0.0" y="24" width="1024" height="1322"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="AQD-t6-fZa" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="dS6-4N-A9S"/>
-                            <constraint firstItem="AQD-t6-fZa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="gpI-2Y-opf"/>
-                            <constraint firstItem="AQD-t6-fZa" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ijg-yt-suV"/>
-                            <constraint firstItem="AQD-t6-fZa" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="pE6-0t-x87"/>
+                            <constraint firstItem="AQD-t6-fZa" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="dS6-4N-A9S"/>
+                            <constraint firstItem="AQD-t6-fZa" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="gpI-2Y-opf"/>
+                            <constraint firstItem="AQD-t6-fZa" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="ijg-yt-suV"/>
+                            <constraint firstItem="AQD-t6-fZa" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailing" id="pE6-0t-x87"/>
                         </constraints>
                     </view>
                 </viewController>

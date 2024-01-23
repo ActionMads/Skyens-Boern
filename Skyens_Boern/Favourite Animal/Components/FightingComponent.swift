@@ -51,7 +51,7 @@ class FightingComponent : GKComponent {
             opponent.component(ofType: HitingComponent.self)?.getHit(amount: 20)
         }
         else if fightingTechnic == 1 {
-            //self.secondaryAttack(sprite: hasSprite.sprite)
+            self.secondaryAttack(sprite: hasSprite.sprite)
             opponent.component(ofType: HitingComponent.self)?.getHit(amount: 40)
         }
     }

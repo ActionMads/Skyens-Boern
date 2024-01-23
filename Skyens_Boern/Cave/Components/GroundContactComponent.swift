@@ -10,6 +10,7 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
+// Ground contact component with edge
 class GroundContactComponent: GKComponent {
     let groundHeight: CGFloat = 400
     let rightWall: CGFloat = 2732

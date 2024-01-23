@@ -24,8 +24,10 @@ class RefuelingComponent : GKComponent {
     // reset the bottle after refuling
     func setBottleParameters(){
         guard let hasWater = entity?.component(ofType: WaterComponent.self) else {return}
+        guard let hasSprite = entity?.component(ofType: SpriteComponent.self)?.sprite else {return}
         hasWater.dropTime = 5
         hasWater.bottleIsEmpty = false
+        self.scene.wiggle(sprite: hasSprite)
     }
     
     // The water refueling animation

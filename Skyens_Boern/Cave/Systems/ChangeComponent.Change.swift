@@ -12,8 +12,10 @@ import GameplayKit
 
 extension ChangeComponent {
     override func update(deltaTime seconds: TimeInterval) {
+        // if entity has sprite component continue else return
         guard let hasSpriteComp = entity?.component(ofType: SpriteComponent.self) else {return}
         
+        // set current numbers
         if digit == "min" {
             currentNumber = clock.component(ofType: TimeComponent.self)!.min
         }else if digit == "firstSec"{
@@ -24,6 +26,7 @@ extension ChangeComponent {
             currentNumber = 0
         }
         
+        // Set the sprite name according to the current number
         switch self.currentNumber {
         case 0:
             currentSpriteName = "0"
@@ -58,7 +61,7 @@ extension ChangeComponent {
         default:
             break
         }
-        
+        // Update texture
         hasSpriteComp.setTexture(texture: hasSpriteComp.atlas.textureNamed(currentSpriteName))
     }
     

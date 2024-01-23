@@ -10,11 +10,14 @@ import Foundation
 import GameplayKit
 import SpriteKit
 
+// Position component responsible for the entitys position
 class PositionComponent : GKComponent {
     
+    // Global varibles
     var currentPosition : CGPoint
     var targetPosition : CGPoint
-
+    
+    // Initialize the component with varibles
     init( currentPosition : CGPoint, targetPosition : CGPoint ) {
         self.currentPosition = currentPosition
         self.targetPosition = targetPosition

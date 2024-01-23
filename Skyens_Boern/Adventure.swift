@@ -10,8 +10,10 @@ import SpriteKit
 import GameplayKit
 import AVFoundation
 
+// Adventure scene class
 class Adventure: Scene, SKPhysicsContactDelegate {
     
+	// Global varibles
     weak var tileMap: SKTileMapNode!
     var mapLocation: CGPoint!
 	var x: CGFloat = 20000
@@ -48,8 +50,8 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 	let enemyAtlas : SKTextureAtlas = SKTextureAtlas(named: "Enemies")
 	let explosionAtlas : SKTextureAtlas = SKTextureAtlas(named: "Explosion")
 	var hasShotFirstEnemy : Bool = false
-
-    
+	
+	// debug the playable area
 	func debugDrawPlayableArea() {
         let shape = SKShapeNode()
         let path = CGMutablePath()
@@ -78,11 +80,15 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 	/* Checks the current map location and activates events at certain points */
 	
 	func checkMapLocation(location: CGFloat){
+		print("Current loc ", location)
 		if location < 20000 && location > 19990 {
 			bulletTexture = heroAtlas.textureNamed("Skud_Skib")
 			rotateShip()
 			playSpeak(name: "Eventyr1", length: 5)
 			self.run(SKAction.repeatForever( SKAction.sequence([SKAction.run(self.spawnWaterEnemy),SKAction.wait(forDuration: 4.0)])), withKey: "spawnWaterEnemy")
+		}
+		if location < 18700 && location > 18690 {
+			playSpeak(name: "Eventyr14", length: 3)
 		}
 		if location < 11000 && location > 10990 {
 			self.removeAction(forKey: "spawnWaterEnemy")
@@ -93,7 +99,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 			self.bounds = CGPoint(x: self.playableRect.minX, y: self.playableRect.minY + 200)
 			self.morph()
 			self.hero.removeAction(forKey: "rotateAction")
-			playSpeak(name: "Eventyr4", length: 5)
+			playSpeak(name: "Eventyr4", length: 2)
 			self.run(SKAction.repeatForever( SKAction.sequence([SKAction.run(self.spawnAirEnemy),SKAction.wait(forDuration: 3.0)])), withKey: "spawnAirEnemy")
 			self.hasShotFirstEnemy = false
 		}
@@ -106,6 +112,9 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		if location < 7500 && location > 7495 {
 			playSpeak(name: "Eventyr6", length: 4)
 		}
+		if location < 5500 && location > 5495 {
+			playSpeak(name: "Eventyr12", length: 3)
+		}
 		if location < 1000 && location > 990 {
 			self.removeAction(forKey: "spawnAirEnemy")
 		}
@@ -117,6 +126,10 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 			self.run(SKAction.repeatForever( SKAction.sequence([SKAction.run(self.spawnSpaceEnemy),SKAction.wait(forDuration: 3.0)])), withKey: "spawnSpaceEnemy")
 			self.hasShotFirstEnemy = false
 		}
+		if location < -2000 && location > -2010 {
+			playSpeak(name: "Eventyr13", length: 3)
+		}
+		
 		if location < 50 && location > 45 {
 			playSpeak(name: "Eventyr9", length: 3)
 		}
@@ -158,7 +171,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		let camera = SKCameraNode()
 		camera.setScale(1/playableAreaScaleForIpadAndIphone)
 		let scale = playableAreaScaleForIpadAndIphone*2
-		self.calculateSizeDivider(scale: scale)
+		self.setSizeDivider(scale: scale)
 		self.camera = camera
 		self.addChild(camera)
 	}
@@ -255,6 +268,8 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 			let endSign = self.makeEndSign(position: CGPoint(x: self.frame.midX, y: self.frame.midY))
 			self.addChild(endSign)
 			self.playSpeakNoMusic(name: "Eventyr10")
+			self.defaults.set(true, forKey: "adventureCompleted")
+
 		}
 		let endSequence = SKAction.sequence([moveToCenter, changeTexture, rotateAction, wait, runShakeSequence, rotateToCenterAction, changeTexture2, moveUp, makeEndSign])
 		hero.run(endSequence)
@@ -550,10 +565,6 @@ class Adventure: Scene, SKPhysicsContactDelegate {
 		let setEnemyIsHitAction = SKAction.run(setEnemyIsHit)
         let sequence = SKAction.sequence([scaleUp, wait, scaleDown, removeAction, setEnemyIsHitAction])
         enemy.run(sequence)
-		if !hasShotFirstEnemy {
-			playSpeak(name: "Eventyr2", length: 2)
-			hasShotFirstEnemy = true
-		}
     }
     
     func setEnemyIsRemoved() {
@@ -618,6 +629,10 @@ class Adventure: Scene, SKPhysicsContactDelegate {
     func enemyhitBullet(bullet: SKSpriteNode){
 		bullet.removeAllActions()
         bullet.removeFromParent()
+		if !hasShotFirstEnemy {
+			playSpeak(name: "Eventyr2", length: 2)
+			hasShotFirstEnemy = true
+		}
     }
     
 	/* Hero is hit reduce health*/
@@ -763,11 +778,15 @@ class Adventure: Scene, SKPhysicsContactDelegate {
         if (self.lastUpdateTime == 0) {
             self.lastUpdateTime = currentTime
         }
+		// if game is running check the map location
         if gameIsRunning {
 			checkMapLocation(location: x)
 			print("mapLocation", x)
+			// set map Location to new CGPoint with updated x location
             mapLocation = CGPoint(x: x,y: 0)
+			// update tileMap position to new map Location
             tileMap.position = mapLocation
+			// update x with the specified mapspeed
             x = x - mapSpeed
         }
         
@@ -781,6 +800,7 @@ class Adventure: Scene, SKPhysicsContactDelegate {
         
         self.lastUpdateTime = currentTime
 		checkBulletPosition()
+		// if morhep to air state boundscheck ship and move the hero sprite according to velocity
         if isMorphed && gameIsRunning {
 			boundsCheckShip()
 			moveSprite(sprite: hero, velocity: CGPoint(x: 0, y: velocity.y))

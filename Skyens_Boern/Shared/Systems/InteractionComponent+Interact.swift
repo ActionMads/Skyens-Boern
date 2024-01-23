@@ -10,11 +10,11 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-
+// Extension/System to the Interaction component
 extension InteractionComponent {
     override func update(deltaTime seconds: TimeInterval) {
-        // 1.
-        
+
+        // State switch with none, move or rotate cases
         switch state {
         case .none:
             break
@@ -24,12 +24,13 @@ extension InteractionComponent {
             self.handleRotation(state: state, rotation: float, deltaTime: seconds)
         }
     }
+    
+    // Handle the move interaction
     func handleMove( state : ActionState, point : CGPoint? , deltaTime: TimeInterval) {
         guard let positionComponent = entity?.component(ofType: PositionComponent.self) else {
             return
         }
 
-        // 1.
         if self.didBegin {
             if let hasPoint = point {
                 offset = positionComponent.currentPosition - hasPoint
@@ -38,10 +39,10 @@ extension InteractionComponent {
         }
 
         if let hasPoint = point {
-            // 2.
             positionComponent.currentPosition = hasPoint + offset
         }
-
+        
+        // State switch with ended or changed cases
         switch state {
         case .ended:
             // 3.
@@ -51,10 +52,12 @@ extension InteractionComponent {
         case .changed:
             self.state = .none
         default:
+            self.state = .none
             break
         }
     }
     
+    // Handle the rotation interaction
     func handleRotation( state : ActionState, rotation : CGFloat, deltaTime: TimeInterval) {
 
         // 1.
@@ -67,16 +70,16 @@ extension InteractionComponent {
             self.didBegin = false
         }
         
+        // state switch with ended or changed cases
         switch state {
         
-            // 2.
         case .ended:
             self.state = .none
             self.timeSinceTouch += deltaTime
             print("current rotation", rotationComponent.currentRotation)
-        // 3.
         case .changed:
             rotationComponent.currentRotation = rotation + rotationOffset
+            self.state = .none
          default:
             self.state = .none
             break
